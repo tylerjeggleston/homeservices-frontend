@@ -91,13 +91,53 @@ input {
   color: #999;
 }
 
-.hero {
-  min-height: 520px;
-  background:
-    linear-gradient(to right, rgba(8, 20, 46, 0.82), rgba(8, 20, 46, 0.18)),
-    linear-gradient(135deg, #30343d, #7a6f69 55%, #d9d9d9);
-  display: flex;
-  align-items: center;
+.hero{
+  position:relative;
+  height:520px;
+  display:flex;
+  align-items:center;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(8,22,45,0.95) 0%,
+      rgba(8,22,45,0.85) 35%,
+      rgba(8,22,45,0.45) 65%,
+      rgba(8,22,45,0.1) 100%
+    ),
+    url("/hero/remodel-hero.jpg");
+
+  background-size:cover;
+  background-position:center;
+}
+
+.hero-content{
+  max-width:600px;
+  padding-left:80px;
+  color:white;
+}
+
+.hero h1{
+  font-size:52px;
+  line-height:1.1;
+  font-weight:800;
+}
+
+.hero-list{
+  margin-top:25px;
+  list-style:none;
+  padding:0;
+}
+
+.hero-list li{
+  display:flex;
+  gap:12px;
+  margin-bottom:14px;
+  font-size:18px;
+}
+
+.check{
+  color:#25a9ff;
+  font-weight:bold;
 }
 
 .hero-overlay {
@@ -146,17 +186,16 @@ input {
   display: inline-block;
 }
 
-.cta {
-  background: #1469ff;
-  color: white;
-  border: none;
-  padding: 22px 40px;
-  min-width: 265px;
-  border-radius: 999px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  cursor: pointer;
+.cta{
+  margin-top:30px;
+  background:linear-gradient(90deg,#1d66ff,#1f8bff);
+  color:white;
+  border:none;
+  padding:18px 38px;
+  font-size:18px;
+  border-radius:40px;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
 }
 
 .services-section {
