@@ -124,7 +124,7 @@ export default function Home() {
       </section>
 
       <footer className="footer">
-        <div>©2026 RemodelYourHome.net</div>
+        <div>©2026 leadlockerroom.com</div>
         <div className="footer-links">
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Use</a>
