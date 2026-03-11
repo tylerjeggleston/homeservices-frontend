@@ -293,7 +293,7 @@ function commonAddressStep(target) {
     key: "address",
     title: `Type below the home address where you want the ${target} to be installed`,
     type: "input",
-    placeholder: "1111B S Governors Ave STE 39540",
+    placeholder: "123 Main St, Springfield, IL 62701",
   };
 }
 
@@ -311,7 +311,7 @@ function commonFirstNameStep() {
     key: "firstName",
     title: "What’s your first name?",
     type: "input",
-    placeholder: "RAFIUL HASAN",
+    placeholder: "John",
   };
 }
 
@@ -320,7 +320,7 @@ function commonLastNameStep() {
     key: "lastName",
     title: "What’s your last name?",
     type: "input",
-    placeholder: "CHOWDHURY",
+    placeholder: "Doe",
   };
 }
 

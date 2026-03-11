@@ -62,22 +62,27 @@ export default function Home() {
       </section>
 
       <section className="services-section">
-        <div className="services-grid">
-          {services.map((item) => (
-            <Link
-              key={item.slug}
-              href={`/${item.slug}`}
-              className="service-link"
-            >
-              <div className="service-card">
-                <div className="service-title">{item.title}</div>
-                <div className="service-image-placeholder" />
-                <div className="service-btn">Learn More</div>
-              </div>
-            </Link>
-          ))}
+  <div className="services-grid">
+    {services.map((item) => (
+      <Link
+        key={item.slug}
+        href={`/${item.slug}`}
+        className="service-link"
+      >
+        <div className="service-card">
+          <div className="service-title">{item.title}</div>
+
+          <img
+            src={`/services/${item.slug.replace("-v1pvcs","")}.jpg`}
+            className="service-image"
+          />
+
+          <div className="service-btn">Learn More</div>
         </div>
-      </section>
+      </Link>
+    ))}
+  </div>
+</section>
 
       <section className="how-it-works">
         <h2>How It Works</h2>
