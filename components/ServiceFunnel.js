@@ -616,6 +616,7 @@ export default function ServiceFunnel({ config }) {
                 className="next-btn"
                 onClick={goNext}
                 disabled={nextDisabled}
+                data-rec-finalize={isVerificationStep ? "true" : undefined}
               >
                 {nextLabel}
               </button>
