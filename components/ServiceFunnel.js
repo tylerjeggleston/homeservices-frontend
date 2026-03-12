@@ -289,6 +289,11 @@ export default function ServiceFunnel({ config }) {
       setShowThankYouModal(true);
         console.log("FORM DATA:", finalForm);
         console.log("SERVICE:", config?.heading);
+        window.dispatchEvent(
+        new CustomEvent("recorder:finalize", {
+          detail: { reason: "thank-you" },
+        })
+      );
 
       // Replace this later with your actual final lead submit API call.
     } catch (err) {
@@ -616,7 +621,7 @@ export default function ServiceFunnel({ config }) {
                 className="next-btn"
                 onClick={goNext}
                 disabled={nextDisabled}
-                data-rec-finalize="true"
+                data-rec-finalize={isVerificationStep ? "true" : undefined}
               >
                 {nextLabel}
               </button>
