@@ -289,11 +289,7 @@ export default function ServiceFunnel({ config }) {
       setShowThankYouModal(true);
         console.log("FORM DATA:", finalForm);
         console.log("SERVICE:", config?.heading);
-        window.dispatchEvent(
-        new CustomEvent("recorder:finalize", {
-          detail: { reason: "thank-you" },
-        })
-      );
+
 
       // Replace this later with your actual final lead submit API call.
     } catch (err) {
@@ -466,6 +462,21 @@ export default function ServiceFunnel({ config }) {
     loadDynamicOptions(currentStep);
   }, [stepIndex, form.zip, form.state, form.city]); // eslint-disable-line react-hooks/exhaustive-deps
 
+
+  useEffect(() => {
+  if (!showThankYouModal) return;
+
+  const timer = setTimeout(() => {
+    window.dispatchEvent(
+      new CustomEvent("recorder:finalize", {
+        detail: { reason: "thank-you" },
+      })
+    );
+  }, 600); // allow modal animation + render
+
+  return () => clearTimeout(timer);
+}, [showThankYouModal]);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (currentStep?.key !== "address") return;
@@ -621,6 +632,7 @@ export default function ServiceFunnel({ config }) {
                 className="next-btn"
                 onClick={goNext}
                 disabled={nextDisabled}
+                data-rec-finalize={isVerificationStep ? "true" : undefined}
               >
                 {nextLabel}
               </button>
