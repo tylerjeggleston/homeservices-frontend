@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
+const OTP_API_BASE = "https://homeservices-backend-1fe53ea28f51.herokuapp.com";
+
 function isValidZip(zip) {
   return /^\d{5}(-\d{4})?$/.test(String(zip || "").trim());
 }
@@ -52,6 +54,8 @@ export default function ServiceFunnel({ config }) {
     obj.lat = "";
     obj.lng = "";
     obj.addressValidated = false;
+    obj.phoneVerified = false;
+    obj.verificationToken = "";
 
     return obj;
   }, [steps]);
@@ -60,6 +64,9 @@ export default function ServiceFunnel({ config }) {
   const [form, setForm] = useState(initialForm);
   const [error, setError] = useState("");
   const [userCoords, setUserCoords] = useState(null);
+  const [otpSending, setOtpSending] = useState(false);
+  const [otpVerifying, setOtpVerifying] = useState(false);
+  const [otpInfo, setOtpInfo] = useState("");
 
   const currentStep = steps[stepIndex];
   const progressPercent = steps.length
@@ -138,6 +145,14 @@ export default function ServiceFunnel({ config }) {
       return true;
     }
 
+    if (currentStep.key === "verificationCode") {
+      if (!/^\d{6}$/.test(value)) {
+        setError("Please enter the 6-digit verification code.");
+        return false;
+      }
+      return true;
+    }
+
     if (!value) {
       setError("This field is required.");
       return false;
@@ -146,11 +161,109 @@ export default function ServiceFunnel({ config }) {
     return true;
   }
 
-  function goNext() {
+  async function sendOtp() {
+    setOtpSending(true);
+    setError("");
+    setOtpInfo("");
+
+    try {
+      const res = await fetch(`${OTP_API_BASE}/api/otp/send`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phone: form.phone,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || "Failed to send verification code.");
+      }
+
+      setOtpInfo(
+        data.phoneMasked
+          ? `Verification code sent to ${data.phoneMasked}`
+          : "Verification code sent."
+      );
+
+      setStepIndex((prev) => prev + 1);
+    } catch (err) {
+      setError(err.message || "Failed to send verification code.");
+    } finally {
+      setOtpSending(false);
+    }
+  }
+
+ async function verifyOtpAndSubmit() {
+  setOtpVerifying(true);
+  setError("");
+  setOtpInfo("");
+
+  try {
+    const res = await fetch(`${OTP_API_BASE}/api/otp/verify`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        phone: form.phone,
+        code: form.verificationCode,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || "Verification failed.");
+    }
+
+    if (!data.ok || data.verified !== true || !data.verificationToken) {
+      throw new Error(data.error || "Verification failed.");
+    }
+
+    const finalForm = {
+      ...form,
+      phoneVerified: true,
+      verificationToken: data.verificationToken,
+    };
+
+    setForm(finalForm);
+
+    alert("Phone verified and form ready to submit.");
+    console.log("FORM DATA:", finalForm);
+    console.log("SERVICE:", config?.heading);
+  } catch (err) {
+    setForm((prev) => ({
+      ...prev,
+      phoneVerified: false,
+      verificationToken: "",
+    }));
+    setError(err.message || "Failed to verify code.");
+  } finally {
+    setOtpVerifying(false);
+  }
+}
+
+  async function goNext() {
     setError("");
 
     const valid = validateCurrentStep();
     if (!valid) return;
+
+    // Special case: phone step sends OTP before advancing
+    if (currentStep.key === "phone") {
+      await sendOtp();
+      return;
+    }
+
+    // Special case: verification step verifies OTP before final submit
+    if (currentStep.key === "verificationCode") {
+      await verifyOtpAndSubmit();
+      return;
+    }
 
     if (stepIndex < steps.length - 1) {
       setStepIndex((prev) => prev + 1);
@@ -167,10 +280,28 @@ export default function ServiceFunnel({ config }) {
     updateField(currentStep.key, option);
   }
 
-  function handleRegularInputChange(e) {
-    setError("");
-    updateField(currentStep.key, e.target.value);
+ function handleRegularInputChange(e) {
+  const value = e.target.value;
+
+  setError("");
+  setOtpInfo("");
+
+  if (currentStep?.key === "phone") {
+    setForm((prev) => ({
+      ...prev,
+      phone: value,
+      phoneVerified: false,
+      verificationToken: "",
+      verificationCode: "",
+    }));
+    return;
   }
+
+  setForm((prev) => ({
+    ...prev,
+    [currentStep.key]: value,
+  }));
+}
 
   function handleAddressChange(e) {
     const value = e.target.value;
@@ -198,9 +329,7 @@ export default function ServiceFunnel({ config }) {
           lng: position.coords.longitude,
         });
       },
-      () => {
-        // Ignore failure quietly
-      },
+      () => {},
       {
         enableHighAccuracy: false,
         timeout: 8000,
@@ -282,6 +411,8 @@ export default function ServiceFunnel({ config }) {
   const currentValue = String(form[currentStep.key] || "").trim();
   const isAddressStep = currentStep.key === "address";
   const isZipStep = currentStep.key === "zip";
+  const isPhoneStep = currentStep.key === "phone";
+  const isVerificationStep = currentStep.key === "verificationCode";
 
   let nextDisabled = false;
 
@@ -291,9 +422,17 @@ export default function ServiceFunnel({ config }) {
     nextDisabled = !isValidZip(form.zip);
   } else if (isAddressStep) {
     nextDisabled = !form.addressValidated;
+  } else if (isPhoneStep) {
+    nextDisabled = !currentValue || otpSending;
+  } else if (isVerificationStep) {
+    nextDisabled = !/^\d{6}$/.test(currentValue) || otpVerifying;
   } else {
     nextDisabled = !currentValue;
   }
+
+  let nextLabel = "Next ›";
+  if (isPhoneStep) nextLabel = otpSending ? "Sending..." : "Send Code ›";
+  if (isVerificationStep) nextLabel = otpVerifying ? "Verifying..." : "Verify & Submit";
 
   return (
     <div className="funnel-card">
@@ -346,7 +485,7 @@ export default function ServiceFunnel({ config }) {
                 onClick={goNext}
                 disabled={nextDisabled}
               >
-                Next ›
+                {nextLabel}
               </button>
             </div>
           </>
@@ -370,12 +509,15 @@ export default function ServiceFunnel({ config }) {
               </div>
             )}
 
-            {currentStep.key === "phone" && (
-              <div className="address-help">
-                By clicking Next, you agree to be contacted by our partners via
-                call, text, and email regarding your project. Consent is not a
-                condition of purchase.
-              </div>
+           {isPhoneStep && (
+  <div className="address-help">
+    {currentStep.consentText ||
+      "By clicking Send Code, you agree to be contacted by our partners via call, text, and email regarding your project. Consent is not a condition of purchase."}
+  </div>
+)}
+
+            {isVerificationStep && otpInfo && (
+              <div className="address-help">{otpInfo}</div>
             )}
 
             <div className="nav-row">
@@ -389,7 +531,7 @@ export default function ServiceFunnel({ config }) {
                 onClick={goNext}
                 disabled={nextDisabled}
               >
-                {stepIndex === steps.length - 1 ? "Submit" : "Next ›"}
+                {nextLabel}
               </button>
             </div>
           </>
@@ -427,7 +569,7 @@ export default function ServiceFunnel({ config }) {
                 onClick={goNext}
                 disabled={nextDisabled}
               >
-                Next ›
+                {nextLabel}
               </button>
             </div>
           </>

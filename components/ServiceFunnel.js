@@ -38,6 +38,16 @@ function extractAddressParts(place) {
   };
 }
 
+function formatPhoneDisplay(value) {
+  const digits = String(value || "")
+    .replace(/\D/g, "")
+    .slice(0, 10);
+
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
 export default function ServiceFunnel({ config }) {
   const steps = useMemo(() => config?.steps || [], [config]);
   const addressInputRef = useRef(null);
@@ -45,8 +55,13 @@ export default function ServiceFunnel({ config }) {
 
   const initialForm = useMemo(() => {
     const obj = {};
+
     steps.forEach((step) => {
-      obj[step.key] = "";
+      if (step.type === "range" && step.defaultValue !== undefined) {
+        obj[step.key] = step.defaultValue;
+      } else {
+        obj[step.key] = "";
+      }
     });
 
     obj.city = "";
@@ -67,11 +82,33 @@ export default function ServiceFunnel({ config }) {
   const [otpSending, setOtpSending] = useState(false);
   const [otpVerifying, setOtpVerifying] = useState(false);
   const [otpInfo, setOtpInfo] = useState("");
+  const [dynamicOptions, setDynamicOptions] = useState({});
+  const [dynamicOptionsLoading, setDynamicOptionsLoading] = useState(false);
+  const [selectSearch, setSelectSearch] = useState("");
 
   const currentStep = steps[stepIndex];
   const progressPercent = steps.length
     ? ((stepIndex + 1) / steps.length) * 100
     : 0;
+
+  const isAddressStep = currentStep?.key === "address";
+  const isZipStep = currentStep?.key === "zip";
+  const isPhoneStep = currentStep?.key === "phone";
+  const isVerificationStep = currentStep?.key === "verificationCode";
+
+  const filteredSelectOptions = useMemo(() => {
+    if (!currentStep || currentStep.type !== "select") return [];
+
+    const all =
+      dynamicOptions[currentStep.key] && dynamicOptions[currentStep.key].length
+        ? dynamicOptions[currentStep.key]
+        : currentStep.options || [];
+
+    const q = String(selectSearch || "").trim().toLowerCase();
+    if (!q) return all;
+
+    return all.filter((item) => item.toLowerCase().includes(q));
+  }, [currentStep, selectSearch, dynamicOptions]);
 
   function updateField(key, value) {
     setForm((prev) => ({
@@ -90,11 +127,28 @@ export default function ServiceFunnel({ config }) {
   function validateCurrentStep() {
     if (!currentStep) return false;
 
-    const value = String(form[currentStep.key] || "").trim();
+    const rawValue = form[currentStep.key];
+    const value = String(rawValue || "").trim();
 
     if (currentStep.type === "options") {
       if (!value) {
         setError("Please choose an option to continue.");
+        return false;
+      }
+      return true;
+    }
+
+    if (currentStep.type === "select") {
+      if (!value) {
+        setError("Please select an option to continue.");
+        return false;
+      }
+      return true;
+    }
+
+    if (currentStep.type === "range") {
+      if (value === "") {
+        setError("Please choose a value to continue.");
         return false;
       }
       return true;
@@ -197,55 +251,102 @@ export default function ServiceFunnel({ config }) {
     }
   }
 
- async function verifyOtpAndSubmit() {
-  setOtpVerifying(true);
-  setError("");
-  setOtpInfo("");
+  async function verifyOtpAndSubmit() {
+    setOtpVerifying(true);
+    setError("");
+    setOtpInfo("");
 
-  try {
-    const res = await fetch(`${OTP_API_BASE}/api/otp/verify`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        phone: form.phone,
-        code: form.verificationCode,
-      }),
-    });
+    try {
+      const res = await fetch(`${OTP_API_BASE}/api/otp/verify`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phone: form.phone,
+          code: form.verificationCode,
+        }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (!res.ok) {
-      throw new Error(data.error || "Verification failed.");
+      if (!res.ok) {
+        throw new Error(data.error || "Verification failed.");
+      }
+
+      if (!data.ok || data.verified !== true || !data.verificationToken) {
+        throw new Error(data.error || "Verification failed.");
+      }
+
+      const finalForm = {
+        ...form,
+        phoneVerified: true,
+        verificationToken: data.verificationToken,
+      };
+
+      setForm(finalForm);
+
+      alert("Phone verified and form ready to submit.");
+      console.log("FORM DATA:", finalForm);
+      console.log("SERVICE:", config?.heading);
+
+      // Replace this later with your actual final lead submit API call.
+    } catch (err) {
+      setForm((prev) => ({
+        ...prev,
+        phoneVerified: false,
+        verificationToken: "",
+      }));
+      setError(err.message || "Failed to verify code.");
+    } finally {
+      setOtpVerifying(false);
     }
-
-    if (!data.ok || data.verified !== true || !data.verificationToken) {
-      throw new Error(data.error || "Verification failed.");
-    }
-
-    const finalForm = {
-      ...form,
-      phoneVerified: true,
-      verificationToken: data.verificationToken,
-    };
-
-    setForm(finalForm);
-
-    alert("Phone verified and form ready to submit.");
-    console.log("FORM DATA:", finalForm);
-    console.log("SERVICE:", config?.heading);
-  } catch (err) {
-    setForm((prev) => ({
-      ...prev,
-      phoneVerified: false,
-      verificationToken: "",
-    }));
-    setError(err.message || "Failed to verify code.");
-  } finally {
-    setOtpVerifying(false);
   }
-}
+
+  async function loadDynamicOptions(step) {
+    if (!step?.dynamicOptionsFrom) return;
+
+    if (step.dynamicOptionsFrom === "utilityLookup") {
+      try {
+        setDynamicOptionsLoading(true);
+        setError("");
+
+        const res = await fetch(`${OTP_API_BASE}/api/utilities/search`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            zip: form.zip,
+            state: form.state,
+            city: form.city,
+            address: form.address,
+            lat: form.lat,
+            lng: form.lng,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || "Failed to load utility companies.");
+        }
+
+        setDynamicOptions((prev) => ({
+          ...prev,
+          [step.key]: data.utilities || ["OTHER PROVIDER"],
+        }));
+      } catch (err) {
+        setError(err.message || "Failed to load utility companies.");
+        setDynamicOptions((prev) => ({
+          ...prev,
+          [step.key]: ["OTHER PROVIDER"],
+        }));
+      } finally {
+        setDynamicOptionsLoading(false);
+      }
+    }
+  }
 
   async function goNext() {
     setError("");
@@ -253,13 +354,11 @@ export default function ServiceFunnel({ config }) {
     const valid = validateCurrentStep();
     if (!valid) return;
 
-    // Special case: phone step sends OTP before advancing
     if (currentStep.key === "phone") {
       await sendOtp();
       return;
     }
 
-    // Special case: verification step verifies OTP before final submit
     if (currentStep.key === "verificationCode") {
       await verifyOtpAndSubmit();
       return;
@@ -280,28 +379,29 @@ export default function ServiceFunnel({ config }) {
     updateField(currentStep.key, option);
   }
 
- function handleRegularInputChange(e) {
-  const value = e.target.value;
+  function handleRegularInputChange(e) {
+    const value = e.target.value;
 
-  setError("");
-  setOtpInfo("");
+    setError("");
+    setOtpInfo("");
 
-  if (currentStep?.key === "phone") {
+    if (currentStep?.key === "phone") {
+      const formatted = formatPhoneDisplay(value);
+      setForm((prev) => ({
+        ...prev,
+        phone: formatted,
+        phoneVerified: false,
+        verificationToken: "",
+        verificationCode: "",
+      }));
+      return;
+    }
+
     setForm((prev) => ({
       ...prev,
-      phone: value,
-      phoneVerified: false,
-      verificationToken: "",
-      verificationCode: "",
+      [currentStep.key]: value,
     }));
-    return;
   }
-
-  setForm((prev) => ({
-    ...prev,
-    [currentStep.key]: value,
-  }));
-}
 
   function handleAddressChange(e) {
     const value = e.target.value;
@@ -317,6 +417,21 @@ export default function ServiceFunnel({ config }) {
       addressValidated: false,
     }));
   }
+
+  function handleRangeChange(e) {
+    setError("");
+    updateField(currentStep.key, Number(e.target.value));
+  }
+
+  function handleSelectChoose(option) {
+    setError("");
+    updateField(currentStep.key, option);
+    setSelectSearch(option);
+  }
+
+  useEffect(() => {
+    setSelectSearch("");
+  }, [stepIndex]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -337,6 +452,14 @@ export default function ServiceFunnel({ config }) {
       }
     );
   }, []);
+
+  useEffect(() => {
+    if (!currentStep) return;
+    if (currentStep.type !== "select") return;
+    if (!currentStep.dynamicOptionsFrom) return;
+
+    loadDynamicOptions(currentStep);
+  }, [stepIndex, form.zip, form.state, form.city]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -409,15 +532,13 @@ export default function ServiceFunnel({ config }) {
   if (!currentStep) return null;
 
   const currentValue = String(form[currentStep.key] || "").trim();
-  const isAddressStep = currentStep.key === "address";
-  const isZipStep = currentStep.key === "zip";
-  const isPhoneStep = currentStep.key === "phone";
-  const isVerificationStep = currentStep.key === "verificationCode";
 
   let nextDisabled = false;
 
-  if (currentStep.type === "options") {
+  if (currentStep.type === "options" || currentStep.type === "select") {
     nextDisabled = !currentValue;
+  } else if (currentStep.type === "range") {
+    nextDisabled = false;
   } else if (isZipStep) {
     nextDisabled = !isValidZip(form.zip);
   } else if (isAddressStep) {
@@ -432,7 +553,14 @@ export default function ServiceFunnel({ config }) {
 
   let nextLabel = "Next ›";
   if (isPhoneStep) nextLabel = otpSending ? "Sending..." : "Send Code ›";
-  if (isVerificationStep) nextLabel = otpVerifying ? "Verifying..." : "Verify & Submit";
+  if (isVerificationStep) {
+    nextLabel = otpVerifying ? "Verifying..." : "Verify & Submit";
+  }
+
+  const rangePrefix =
+    currentStep.type === "range" ? currentStep.prefix || "" : "";
+  const rangeSuffix =
+    currentStep.type === "range" ? currentStep.suffix || "" : "";
 
   return (
     <div className="funnel-card">
@@ -450,7 +578,11 @@ export default function ServiceFunnel({ config }) {
           <>
             <div
               className={`options-grid ${
-                currentStep.options.length <= 3 ? "three-options" : "six-options"
+                currentStep.layout === "stack"
+                  ? "stack-options"
+                  : currentStep.options.length <= 3
+                  ? "three-options"
+                  : "six-options"
               }`}
             >
               {currentStep.options.map((option) => {
@@ -463,7 +595,7 @@ export default function ServiceFunnel({ config }) {
                     className={`option-btn ${selected ? "selected" : ""}`}
                     onClick={() => selectOption(option)}
                   >
-                    <span className="radio-circle">○</span>
+                    <span className="radio-circle">{selected ? "◉" : "○"}</span>
                     <span>{option}</span>
                   </button>
                 );
@@ -478,6 +610,94 @@ export default function ServiceFunnel({ config }) {
               ) : (
                 <div />
               )}
+
+              <button
+                type="button"
+                className="next-btn"
+                onClick={goNext}
+                disabled={nextDisabled}
+              >
+                {nextLabel}
+              </button>
+            </div>
+          </>
+        )}
+
+        {currentStep.type === "range" && (
+          <>
+            <div className="range-value-display">
+              {rangePrefix}
+              {Number(form[currentStep.key] || 0).toLocaleString()}
+              {rangeSuffix}
+            </div>
+
+            <input
+              type="range"
+              min={currentStep.min ?? 0}
+              max={currentStep.max ?? 1000}
+              step={currentStep.step ?? 1}
+              value={form[currentStep.key] || currentStep.defaultValue || 0}
+              onChange={handleRangeChange}
+              className="bill-range"
+            />
+
+            <div className="nav-row">
+              <button type="button" className="back-btn" onClick={goBack}>
+                ‹ Back
+              </button>
+
+              <button
+                type="button"
+                className="next-btn"
+                onClick={goNext}
+                disabled={nextDisabled}
+              >
+                {nextLabel}
+              </button>
+            </div>
+          </>
+        )}
+
+        {currentStep.type === "select" && (
+          <>
+            <div className="custom-select-wrap">
+              <div className="select-selected">
+                {form[currentStep.key] || currentStep.placeholder || "Select one"}
+                <span className="select-caret">▼</span>
+              </div>
+
+              <input
+                className="select-search-input"
+                value={selectSearch}
+                onChange={(e) => setSelectSearch(e.target.value)}
+                placeholder={currentStep.searchPlaceholder || "Search..."}
+              />
+
+              {dynamicOptionsLoading && (
+                <div className="address-help">Loading utility companies...</div>
+              )}
+
+              <div className="select-options-box">
+                {filteredSelectOptions.map((option) => {
+                  const selected = form[currentStep.key] === option;
+                  return (
+                    <button
+                      key={option}
+                      type="button"
+                      className={`select-option-item ${selected ? "active" : ""}`}
+                      onClick={() => handleSelectChoose(option)}
+                    >
+                      {option}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="nav-row">
+              <button type="button" className="back-btn" onClick={goBack}>
+                ‹ Back
+              </button>
 
               <button
                 type="button"
@@ -511,9 +731,8 @@ export default function ServiceFunnel({ config }) {
 
             {isPhoneStep && (
               <div className="address-help">
-                By clicking Send Code, you agree to be contacted by our partners via
-                call, text, and email regarding your project. Consent is not a
-                condition of purchase.
+                {currentStep.consentText ||
+                  "By clicking Send Code, you agree to be contacted by our partners via call, text, and email regarding your project. Consent is not a condition of purchase."}
               </div>
             )}
 
