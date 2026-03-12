@@ -132,7 +132,7 @@ export default function Home() {
         <div>©2026 leadlockerroom.com</div>
         <div className="footer-links">
           <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Use</a>
+          <a href="/terms">Terms of Use</a>
           <a href="#">Do Not Sell My Personal Information</a>
           <a href="#">Contact Us</a>
         </div>

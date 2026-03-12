@@ -52,7 +52,7 @@ export default function ServiceFunnel({ config }) {
   const steps = useMemo(() => config?.steps || [], [config]);
   const addressInputRef = useRef(null);
   const autocompleteRef = useRef(null);
-
+  const [showThankYouModal, setShowThankYouModal] = useState(false);
   const initialForm = useMemo(() => {
     const obj = {};
 
@@ -286,9 +286,9 @@ export default function ServiceFunnel({ config }) {
 
       setForm(finalForm);
 
-      alert("Phone verified and form ready to submit.");
-      console.log("FORM DATA:", finalForm);
-      console.log("SERVICE:", config?.heading);
+      setShowThankYouModal(true);
+        console.log("FORM DATA:", finalForm);
+        console.log("SERVICE:", config?.heading);
 
       // Replace this later with your actual final lead submit API call.
     } catch (err) {
@@ -794,6 +794,40 @@ export default function ServiceFunnel({ config }) {
             </div>
           </>
         )}
+
+        {showThankYouModal && (
+  <div className="thankyou-modal-overlay">
+    <div className="thankyou-modal">
+      <button
+        type="button"
+        className="thankyou-close"
+        onClick={() => setShowThankYouModal(false)}
+      >
+        ×
+      </button>
+
+      <div className="thankyou-icon">✓</div>
+
+      <h3 className="thankyou-title">Thank You!</h3>
+
+      <p className="thankyou-text">
+        Your information has been submitted successfully.
+      </p>
+
+      <p className="thankyou-subtext">
+        One of our partners will contact you shortly with your free quote.
+      </p>
+
+      <button
+        type="button"
+        className="thankyou-btn"
+        onClick={() => setShowThankYouModal(false)}
+      >
+        Done
+      </button>
+    </div>
+  </div>
+)}
 
         {error && <div className="address-help error-text">{error}</div>}
       </div>
