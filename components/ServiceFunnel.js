@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
+//const OTP_API_BASE = "https://homeservices-backend-1fe53ea28f51.herokuapp.com";
 const OTP_API_BASE = "https://homeservices-backend-1fe53ea28f51.herokuapp.com";
 
 function isValidZip(zip) {
@@ -215,6 +216,20 @@ export default function ServiceFunnel({ config }) {
     return true;
   }
 
+  function getTrustedFormCertUrl() {
+  if (typeof document === "undefined") return "";
+  return document.querySelector('input[name="xxTrustedFormCertUrl"]')?.value || "";
+}
+
+function getJornayaLeadId() {
+  if (typeof document === "undefined") return "";
+  return (
+    document.querySelector('input[name="universal_leadid"]')?.value ||
+    document.querySelector('input[name="leadid_token"]')?.value ||
+    ""
+  );
+}
+
   async function sendOtp() {
     setOtpSending(true);
     setError("");
@@ -336,10 +351,12 @@ export default function ServiceFunnel({ config }) {
     }
 
     const finalForm = {
-      ...form,
-      phoneVerified: true,
-      verificationToken: verifyData.verificationToken,
-    };
+  ...form,
+  phoneVerified: true,
+  verificationToken: verifyData.verificationToken,
+  trustedFormCertUrl: getTrustedFormCertUrl(),
+  jornayaLeadId: getJornayaLeadId(),
+};
 
     const submitRes = await fetch(`${OTP_API_BASE}/api/leads/submit`, {
       method: "POST",
