@@ -819,12 +819,41 @@ export default function ServiceFunnel({ config }) {
               </div>
             )}
 
-            {isPhoneStep && (
-              <div className="address-help">
-                {currentStep.consentText ||
-                  "By clicking Send Code, you agree to be contacted by our partners via call, text, and email regarding your project. Consent is not a condition of purchase."}
-              </div>
-            )}
+{isPhoneStep && (
+  <div className="address-help consent-copy">
+    By clicking Submit, I agree to the{" "}
+    <a href="/terms" target="_blank" rel="noopener noreferrer">
+      Terms of use
+    </a>{" "}
+    and{" "}
+    <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+      privacy policy
+    </a>{" "}
+    and authorize up to{" "}
+    <a href="/marketing-partners" target="_blank" rel="noopener noreferrer">
+      4 home improvement companies, their contractors and partners
+    </a>{" "}
+    to contact me with offers about home improvement products or services by
+    telephone calls, emails, artificial voice, and pre-recorded/text messages,
+    using an automated telephone technology, to the number and email I provided
+    above, even if my number is a mobile number or is currently listed on any
+    state, federal or corporate Do Not Call list. I understand that my consent
+    here is not a condition of purchase of any goods or services. Message and
+    data rates may apply.{" "}
+    <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+      California Residents
+    </a>
+    . (or{" "}
+    <a
+      href="/do-not-sell-my-personal-information"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Do Not Contact
+    </a>
+    ).
+  </div>
+)}
 
             {isVerificationStep && otpInfo && (
               <div className="address-help">{otpInfo}</div>

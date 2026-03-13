@@ -3,7 +3,7 @@ import Script from "next/script";
 
 export const metadata = {
   title: "Remodel Your Home",
-  description: "Remodel funnel demo",
+  description: "Remodel funnel for home improvement services",
 };
 
 export default function RootLayout({ children }) {

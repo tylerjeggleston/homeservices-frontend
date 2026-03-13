@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import ServiceFunnel from "../../components/ServiceFunnel";
 import { funnelConfigs } from "../../components/funnelConfigs";
+import Link from "next/link";
 
 export function generateStaticParams() {
   return Object.keys(funnelConfigs).map((slug) => ({ slug }));
@@ -16,13 +17,15 @@ export default function ServicePage({ params }) {
   return (
     <div className="roofing-page">
       <header className="topbar">
-        <div className="logo-wrap">
-          <div className="logo-mark">///</div>
-          <div className="logo-text">
-            <div className="logo-small">REMODEL</div>
-            <div className="logo-big">YOUR HOME</div>
-          </div>
-        </div>
+      <Link href="/" className="logo-link">
+    <div className="logo-wrap">
+      <div className="logo-mark">///</div>
+      <div className="logo-text">
+        <div className="logo-small">REMODEL</div>
+        <div className="logo-big">YOUR HOME</div>
+      </div>
+    </div>
+  </Link>
 
         <div className="header-right">
           <span className="service-dot">●</span>

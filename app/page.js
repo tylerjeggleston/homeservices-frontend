@@ -16,6 +16,7 @@ export default function Home() {
   return (
     <div>
       <header className="topbar home-topbar">
+
         <div className="logo-wrap">
           <div className="logo-mark">///</div>
           <div className="logo-text">
