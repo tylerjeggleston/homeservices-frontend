@@ -37,7 +37,7 @@ export default function ServicePage({ params }) {
         <h1 className="funnel-title">{config.heading}</h1>
         <p className="funnel-subtitle">It only takes 30 seconds.</p>
 
-        <ServiceFunnel config={config} />
+        <ServiceFunnel config={{ ...config, slug: params.slug }} />
       </main>
     </div>
   );

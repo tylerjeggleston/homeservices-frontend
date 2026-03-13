@@ -251,58 +251,131 @@ export default function ServiceFunnel({ config }) {
     }
   }
 
+  // async function verifyOtpAndSubmit() {
+  //   setOtpVerifying(true);
+  //   setError("");
+  //   setOtpInfo("");
+
+  //   try {
+  //     const res = await fetch(`${OTP_API_BASE}/api/otp/verify`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         phone: form.phone,
+  //         code: form.verificationCode,
+  //       }),
+  //     });
+
+  //     const data = await res.json();
+
+  //     if (!res.ok) {
+  //       throw new Error(data.error || "Verification failed.");
+  //     }
+
+  //     if (!data.ok || data.verified !== true || !data.verificationToken) {
+  //       throw new Error(data.error || "Verification failed.");
+  //     }
+
+  //     const finalForm = {
+  //       ...form,
+  //       phoneVerified: true,
+  //       verificationToken: data.verificationToken,
+  //     };
+
+  //     setForm(finalForm);
+
+  //     setShowThankYouModal(true);
+  //       console.log("FORM DATA:", finalForm);
+  //       console.log("SERVICE:", config?.heading);
+
+
+  //     // Replace this later with your actual final lead submit API call.
+  //   } catch (err) {
+  //     setForm((prev) => ({
+  //       ...prev,
+  //       phoneVerified: false,
+  //       verificationToken: "",
+  //     }));
+  //     setError(err.message || "Failed to verify code.");
+  //   } finally {
+  //     setOtpVerifying(false);
+  //   }
+  // }
+
   async function verifyOtpAndSubmit() {
-    setOtpVerifying(true);
-    setError("");
-    setOtpInfo("");
+  setOtpVerifying(true);
+  setError("");
+  setOtpInfo("");
 
-    try {
-      const res = await fetch(`${OTP_API_BASE}/api/otp/verify`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          phone: form.phone,
-          code: form.verificationCode,
-        }),
-      });
+  try {
+    const verifyRes = await fetch(`${OTP_API_BASE}/api/otp/verify`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        phone: form.phone,
+        code: form.verificationCode,
+      }),
+    });
 
-      const data = await res.json();
+    const verifyData = await verifyRes.json();
 
-      if (!res.ok) {
-        throw new Error(data.error || "Verification failed.");
-      }
-
-      if (!data.ok || data.verified !== true || !data.verificationToken) {
-        throw new Error(data.error || "Verification failed.");
-      }
-
-      const finalForm = {
-        ...form,
-        phoneVerified: true,
-        verificationToken: data.verificationToken,
-      };
-
-      setForm(finalForm);
-
-      setShowThankYouModal(true);
-        console.log("FORM DATA:", finalForm);
-        console.log("SERVICE:", config?.heading);
-
-
-      // Replace this later with your actual final lead submit API call.
-    } catch (err) {
-      setForm((prev) => ({
-        ...prev,
-        phoneVerified: false,
-        verificationToken: "",
-      }));
-      setError(err.message || "Failed to verify code.");
-    } finally {
-      setOtpVerifying(false);
+    if (!verifyRes.ok) {
+      throw new Error(verifyData.error || "Verification failed.");
     }
+
+    if (
+      !verifyData.ok ||
+      verifyData.verified !== true ||
+      !verifyData.verificationToken
+    ) {
+      throw new Error(verifyData.error || "Verification failed.");
+    }
+
+    const finalForm = {
+      ...form,
+      phoneVerified: true,
+      verificationToken: verifyData.verificationToken,
+    };
+
+    const submitRes = await fetch(`${OTP_API_BASE}/api/leads/submit`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        serviceSlug: config?.slug || "",
+        serviceHeading: config?.heading || "",
+        form: finalForm,
+      }),
+    });
+
+    const submitData = await submitRes.json();
+
+    if (!submitRes.ok || !submitData.ok) {
+      throw new Error(submitData.error || "Failed to save your information.");
+    }
+
+    setForm(finalForm);
+    setShowThankYouModal(true);
+
+    console.log("FORM DATA:", finalForm);
+    console.log("SERVICE:", config?.heading);
+    console.log("LEAD ID:", submitData.leadId);
+  } catch (err) {
+    setForm((prev) => ({
+      ...prev,
+      phoneVerified: false,
+      verificationToken: "",
+    }));
+    setError(err.message || "Failed to verify and submit.");
+  } finally {
+    setOtpVerifying(false);
   }
+}
 
   async function loadDynamicOptions(step) {
     if (!step?.dynamicOptionsFrom) return;
