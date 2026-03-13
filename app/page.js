@@ -131,9 +131,9 @@ export default function Home() {
       <footer className="footer">
         <div>©2026 leadlockerroom.com</div>
         <div className="footer-links">
-          <a href="#">Privacy Policy</a>
+          <a href="/privacy-policy">Privacy Policy</a>
           <a href="/terms">Terms of Use</a>
-          <a href="#">Do Not Sell My Personal Information</a>
+          <a href="/do-not-sell-my-personal-information">Do Not Sell My Personal Information</a>
           <a href="#">Contact Us</a>
         </div>
       </footer>
