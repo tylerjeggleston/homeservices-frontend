@@ -2,8 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-const OTP_API_BASE = "https://homeservices-backend-1fe53ea28f51.herokuapp.com";
-// const OTP_API_BASE = "https://homeservicesbackend-49679431e329.herokuapp.com";
+//const OTP_API_BASE = "https://homeservices-backend-1fe53ea28f51.herokuapp.com";
+const OTP_API_BASE = "https://homeservicesbackend-49679431e329.herokuapp.com";
 
 function isValidZip(zip) {
   return /^\d{5}(-\d{4})?$/.test(String(zip || "").trim());
@@ -360,6 +360,18 @@ const progressPercent = useMemo(() => {
       setOtpSending(false);
     }
   }
+
+  useEffect(() => {
+  const t = setTimeout(() => {
+    console.log("TF script:", !!document.querySelector('script[src*="trustedform.com"]'));
+    console.log("Jornaya script:", !!document.querySelector('script[src*="lidstatic.com"]'));
+    console.log("TF input:", document.querySelector('input[name="xxTrustedFormCertUrl"]')?.value);
+    console.log("Jornaya universal_leadid:", document.querySelector('input[name="universal_leadid"]')?.value);
+    console.log("Jornaya leadid_token:", document.querySelector('input[name="leadid_token"]')?.value);
+  }, 5000);
+
+  return () => clearTimeout(t);
+}, []);
 
   async function verifyOtpAndSubmit() {
     setOtpVerifying(true);
@@ -799,7 +811,16 @@ const progressPercent = useMemo(() => {
     currentStep.type === "range" ? currentStep.suffix || "" : "";
 
   return (
-    <div className="funnel-card">
+    <form
+  className="funnel-card"
+  onSubmit={(e) => {
+    e.preventDefault();
+    goNext();
+  }}
+>
+
+      <input type="hidden" name="leadid_token" id="leadid_token" />
+      <input type="hidden" name="universal_leadid" id="universal_leadid" />
       <div className="progress-shell">
         <div
           className="progress-fill"
@@ -1111,6 +1132,6 @@ const progressPercent = useMemo(() => {
 
         {error && <div className="address-help error-text">{error}</div>}
       </div>
-    </div>
+    </form>
   );
 }
