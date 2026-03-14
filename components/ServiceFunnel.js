@@ -65,26 +65,6 @@ function getJornayaLeadId() {
   );
 }
 
-export default function ServiceFunnel({ config }) {
-  const steps = useMemo(() => config?.steps || [], [config]);
-
-  const allSteps = useMemo(
-  () => [
-    ...steps,
-    {
-      key: "__thankyou__",
-      type: "thankyou",
-      title: "Thank You!",
-    },
-    {
-      key: "__disqualified__",
-      type: "disqualified",
-      title: "Thank You!",
-    },
-  ],
-  [steps]
-);
-
 function getConsentSessionId() {
   if (typeof window === "undefined") return "";
 
@@ -101,8 +81,60 @@ function getConsentValue() {
   return sessionId ? `${sessionId}` : "";
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function waitForValue(getter, { timeout = 4000, interval = 200 } = {}) {
+  const started = Date.now();
+
+  while (Date.now() - started < timeout) {
+    const value = getter();
+    if (value) return value;
+    await sleep(interval);
+  }
+
+  return getter() || "";
+}
+
+function syncTrackingFieldsToRecorder() {
+  if (typeof window === "undefined") return;
+
+  const trustedFormCertUrl = getTrustedFormCertUrl();
+  const jornayaLeadId = getJornayaLeadId();
+  const consent = getConsentValue();
+
+  window.__RECORDER_FORMDATA = {
+    ...(window.__RECORDER_FORMDATA || {}),
+    trustedFormCertUrl,
+    jornayaLeadId,
+    consent,
+  };
+}
+
+export default function ServiceFunnel({ config }) {
+  const steps = useMemo(() => config?.steps || [], [config]);
+
+  const allSteps = useMemo(
+    () => [
+      ...steps,
+      {
+        key: "__thankyou__",
+        type: "thankyou",
+        title: "Thank You!",
+      },
+      {
+        key: "__disqualified__",
+        type: "disqualified",
+        title: "Thank You!",
+      },
+    ],
+    [steps]
+  );
+
   const addressInputRef = useRef(null);
   const autocompleteRef = useRef(null);
+  const autocompleteListenerRef = useRef(null);
 
   const initialForm = useMemo(() => {
     const obj = {};
@@ -125,6 +157,7 @@ function getConsentValue() {
     obj.trustedFormCertUrl = "";
     obj.jornayaLeadId = "";
     obj.consent = "";
+
     return obj;
   }, [steps]);
 
@@ -139,20 +172,39 @@ function getConsentValue() {
   const [dynamicOptionsLoading, setDynamicOptionsLoading] = useState(false);
   const [selectSearch, setSelectSearch] = useState("");
   const [disqualifyInfo, setDisqualifyInfo] = useState({
-  title: "Thank You!",
-  message: "",
-});
+    title: "Thank You!",
+    message: "",
+  });
+  const [selectOpen, setSelectOpen] = useState(true);
+
   const currentStep = allSteps[stepIndex];
-  const progressPercent = allSteps.length
-    ? ((stepIndex + 1) / allSteps.length) * 100
-    : 0;
+  const progressSteps = useMemo(
+  () => allSteps.filter((step) => step.type !== "disqualified"),
+  [allSteps]
+);
+
+const progressPercent = useMemo(() => {
+  if (!progressSteps.length) return 0;
+
+  if (currentStep?.type === "thankyou" || currentStep?.type === "disqualified") {
+    return 100;
+  }
+
+  const visibleIndex = progressSteps.findIndex(
+    (step) => step.key === currentStep?.key
+  );
+
+  if (visibleIndex === -1) return 0;
+
+  return ((visibleIndex + 1) / progressSteps.length) * 100;
+}, [progressSteps, currentStep]);
 
   const isAddressStep = currentStep?.key === "address";
   const isZipStep = currentStep?.key === "zip";
   const isPhoneStep = currentStep?.key === "phone";
   const isVerificationStep = currentStep?.key === "verificationCode";
   const isThankYouStep = currentStep?.type === "thankyou";
-  const [selectOpen, setSelectOpen] = useState(true);
+
   const filteredSelectOptions = useMemo(() => {
     if (!currentStep || currentStep.type !== "select") return [];
 
@@ -340,14 +392,35 @@ function getConsentValue() {
         throw new Error(verifyData.error || "Verification failed.");
       }
 
+      const trustedFormCertUrl = await waitForValue(getTrustedFormCertUrl, {
+        timeout: 4000,
+        interval: 200,
+      });
+
+      const jornayaLeadId = await waitForValue(getJornayaLeadId, {
+        timeout: 4000,
+        interval: 200,
+      });
+
       const finalForm = {
-  ...form,
-  phoneVerified: true,
-  verificationToken: verifyData.verificationToken,
-  trustedFormCertUrl: getTrustedFormCertUrl(),
-  jornayaLeadId: getJornayaLeadId(),
-  consent: getConsentValue(),
-};
+        ...form,
+        phoneVerified: true,
+        verificationToken: verifyData.verificationToken,
+        trustedFormCertUrl,
+        jornayaLeadId,
+        consent: getConsentValue(),
+      };
+
+      window.__RECORDER_FORMDATA = {
+        ...(window.__RECORDER_FORMDATA || {}),
+        trustedFormCertUrl,
+        jornayaLeadId,
+        consent: finalForm.consent,
+      };
+
+      console.log("TrustedFormCertUrl:", trustedFormCertUrl);
+      console.log("JornayaLeadId:", jornayaLeadId);
+      console.log("Consent:", finalForm.consent);
 
       const submitRes = await fetch(`${OTP_API_BASE}/api/leads/submit`, {
         method: "POST",
@@ -368,7 +441,7 @@ function getConsentValue() {
       }
 
       setForm(finalForm);
-      setStepIndex(allSteps.length - 1);
+      setStepIndex(allSteps.findIndex((step) => step.type === "thankyou"));
 
       console.log("FORM DATA:", finalForm);
       console.log("SERVICE:", config?.heading);
@@ -437,19 +510,19 @@ function getConsentValue() {
     if (!valid) return;
 
     if (
-  currentStep?.type === "options" &&
-  currentStep?.disqualifyOn?.values?.includes(form[currentStep.key])
-) {
-  setDisqualifyInfo({
-    title: currentStep.disqualifyOn.title || "Thank You!",
-    message:
-      currentStep.disqualifyOn.message ||
-      "We are unable to continue with this request.",
-  });
+      currentStep?.type === "options" &&
+      currentStep?.disqualifyOn?.values?.includes(form[currentStep.key])
+    ) {
+      setDisqualifyInfo({
+        title: currentStep.disqualifyOn.title || "Thank You!",
+        message:
+          currentStep.disqualifyOn.message ||
+          "We are unable to continue with this request.",
+      });
 
-  setStepIndex(allSteps.findIndex((step) => step.type === "disqualified"));
-  return;
-}
+      setStepIndex(allSteps.findIndex((step) => step.type === "disqualified"));
+      return;
+    }
 
     if (currentStep.key === "phone") {
       await sendOtp();
@@ -520,35 +593,48 @@ function getConsentValue() {
   }
 
   function handleSelectChoose(option) {
-  setError("");
-  updateField(currentStep.key, option);
-  setSelectSearch(option);
-  setSelectOpen(false);
-}
+    setError("");
+    updateField(currentStep.key, option);
+    setSelectSearch(option);
+    setSelectOpen(false);
+  }
 
   useEffect(() => {
-  setSelectSearch("");
-  setSelectOpen(currentStep?.type === "select");
-}, [stepIndex, currentStep?.type]);
+    setSelectSearch("");
+    setSelectOpen(currentStep?.type === "select");
+  }, [stepIndex, currentStep?.type]);
 
-useEffect(() => {
-  if (typeof window === "undefined") return;
+  useEffect(() => {
+    if (typeof window === "undefined") return;
 
-  const syncConsentToRecorder = () => {
-    const consent = getConsentValue();
-    if (!consent) return;
+    let cancelled = false;
+    let attempts = 0;
+    const maxAttempts = 20;
 
-    window.__RECORDER_FORMDATA = {
-      ...(window.__RECORDER_FORMDATA || {}),
-      consent,
+    const pollTrackingFields = () => {
+      if (cancelled) return;
+
+      syncTrackingFieldsToRecorder();
+      attempts += 1;
+
+      const hasTrustedForm = !!getTrustedFormCertUrl();
+      const hasJornaya = !!getJornayaLeadId();
+
+      if ((hasTrustedForm && hasJornaya) || attempts >= maxAttempts) return;
+
+      setTimeout(pollTrackingFields, 500);
     };
-  };
 
-  syncConsentToRecorder();
+    pollTrackingFields();
 
-  window.addEventListener("storage", syncConsentToRecorder);
-  return () => window.removeEventListener("storage", syncConsentToRecorder);
-}, []);
+    const onStorage = () => syncTrackingFieldsToRecorder();
+    window.addEventListener("storage", onStorage);
+
+    return () => {
+      cancelled = true;
+      window.removeEventListener("storage", onStorage);
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -598,8 +684,13 @@ useEffect(() => {
     if (!window.google?.maps?.places) return;
     if (!addressInputRef.current) return;
 
-    if (autocompleteRef.current) {
-      autocompleteRef.current.unbindAll?.();
+    if (autocompleteListenerRef.current?.remove) {
+      autocompleteListenerRef.current.remove();
+      autocompleteListenerRef.current = null;
+    }
+
+    if (autocompleteRef.current && window.google?.maps?.event) {
+      window.google.maps.event.clearInstanceListeners(autocompleteRef.current);
       autocompleteRef.current = null;
     }
 
@@ -622,7 +713,7 @@ useEffect(() => {
       if (bounds) autocomplete.setBounds(bounds);
     }
 
-    autocomplete.addListener("place_changed", () => {
+    const listener = autocomplete.addListener("place_changed", () => {
       const place = autocomplete.getPlace();
       const parts = extractAddressParts(place);
 
@@ -658,6 +749,20 @@ useEffect(() => {
     });
 
     autocompleteRef.current = autocomplete;
+    autocompleteListenerRef.current = listener;
+
+    return () => {
+      if (autocompleteListenerRef.current?.remove) {
+        autocompleteListenerRef.current.remove();
+        autocompleteListenerRef.current = null;
+      }
+
+      if (window.google?.maps?.event && autocompleteRef.current) {
+        window.google.maps.event.clearInstanceListeners(autocompleteRef.current);
+      }
+
+      autocompleteRef.current = null;
+    };
   }, [currentStep, userCoords]);
 
   if (!currentStep) return null;
@@ -703,7 +808,9 @@ useEffect(() => {
       </div>
 
       <div className="funnel-inner">
-        <h2 className="question-title">{currentStep.title}</h2>
+        {currentStep.type !== "thankyou" && currentStep.type !== "disqualified" && (
+  <h2 className="question-title">{currentStep.title}</h2>
+)}
 
         {currentStep.type === "thankyou" && (
           <div className="thankyou-step" data-rec-finalize="true">
@@ -820,12 +927,12 @@ useEffect(() => {
           <>
             <div className="custom-select-wrap">
               <button
-  type="button"
-  className="select-selected"
-  onClick={() => setSelectOpen((prev) => !prev)}
->
-  {form[currentStep.key] || currentStep.placeholder || "Select one"}
-</button>
+                type="button"
+                className="select-selected"
+                onClick={() => setSelectOpen((prev) => !prev)}
+              >
+                {form[currentStep.key] || currentStep.placeholder || "Select one"}
+              </button>
 
               <input
                 className="select-search-input"
@@ -839,22 +946,24 @@ useEffect(() => {
               )}
 
               {selectOpen && (
-  <div className="select-options-box">
-    {filteredSelectOptions.map((option) => {
-      const selected = form[currentStep.key] === option;
-      return (
-        <button
-          key={option}
-          type="button"
-          className={`select-option-item ${selected ? "active" : ""}`}
-          onClick={() => handleSelectChoose(option)}
-        >
-          {option}
-        </button>
-      );
-    })}
-  </div>
-)}
+                <div className="select-options-box">
+                  {filteredSelectOptions.map((option) => {
+                    const selected = form[currentStep.key] === option;
+                    return (
+                      <button
+                        key={option}
+                        type="button"
+                        className={`select-option-item ${
+                          selected ? "active" : ""
+                        }`}
+                        onClick={() => handleSelectChoose(option)}
+                      >
+                        {option}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             <div className="nav-row">

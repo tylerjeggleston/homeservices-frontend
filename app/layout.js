@@ -33,19 +33,8 @@ export default function RootLayout({ children }) {
         {/* TrustedForm */}
         <Script
           id="trustedform-script"
+          src="https://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl"
           strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                var tf = document.createElement('script');
-                tf.type = 'text/javascript';
-                tf.async = true;
-                tf.src = 'https://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(tf, s);
-              })();
-            `,
-          }}
         />
 
         {/* Jornaya / LeadiD */}
