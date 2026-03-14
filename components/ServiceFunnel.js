@@ -2,8 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-//const OTP_API_BASE = "https://homeservices-backend-1fe53ea28f51.herokuapp.com";
-const OTP_API_BASE = "https://homeservicesbackend-49679431e329.herokuapp.com";
+const OTP_API_BASE = "https://homeservices-backend-1fe53ea28f51.herokuapp.com";
+// const OTP_API_BASE = "https://homeservicesbackend-49679431e329.herokuapp.com";
 
 function isValidZip(zip) {
   return /^\d{5}(-\d{4})?$/.test(String(zip || "").trim());
@@ -49,11 +49,61 @@ function formatPhoneDisplay(value) {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
+function getTrustedFormCertUrl() {
+  if (typeof document === "undefined") return "";
+  return (
+    document.querySelector('input[name="xxTrustedFormCertUrl"]')?.value || ""
+  );
+}
+
+function getJornayaLeadId() {
+  if (typeof document === "undefined") return "";
+  return (
+    document.querySelector('input[name="universal_leadid"]')?.value ||
+    document.querySelector('input[name="leadid_token"]')?.value ||
+    ""
+  );
+}
+
 export default function ServiceFunnel({ config }) {
   const steps = useMemo(() => config?.steps || [], [config]);
+
+  const allSteps = useMemo(
+  () => [
+    ...steps,
+    {
+      key: "__thankyou__",
+      type: "thankyou",
+      title: "Thank You!",
+    },
+    {
+      key: "__disqualified__",
+      type: "disqualified",
+      title: "Thank You!",
+    },
+  ],
+  [steps]
+);
+
+function getConsentSessionId() {
+  if (typeof window === "undefined") return "";
+
+  return (
+    sessionStorage.getItem("rrwebSessionId") ||
+    localStorage.getItem("rec_sid") ||
+    window?.ConsentRecorder?.getSessionId?.() ||
+    ""
+  );
+}
+
+function getConsentValue() {
+  const sessionId = getConsentSessionId();
+  return sessionId ? `${sessionId}` : "";
+}
+
   const addressInputRef = useRef(null);
   const autocompleteRef = useRef(null);
-  const [showThankYouModal, setShowThankYouModal] = useState(false);
+
   const initialForm = useMemo(() => {
     const obj = {};
 
@@ -72,7 +122,9 @@ export default function ServiceFunnel({ config }) {
     obj.addressValidated = false;
     obj.phoneVerified = false;
     obj.verificationToken = "";
-
+    obj.trustedFormCertUrl = "";
+    obj.jornayaLeadId = "";
+    obj.consent = "";
     return obj;
   }, [steps]);
 
@@ -86,17 +138,21 @@ export default function ServiceFunnel({ config }) {
   const [dynamicOptions, setDynamicOptions] = useState({});
   const [dynamicOptionsLoading, setDynamicOptionsLoading] = useState(false);
   const [selectSearch, setSelectSearch] = useState("");
-
-  const currentStep = steps[stepIndex];
-  const progressPercent = steps.length
-    ? ((stepIndex + 1) / steps.length) * 100
+  const [disqualifyInfo, setDisqualifyInfo] = useState({
+  title: "Thank You!",
+  message: "",
+});
+  const currentStep = allSteps[stepIndex];
+  const progressPercent = allSteps.length
+    ? ((stepIndex + 1) / allSteps.length) * 100
     : 0;
 
   const isAddressStep = currentStep?.key === "address";
   const isZipStep = currentStep?.key === "zip";
   const isPhoneStep = currentStep?.key === "phone";
   const isVerificationStep = currentStep?.key === "verificationCode";
-
+  const isThankYouStep = currentStep?.type === "thankyou";
+  const [selectOpen, setSelectOpen] = useState(true);
   const filteredSelectOptions = useMemo(() => {
     if (!currentStep || currentStep.type !== "select") return [];
 
@@ -127,6 +183,7 @@ export default function ServiceFunnel({ config }) {
 
   function validateCurrentStep() {
     if (!currentStep) return false;
+    if (isThankYouStep) return true;
 
     const rawValue = form[currentStep.key];
     const value = String(rawValue || "").trim();
@@ -216,20 +273,6 @@ export default function ServiceFunnel({ config }) {
     return true;
   }
 
-  function getTrustedFormCertUrl() {
-  if (typeof document === "undefined") return "";
-  return document.querySelector('input[name="xxTrustedFormCertUrl"]')?.value || "";
-}
-
-function getJornayaLeadId() {
-  if (typeof document === "undefined") return "";
-  return (
-    document.querySelector('input[name="universal_leadid"]')?.value ||
-    document.querySelector('input[name="leadid_token"]')?.value ||
-    ""
-  );
-}
-
   async function sendOtp() {
     setOtpSending(true);
     setError("");
@@ -266,133 +309,81 @@ function getJornayaLeadId() {
     }
   }
 
-  // async function verifyOtpAndSubmit() {
-  //   setOtpVerifying(true);
-  //   setError("");
-  //   setOtpInfo("");
-
-  //   try {
-  //     const res = await fetch(`${OTP_API_BASE}/api/otp/verify`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         phone: form.phone,
-  //         code: form.verificationCode,
-  //       }),
-  //     });
-
-  //     const data = await res.json();
-
-  //     if (!res.ok) {
-  //       throw new Error(data.error || "Verification failed.");
-  //     }
-
-  //     if (!data.ok || data.verified !== true || !data.verificationToken) {
-  //       throw new Error(data.error || "Verification failed.");
-  //     }
-
-  //     const finalForm = {
-  //       ...form,
-  //       phoneVerified: true,
-  //       verificationToken: data.verificationToken,
-  //     };
-
-  //     setForm(finalForm);
-
-  //     setShowThankYouModal(true);
-  //       console.log("FORM DATA:", finalForm);
-  //       console.log("SERVICE:", config?.heading);
-
-
-  //     // Replace this later with your actual final lead submit API call.
-  //   } catch (err) {
-  //     setForm((prev) => ({
-  //       ...prev,
-  //       phoneVerified: false,
-  //       verificationToken: "",
-  //     }));
-  //     setError(err.message || "Failed to verify code.");
-  //   } finally {
-  //     setOtpVerifying(false);
-  //   }
-  // }
-
   async function verifyOtpAndSubmit() {
-  setOtpVerifying(true);
-  setError("");
-  setOtpInfo("");
+    setOtpVerifying(true);
+    setError("");
+    setOtpInfo("");
 
-  try {
-    const verifyRes = await fetch(`${OTP_API_BASE}/api/otp/verify`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        phone: form.phone,
-        code: form.verificationCode,
-      }),
-    });
+    try {
+      const verifyRes = await fetch(`${OTP_API_BASE}/api/otp/verify`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phone: form.phone,
+          code: form.verificationCode,
+        }),
+      });
 
-    const verifyData = await verifyRes.json();
+      const verifyData = await verifyRes.json();
 
-    if (!verifyRes.ok) {
-      throw new Error(verifyData.error || "Verification failed.");
-    }
+      if (!verifyRes.ok) {
+        throw new Error(verifyData.error || "Verification failed.");
+      }
 
-    if (
-      !verifyData.ok ||
-      verifyData.verified !== true ||
-      !verifyData.verificationToken
-    ) {
-      throw new Error(verifyData.error || "Verification failed.");
-    }
+      if (
+        !verifyData.ok ||
+        verifyData.verified !== true ||
+        !verifyData.verificationToken
+      ) {
+        throw new Error(verifyData.error || "Verification failed.");
+      }
 
-    const finalForm = {
+      const finalForm = {
   ...form,
   phoneVerified: true,
   verificationToken: verifyData.verificationToken,
   trustedFormCertUrl: getTrustedFormCertUrl(),
   jornayaLeadId: getJornayaLeadId(),
+  consent: getConsentValue(),
 };
 
-    const submitRes = await fetch(`${OTP_API_BASE}/api/leads/submit`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        serviceSlug: config?.slug || "",
-        serviceHeading: config?.heading || "",
-        form: finalForm,
-      }),
-    });
+      const submitRes = await fetch(`${OTP_API_BASE}/api/leads/submit`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          serviceSlug: config?.slug || "",
+          serviceHeading: config?.heading || "",
+          form: finalForm,
+        }),
+      });
 
-    const submitData = await submitRes.json();
+      const submitData = await submitRes.json();
 
-    if (!submitRes.ok || !submitData.ok) {
-      throw new Error(submitData.error || "Failed to save your information.");
+      if (!submitRes.ok || !submitData.ok) {
+        throw new Error(submitData.error || "Failed to save your information.");
+      }
+
+      setForm(finalForm);
+      setStepIndex(allSteps.length - 1);
+
+      console.log("FORM DATA:", finalForm);
+      console.log("SERVICE:", config?.heading);
+      console.log("LEAD ID:", submitData.leadId);
+    } catch (err) {
+      setForm((prev) => ({
+        ...prev,
+        phoneVerified: false,
+        verificationToken: "",
+      }));
+      setError(err.message || "Failed to verify and submit.");
+    } finally {
+      setOtpVerifying(false);
     }
-
-    setForm(finalForm);
-    setShowThankYouModal(true);
-
-    console.log("FORM DATA:", finalForm);
-    console.log("SERVICE:", config?.heading);
-    console.log("LEAD ID:", submitData.leadId);
-  } catch (err) {
-    setForm((prev) => ({
-      ...prev,
-      phoneVerified: false,
-      verificationToken: "",
-    }));
-    setError(err.message || "Failed to verify and submit.");
-  } finally {
-    setOtpVerifying(false);
   }
-}
 
   async function loadDynamicOptions(step) {
     if (!step?.dynamicOptionsFrom) return;
@@ -445,6 +436,21 @@ function getJornayaLeadId() {
     const valid = validateCurrentStep();
     if (!valid) return;
 
+    if (
+  currentStep?.type === "options" &&
+  currentStep?.disqualifyOn?.values?.includes(form[currentStep.key])
+) {
+  setDisqualifyInfo({
+    title: currentStep.disqualifyOn.title || "Thank You!",
+    message:
+      currentStep.disqualifyOn.message ||
+      "We are unable to continue with this request.",
+  });
+
+  setStepIndex(allSteps.findIndex((step) => step.type === "disqualified"));
+  return;
+}
+
     if (currentStep.key === "phone") {
       await sendOtp();
       return;
@@ -455,12 +461,11 @@ function getJornayaLeadId() {
       return;
     }
 
-    if (stepIndex < steps.length - 1) {
+    if (stepIndex < allSteps.length - 1) {
       setStepIndex((prev) => prev + 1);
       return;
     }
 
-    alert("Submitted (demo)");
     console.log("FORM DATA:", form);
     console.log("SERVICE:", config?.heading);
   }
@@ -515,14 +520,35 @@ function getJornayaLeadId() {
   }
 
   function handleSelectChoose(option) {
-    setError("");
-    updateField(currentStep.key, option);
-    setSelectSearch(option);
-  }
+  setError("");
+  updateField(currentStep.key, option);
+  setSelectSearch(option);
+  setSelectOpen(false);
+}
 
   useEffect(() => {
-    setSelectSearch("");
-  }, [stepIndex]);
+  setSelectSearch("");
+  setSelectOpen(currentStep?.type === "select");
+}, [stepIndex, currentStep?.type]);
+
+useEffect(() => {
+  if (typeof window === "undefined") return;
+
+  const syncConsentToRecorder = () => {
+    const consent = getConsentValue();
+    if (!consent) return;
+
+    window.__RECORDER_FORMDATA = {
+      ...(window.__RECORDER_FORMDATA || {}),
+      consent,
+    };
+  };
+
+  syncConsentToRecorder();
+
+  window.addEventListener("storage", syncConsentToRecorder);
+  return () => window.removeEventListener("storage", syncConsentToRecorder);
+}, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -552,20 +578,19 @@ function getJornayaLeadId() {
     loadDynamicOptions(currentStep);
   }, [stepIndex, form.zip, form.state, form.city]); // eslint-disable-line react-hooks/exhaustive-deps
 
-
   useEffect(() => {
-  if (!showThankYouModal) return;
+    if (currentStep?.type !== "thankyou") return;
 
-  const timer = setTimeout(() => {
-    window.dispatchEvent(
-      new CustomEvent("recorder:finalize", {
-        detail: { reason: "thank-you" },
-      })
-    );
-  }, 600); // allow modal animation + render
+    const timer = setTimeout(() => {
+      window.dispatchEvent(
+        new CustomEvent("recorder:finalize", {
+          detail: { reason: "thank-you-step" },
+        })
+      );
+    }, 800);
 
-  return () => clearTimeout(timer);
-}, [showThankYouModal]);
+    return () => clearTimeout(timer);
+  }, [currentStep]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -680,6 +705,32 @@ function getJornayaLeadId() {
       <div className="funnel-inner">
         <h2 className="question-title">{currentStep.title}</h2>
 
+        {currentStep.type === "thankyou" && (
+          <div className="thankyou-step" data-rec-finalize="true">
+            <div className="thankyou-icon">✓</div>
+
+            <h3 className="thankyou-title">Thank You!</h3>
+
+            <p className="thankyou-text">
+              Your information has been submitted successfully.
+            </p>
+
+            <p className="thankyou-subtext">
+              One of our partners will contact you shortly.
+            </p>
+          </div>
+        )}
+
+        {currentStep.type === "disqualified" && (
+          <div className="thankyou-step">
+            <div className="thankyou-icon">✓</div>
+
+            <h3 className="thankyou-title">{disqualifyInfo.title}</h3>
+
+            <p className="thankyou-text">{disqualifyInfo.message}</p>
+          </div>
+        )}
+
         {currentStep.type === "options" && (
           <>
             <div
@@ -768,10 +819,13 @@ function getJornayaLeadId() {
         {currentStep.type === "select" && (
           <>
             <div className="custom-select-wrap">
-              <div className="select-selected">
-                {form[currentStep.key] || currentStep.placeholder || "Select one"}
-                <span className="select-caret">▼</span>
-              </div>
+              <button
+  type="button"
+  className="select-selected"
+  onClick={() => setSelectOpen((prev) => !prev)}
+>
+  {form[currentStep.key] || currentStep.placeholder || "Select one"}
+</button>
 
               <input
                 className="select-search-input"
@@ -784,21 +838,23 @@ function getJornayaLeadId() {
                 <div className="address-help">Loading utility companies...</div>
               )}
 
-              <div className="select-options-box">
-                {filteredSelectOptions.map((option) => {
-                  const selected = form[currentStep.key] === option;
-                  return (
-                    <button
-                      key={option}
-                      type="button"
-                      className={`select-option-item ${selected ? "active" : ""}`}
-                      onClick={() => handleSelectChoose(option)}
-                    >
-                      {option}
-                    </button>
-                  );
-                })}
-              </div>
+              {selectOpen && (
+  <div className="select-options-box">
+    {filteredSelectOptions.map((option) => {
+      const selected = form[currentStep.key] === option;
+      return (
+        <button
+          key={option}
+          type="button"
+          className={`select-option-item ${selected ? "active" : ""}`}
+          onClick={() => handleSelectChoose(option)}
+        >
+          {option}
+        </button>
+      );
+    })}
+  </div>
+)}
             </div>
 
             <div className="nav-row">
@@ -836,41 +892,54 @@ function getJornayaLeadId() {
               </div>
             )}
 
-{isPhoneStep && (
-  <div className="address-help consent-copy">
-    By clicking Submit, I agree to the{" "}
-    <a href="/terms" target="_blank" rel="noopener noreferrer">
-      Terms of use
-    </a>{" "}
-    and{" "}
-    <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
-      privacy policy
-    </a>{" "}
-    and authorize up to{" "}
-    <a href="/marketing-partners" target="_blank" rel="noopener noreferrer">
-      4 home improvement companies, their contractors and partners
-    </a>{" "}
-    to contact me with offers about home improvement products or services by
-    telephone calls, emails, artificial voice, and pre-recorded/text messages,
-    using an automated telephone technology, to the number and email I provided
-    above, even if my number is a mobile number or is currently listed on any
-    state, federal or corporate Do Not Call list. I understand that my consent
-    here is not a condition of purchase of any goods or services. Message and
-    data rates may apply.{" "}
-    <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
-      California Residents
-    </a>
-    . (or{" "}
-    <a
-      href="/do-not-sell-my-personal-information"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Do Not Contact
-    </a>
-    ).
-  </div>
-)}
+            {isPhoneStep && (
+              <div className="address-help consent-copy">
+                By clicking Submit, I agree to the{" "}
+                <a href="/terms" target="_blank" rel="noopener noreferrer">
+                  Terms of use
+                </a>{" "}
+                and{" "}
+                <a
+                  href="/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  privacy policy
+                </a>{" "}
+                and authorize up to{" "}
+                <a
+                  href="/marketing-partners"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  4 home improvement companies, their contractors and partners
+                </a>{" "}
+                to contact me with offers about home improvement products or
+                services by telephone calls, emails, artificial voice, and
+                pre-recorded/text messages, using an automated telephone
+                technology, to the number and email I provided above, even if my
+                number is a mobile number or is currently listed on any state,
+                federal or corporate Do Not Call list. I understand that my
+                consent here is not a condition of purchase of any goods or
+                services. Message and data rates may apply.{" "}
+                <a
+                  href="/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  California Residents
+                </a>
+                . (or{" "}
+                <a
+                  href="/do-not-sell-my-personal-information"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Do Not Contact
+                </a>
+                ).
+              </div>
+            )}
 
             {isVerificationStep && otpInfo && (
               <div className="address-help">{otpInfo}</div>
@@ -930,40 +999,6 @@ function getJornayaLeadId() {
             </div>
           </>
         )}
-
-        {showThankYouModal && (
-  <div className="thankyou-modal-overlay">
-    <div className="thankyou-modal">
-      <button
-        type="button"
-        className="thankyou-close"
-        onClick={() => setShowThankYouModal(false)}
-      >
-        ×
-      </button>
-
-      <div className="thankyou-icon">✓</div>
-
-      <h3 className="thankyou-title">Thank You!</h3>
-
-      <p className="thankyou-text">
-        Your information has been submitted successfully.
-      </p>
-
-      <p className="thankyou-subtext">
-        One of our partners will contact you shortly with your free quote.
-      </p>
-
-      <button
-        type="button"
-        className="thankyou-btn"
-        onClick={() => setShowThankYouModal(false)}
-      >
-        Done
-      </button>
-    </div>
-  </div>
-)}
 
         {error && <div className="address-help error-text">{error}</div>}
       </div>

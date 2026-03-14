@@ -370,6 +370,34 @@ input {
   pointer-events: auto;
 }
 
+.thankyou-step {
+  text-align: center;
+  padding: 24px 8px 8px;
+}
+
+.thankyou-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 16px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: 700;
+  background: #e8f7ee;
+  color: #16a34a;
+}
+
+.thankyou-title {
+  margin: 0 0 12px;
+}
+
+.thankyou-text,
+.thankyou-subtext {
+  margin: 0 0 10px;
+}
+
 .consent-copy a:hover {
   opacity: 0.85;
 }

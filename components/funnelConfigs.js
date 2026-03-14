@@ -15,6 +15,11 @@ export const funnelConfigs = {
         title: "Are you a Homeowner?",
         type: "options",
         options: ["Yes", "No"],
+        disqualifyOn: {
+          values: ["No"],
+          title: "Thank You!",
+          message: "Our Roofing program is currently for homeowners only.",
+        },
       },
       {
         key: "material",
@@ -98,6 +103,11 @@ export const funnelConfigs = {
       title: "Are you a Homeowner?",
       type: "options",
       options: ["Yes", "No"],
+      disqualifyOn: {
+        values: ["No"],
+        title: "Thank You!",
+        message: "Our solar program is currently for homeowners only.",
+      },
     },
     {
       key: "existingSolar",
