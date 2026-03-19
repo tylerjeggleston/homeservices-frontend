@@ -51,7 +51,7 @@ export default function Home() {
         <div className="logo-wrap">
           <div className="logo-mark">///</div>
           <div className="logo-text">
-            <div className="logo-small">REMODEL</div>
+            <div className="logo-small">REMODELllll</div>
             <div className="logo-big">YOUR HOME</div>
           </div>
         </div>
