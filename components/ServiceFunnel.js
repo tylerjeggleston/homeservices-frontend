@@ -112,6 +112,61 @@ function syncTrackingFieldsToRecorder() {
   };
 }
 
+function ThankYouScreen({ config }) {
+  const serviceName =
+  config?.thankYouServiceLabel ||
+  config?.serviceLabel ||
+  config?.heading?.replace(/^free\s+/i, "").replace(/\s+estimate$/i, "").trim() ||
+  "home improvement";
+
+const lowerServiceName = serviceName.toLowerCase();
+  return (
+    <section className="thankyou-page" data-rec-finalize="true">
+      <div className="thankyou-page-logo">
+        <div className="logo-wrap">
+          <div className="logo-mark">///</div>
+          <div className="logo-text">
+            <div className="logo-small">REMODEL</div>
+            <div className="logo-big">YOUR HOME</div>
+          </div>
+        </div>
+      </div>
+
+      <h1 className="thankyou-page-title">Thank You!</h1>
+
+      <div className="thankyou-page-grid">
+        <article className="thankyou-page-card">
+          <div className="thankyou-page-icon">🎉</div>
+          <h3>Congratulations!</h3>
+          <p>
+            You are one step closer to getting {lowerServiceName} information for your
+            home. A courteous expert will confirm your information and review your
+            eligibility.
+          </p>
+        </article>
+
+        <article className="thankyou-page-card">
+          <div className="thankyou-page-icon">📞</div>
+          <h3>Answer Your Phone!</h3>
+          <p>
+            The main goal is to help you save money. You will be contacted by a
+            courteous expert, so get ready.
+          </p>
+        </article>
+
+        <article className="thankyou-page-card">
+          <div className="thankyou-page-icon">✍️</div>
+          <h3>Grab A Pen!</h3>
+          <p>
+            You're moments away from obtaining information about your {lowerServiceName}{" "} project. When a courteous expert calls, make sure to write down their
+            quotes and ask any questions you may have.
+          </p>
+        </article>
+      </div>
+    </section>
+  );
+}
+
 export default function ServiceFunnel({ config }) {
   const steps = useMemo(() => config?.steps || [], [config]);
 
@@ -171,6 +226,7 @@ export default function ServiceFunnel({ config }) {
   const [dynamicOptions, setDynamicOptions] = useState({});
   const [dynamicOptionsLoading, setDynamicOptionsLoading] = useState(false);
   const [selectSearch, setSelectSearch] = useState("");
+  const [submitted, setSubmitted] = useState(false);
   const [disqualifyInfo, setDisqualifyInfo] = useState({
     title: "Thank You!",
     message: "",
@@ -778,6 +834,9 @@ const progressPercent = useMemo(() => {
   }, [currentStep, userCoords]);
 
   if (!currentStep) return null;
+ if (currentStep.type === "thankyou") {
+  return <ThankYouScreen config={config} />;
+}
 
   const currentValue = String(form[currentStep.key] || "").trim();
 
@@ -833,21 +892,6 @@ const progressPercent = useMemo(() => {
   <h2 className="question-title">{currentStep.title}</h2>
 )}
 
-        {currentStep.type === "thankyou" && (
-          <div className="thankyou-step" data-rec-finalize="true">
-            <div className="thankyou-icon">✓</div>
-
-            <h3 className="thankyou-title">Thank You!</h3>
-
-            <p className="thankyou-text">
-              Your information has been submitted successfully.
-            </p>
-
-            <p className="thankyou-subtext">
-              One of our partners will contact you shortly.
-            </p>
-          </div>
-        )}
 
         {currentStep.type === "disqualified" && (
           <div className="thankyou-step">
