@@ -423,6 +423,7 @@ input {
 .header-right {
   display: flex;
   align-items: center;
+  margin-right: 100px;
   gap: 12px;
   font-size: 16px;
 }

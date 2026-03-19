@@ -7,6 +7,22 @@ export function generateStaticParams() {
   return Object.keys(funnelConfigs).map((slug) => ({ slug }));
 }
 
+export function generateMetadata({ params }) {
+  const config = funnelConfigs[params.slug];
+
+  if (!config) {
+    return {
+      title: "Remodel Your Home",
+      description: "Remodel funnel demo",
+    };
+  }
+
+  return {
+    title: "Remodel Your Home",
+    description: config.heading || "Remodel funnel demo",
+  };
+}
+
 export default function ServicePage({ params }) {
   const config = funnelConfigs[params.slug];
 
