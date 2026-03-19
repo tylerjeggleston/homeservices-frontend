@@ -33,7 +33,14 @@ input {
 }
 
 .home-topbar {
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.topbar-phone {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1f7bf2;
+  letter-spacing: 0.3px;
 }
 
 .logo-wrap {
