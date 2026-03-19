@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 
 const services = [
@@ -14,40 +12,11 @@ const services = [
   { title: "Walk in Tubs", slug: "walk-in-tubs-v1pvcs" },
 ];
 
-function buildTrackedHref(slug) {
-  if (typeof window === "undefined") return `/${slug}`;
-
-  const params = new URLSearchParams(window.location.search);
-
-  const allowedKeys = [
-    "aff",
-    "affiliate_id",
-    "sub1",
-    "sub2",
-    "click_id",
-    "clickid",
-    "utm_source",
-    "utm_medium",
-    "utm_campaign",
-    "utm_term",
-    "utm_content",
-  ];
-
-  const nextParams = new URLSearchParams();
-
-  for (const key of allowedKeys) {
-    const value = params.get(key);
-    if (value) nextParams.set(key, value);
-  }
-
-  const qs = nextParams.toString();
-  return qs ? `/${slug}?${qs}` : `/${slug}`;
-}
-
 export default function Home() {
   return (
     <div>
       <header className="topbar home-topbar">
+
         <div className="logo-wrap">
           <div className="logo-mark">///</div>
           <div className="logo-text">
@@ -86,7 +55,7 @@ export default function Home() {
               </li>
             </ul>
 
-            <Link href={buildTrackedHref("roofing-v1pvcs")} className="cta-link">
+            <Link href="/roofing-v1pvcs" className="cta-link">
               <button className="cta">Get Started ›</button>
             </Link>
           </div>
@@ -94,28 +63,27 @@ export default function Home() {
       </section>
 
       <section className="services-section">
-        <div className="services-grid">
-          {services.map((item) => (
-            <Link
-              key={item.slug}
-              href={buildTrackedHref(item.slug)}
-              className="service-link"
-            >
-              <div className="service-card">
-                <div className="service-title">{item.title}</div>
+  <div className="services-grid">
+    {services.map((item) => (
+      <Link
+        key={item.slug}
+        href={`/${item.slug}`}
+        className="service-link"
+      >
+        <div className="service-card">
+          <div className="service-title">{item.title}</div>
 
-                <img
-                  src={`/services/${item.slug.replace("-v1pvcs", "")}.jpg`}
-                  className="service-image"
-                  alt={item.title}
-                />
+          <img
+            src={`/services/${item.slug.replace("-v1pvcs","")}.jpg`}
+            className="service-image"
+          />
 
-                <div className="service-btn">Learn More</div>
-              </div>
-            </Link>
-          ))}
+          <div className="service-btn">Learn More</div>
         </div>
-      </section>
+      </Link>
+    ))}
+  </div>
+</section>
 
       <section className="how-it-works">
         <h2>How It Works</h2>
@@ -164,9 +132,9 @@ export default function Home() {
       <footer className="footer">
         <div>©2026 leadlockerroom.com</div>
         <div className="footer-links">
-          <a href="#">Privacy Policy</a>
+          <a href="/privacy-policy">Privacy Policy</a>
           <a href="/terms">Terms of Use</a>
-          <a href="#">Do Not Sell My Personal Information</a>
+          <a href="/do-not-sell-my-personal-information">Do Not Sell My Personal Information</a>
           <a href="#">Contact Us</a>
         </div>
       </footer>

@@ -2,11 +2,102 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-//const OTP_API_BASE = "https://homeservices-backend-1fe53ea28f51.herokuapp.com";
-const OTP_API_BASE = "https://homeservicesbackend-49679431e329.herokuapp.com";
+const OTP_API_BASE = "https://homeservices-backend-1fe53ea28f51.herokuapp.com";
+//const OTP_API_BASE = "https://homeservicesbackend-49679431e329.herokuapp.com";
 
 function isValidZip(zip) {
   return /^\d{5}(-\d{4})?$/.test(String(zip || "").trim());
+}
+
+function getTrackingParams() {
+  if (typeof window === "undefined") {
+    return {
+      affiliateId: "",
+      sub1: "",
+      sub2: "",
+      clickId: "",
+      utmSource: "",
+      utmMedium: "",
+      utmCampaign: "",
+      utmTerm: "",
+      utmContent: "",
+      referrer: "",
+      landingPage: "",
+    };
+  }
+
+  const params = new URLSearchParams(window.location.search);
+
+  const fromUrl = {
+    affiliateId: params.get("aff") || params.get("affiliate_id") || "",
+    sub1: params.get("sub1") || "",
+    sub2: params.get("sub2") || "",
+    clickId: params.get("click_id") || params.get("clickid") || "",
+    utmSource: params.get("utm_source") || "",
+    utmMedium: params.get("utm_medium") || "",
+    utmCampaign: params.get("utm_campaign") || "",
+    utmTerm: params.get("utm_term") || "",
+    utmContent: params.get("utm_content") || "",
+    referrer: document.referrer || "",
+    landingPage: window.location.href || "",
+  };
+
+  let stored = {};
+  try {
+    stored = JSON.parse(localStorage.getItem("affiliate_tracking") || "{}");
+  } catch {
+    stored = {};
+  }
+
+  return {
+    affiliateId: fromUrl.affiliateId || stored.affiliateId || "",
+    sub1: fromUrl.sub1 || stored.sub1 || "",
+    sub2: fromUrl.sub2 || stored.sub2 || "",
+    clickId: fromUrl.clickId || stored.clickId || "",
+    utmSource: fromUrl.utmSource || stored.utmSource || "",
+    utmMedium: fromUrl.utmMedium || stored.utmMedium || "",
+    utmCampaign: fromUrl.utmCampaign || stored.utmCampaign || "",
+    utmTerm: fromUrl.utmTerm || stored.utmTerm || "",
+    utmContent: fromUrl.utmContent || stored.utmContent || "",
+    referrer: fromUrl.referrer || stored.referrer || "",
+    landingPage: fromUrl.landingPage || stored.landingPage || "",
+  };
+}
+
+
+function persistTrackingParams() {
+  if (typeof window === "undefined") return;
+
+  const params = new URLSearchParams(window.location.search);
+
+  const tracking = {
+    affiliateId: params.get("aff") || params.get("affiliate_id") || "",
+    sub1: params.get("sub1") || "",
+    sub2: params.get("sub2") || "",
+    clickId: params.get("click_id") || params.get("clickid") || "",
+    utmSource: params.get("utm_source") || "",
+    utmMedium: params.get("utm_medium") || "",
+    utmCampaign: params.get("utm_campaign") || "",
+    utmTerm: params.get("utm_term") || "",
+    utmContent: params.get("utm_content") || "",
+    referrer: document.referrer || "",
+    landingPage: window.location.href || "",
+  };
+
+  const hasAnyTracking =
+    tracking.affiliateId ||
+    tracking.sub1 ||
+    tracking.sub2 ||
+    tracking.clickId ||
+    tracking.utmSource ||
+    tracking.utmMedium ||
+    tracking.utmCampaign ||
+    tracking.utmTerm ||
+    tracking.utmContent;
+
+  if (!hasAnyTracking) return;
+
+  localStorage.setItem("affiliate_tracking", JSON.stringify(tracking));
 }
 
 function extractAddressParts(place) {
@@ -212,7 +303,17 @@ export default function ServiceFunnel({ config }) {
     obj.trustedFormCertUrl = "";
     obj.jornayaLeadId = "";
     obj.consent = "";
-
+    obj.affiliateId = "";
+    obj.sub1 = "";
+    obj.sub2 = "";
+    obj.clickId = "";
+    obj.utmSource = "";
+    obj.utmMedium = "";
+    obj.utmCampaign = "";
+    obj.utmTerm = "";
+    obj.utmContent = "";
+    obj.referrer = "";
+    obj.landingPage = "";
     return obj;
   }, [steps]);
 
@@ -288,6 +389,27 @@ const progressPercent = useMemo(() => {
       setStepIndex((prev) => prev - 1);
     }
   }
+
+  useEffect(() => {
+  persistTrackingParams();
+
+  const tracking = getTrackingParams();
+
+  setForm((prev) => ({
+    ...prev,
+    affiliateId: tracking.affiliateId,
+    sub1: tracking.sub1,
+    sub2: tracking.sub2,
+    clickId: tracking.clickId,
+    utmSource: tracking.utmSource,
+    utmMedium: tracking.utmMedium,
+    utmCampaign: tracking.utmCampaign,
+    utmTerm: tracking.utmTerm,
+    utmContent: tracking.utmContent,
+    referrer: tracking.referrer,
+    landingPage: tracking.landingPage,
+  }));
+}, []);
 
   function validateCurrentStep() {
     if (!currentStep) return false;
