@@ -53,13 +53,15 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
-        {/* Jornaya LeadiD */}
+        {/* Jornaya LeadiD - only fires on remodelwiz.com */}
         <Script
           id="LeadiDscript"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
+                var host = window.location.hostname;
+                if (host !== 'remodelwiz.com' && host !== 'www.remodelwiz.com') return;
                 var s = document.createElement('script');
                 s.id = 'LeadiDscript_campaign';
                 s.type = 'text/javascript';
