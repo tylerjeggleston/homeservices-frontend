@@ -47,7 +47,6 @@ export default function ServicePage({ params }) {
           <span className="service-dot">●</span>
           <span className="service-text">24-Hour Service</span>
           <span className="divider">|</span>
-          <span className="phone-number">📞 {config.phoneNumber || "(888) 411-3127"}</span>
 
         </div>
       </header>

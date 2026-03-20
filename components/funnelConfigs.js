@@ -96,7 +96,6 @@ export const funnelConfigs = {
 
   "solar-v1pvcs": {
   heading: "Free Solar Estimate",
-  phoneNumber: "(888) 870-0986",
   steps: [
     {
       key: "homeowner",

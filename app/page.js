@@ -55,7 +55,6 @@ export default function Home() {
             <div className="logo-big">YOUR HOME</div>
           </div>
         </div>
-        <a href="tel:2092021775" className="topbar-phone">209-202-1775</a>
       </header>
 
       <section className="hero">
