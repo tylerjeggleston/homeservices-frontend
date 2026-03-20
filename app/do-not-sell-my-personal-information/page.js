@@ -293,7 +293,7 @@ Make other internal and lawful uses of that information that are compatible with
             </h2>
 
             <p style={{ margin: "0 0 22px" }}>
-              To exercise your rights as described above, please submit an email to: remodelyourhome.net@domainsbyproxy.com
+              To exercise your rights as described above, please submit an email to: info@remodelwiz.com
 
 Only you or a person registered with the California Secretary of State that you authorize to act on your behalf, may make a verifiable consumer request related to your personal information or on behalf of your minor child.
 
@@ -378,7 +378,7 @@ Provide you a different level or quality of services.
               Contact Information
             </h2>
 
-            <p style={{ margin: 0 }}>If you have any questions or comments regarding this notice, please contact us at: or write to us with your specific instructions at: - remodelyourhome.net@domainsbyproxy.com</p>
+            <p style={{ margin: 0 }}>If you have any questions or comments regarding this notice, please contact us at: or write to us with your specific instructions at: - info@remodelwiz.com</p>
           </div>
         </div>
 

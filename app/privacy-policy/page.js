@@ -98,7 +98,7 @@ const h3Style = {
               respecting your privacy and protecting your personal information.
               This Privacy Policy explains the types of personal information we
               may collect from visitors to our websites, including
-              www.remodelyourhome.net and all related websites, mobile apps, and
+              www.remodelwiz.com and all related websites, mobile apps, and
               web-based services (our “Sites”). This Policy also describes how
               we use personal information, the purpose for sharing and
               recipients of personal information, and your available rights and
@@ -169,7 +169,7 @@ const h3Style = {
 
             <p style={{ margin: "0 0 22px" }}>
               Contact information. When you fill out an online webform with
-              remodelyourhome.net, you may be asked to provide your first and
+              remodelwiz.com, you may be asked to provide your first and
               last name, email address, residential address, zip code, and phone
               number.
             </p>
@@ -243,7 +243,7 @@ const h3Style = {
 
             <p style={{ margin: "0 0 22px" }}>
               We use the personal information we collect to provide, maintain
-              and improve our Sites and the services that remodelyourhome.net
+              and improve our Sites and the services that remodelwiz.com
               offers through them (our “Services”). This includes:
             </p>
 
@@ -296,13 +296,13 @@ const h3Style = {
 
             <p style={{ margin: "0 0 22px" }}>
               We may send you promotional email communications about
-              remodelyourhome.net, invite you to participate in events or
+              remodelwiz.com, invite you to participate in events or
               promotions, or otherwise communicate with you for marketing
               purposes, as allowed by applicable law. For example, when we
               collect your contact information through your interaction with our
               Sites, we may use that information to follow up with you regarding
               an event or send you information that you have requested about
-              remodelyourhome.net. You may opt out of receiving any, or all, of
+              remodelwiz.com. You may opt out of receiving any, or all, of
               these communications from us via the unsubscribe link provided in
               such emails or by following further instructions provided in Your
               Rights and Choices.
@@ -363,7 +363,7 @@ const h3Style = {
             </p>
 
             <p style={{ margin: "0 0 22px" }}>
-              Affiliate and business transfer. If remodelyourhome.net is
+              Affiliate and business transfer. If remodelwiz.com is
               involved in a merger, acquisition or asset sale, your personal
               information may be transferred. We will provide notice before your
               personal information is transferred and becomes subject to a
@@ -376,7 +376,7 @@ const h3Style = {
               and regulations; (ii) to enforce our contractual rights; (iii) to
               investigate possible wrongdoing in connection with the Site and
               Services; (iv) to protect and defend the rights, privacy, safety
-              and property of remodelyourhome.net, you or others; and (v) to
+              and property of remodelwiz.com, you or others; and (v) to
               respond to requests from courts, law enforcement agencies,
               regulatory agencies, and other public and government authorities.
             </p>
@@ -412,7 +412,7 @@ const h3Style = {
               Opting out of receiving electronic communications from us. If you
               no longer wish to receive promotional email communications from
               us, you may opt out via the unsubscribe link included in such
-              emails or by emailing us at remodelyourhome.net@domainsbyproxy.com.
+              emails or by emailing us at info@remodelwiz.com.
               We will comply with your request as soon as reasonably practicable.
               Please note that if you opt out of receiving promotional emails
               from us, we may still send you important administrative messages
@@ -435,7 +435,7 @@ const h3Style = {
               under Nevada SB 220. You may request to opt out of the future sale
               of your personal information. If you are a Nevada resident and
               would like to make such a request, please email us at
-              remodelyourhome.net@domainsbyproxy.com and provide “Nevada Privacy
+              info@remodelwiz.com and provide “Nevada Privacy
               Rights” in the subject line. You must include your full name,
               email address and postal address in your request so that we can
               verify your Nevada residence and respond. In the event we sell
@@ -530,7 +530,7 @@ const h3Style = {
               app tracking by certain advertising networks through your device
               settings. You may also visit these websites for more information
               on how you can opt back in to the sharing of data. Please note
-              that remodelyourhome.net does not maintain this web tracking data
+              that remodelwiz.com does not maintain this web tracking data
               in an identifiable manner.
             </p>
 
@@ -556,7 +556,7 @@ If you are a parent or guardian and you are aware that a child under age 13 has 
             </p>
             <h2 style={h2Style}>9. Links to Other Websites</h2>
             <p style={{ margin: "0 0 22px" }}>
-              Our Sites may contain links to other websites that are not operated by remodelyourhome.net. We strongly suggest you review their privacy policies. If any linked website is not owned or controlled by us, we are not responsible for its content or privacy policies, or the practices of the operator of the website or services.
+              Our Sites may contain links to other websites that are not operated by remodelwiz.com. We strongly suggest you review their privacy policies. If any linked website is not owned or controlled by us, we are not responsible for its content or privacy policies, or the practices of the operator of the website or services.
             </p>
             <h2 style={h2Style}>10. Changes to This Privacy Policy</h2>
             <p style={{ margin: "0 0 22px" }}>
@@ -564,7 +564,7 @@ If you are a parent or guardian and you are aware that a child under age 13 has 
             </p>
             <h2 style={h2Style}>11. Contact Us</h2>
             <p style={{ margin: "0 0 22px" }}>
-             If you have any questions about this Privacy Policy or wish to exercise one of your privacy rights, please contact us by emailing remodelyourhome.net@domainsbyproxy.com
+             If you have any questions about this Privacy Policy or wish to exercise one of your privacy rights, please contact us by emailing info@remodelwiz.com
             </p>
             <h2 style={h2Style}>Agreement to Arbitrate</h2>
             <p style={{ margin: "0 0 22px" }}>

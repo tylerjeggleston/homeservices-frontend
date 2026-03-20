@@ -277,8 +277,8 @@ export default function TermsPage() {
         <p>
           All questions, comments, or requests for information about our Terms
           should be directed to{" "}
-          <a href="mailto:remodelyourhome.net@domainsbyproxy.com">
-            remodelyourhome.net@domainsbyproxy.com
+          <a href="mailto:info@remodelwiz.com">
+            info@remodelwiz.com
           </a>
         </p>
 
