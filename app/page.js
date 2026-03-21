@@ -1,17 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 const services = [
-  { title: "Roofing", slug: "roofing-v1pvcs" },
-  { title: "Windows", slug: "windows-v1pvcs" },
-  { title: "Solar", slug: "solar-v1pvcs" },
-  { title: "Bathroom", slug: "bathroom-v1pvcs" },
-  { title: "Gutters", slug: "gutters-v1pvcs" },
-  { title: "HVAC", slug: "hvac-v1pvcs" },
-  { title: "Painting", slug: "painting-v1pvcs" },
-  { title: "Siding", slug: "siding-v1pvcs" },
-  { title: "Walk in Tubs", slug: "walk-in-tubs-v1pvcs" },
+  { title: "Roofing", slug: "roofing-v1pvcs", emoji: "🏠" },
+  { title: "Windows", slug: "windows-v1pvcs", emoji: "🪟" },
+  { title: "Solar", slug: "solar-v1pvcs", emoji: "☀️" },
+  { title: "Bathroom", slug: "bathroom-v1pvcs", emoji: "🛁" },
+  { title: "Gutters", slug: "gutters-v1pvcs", emoji: "🌧️" },
+  { title: "HVAC", slug: "hvac-v1pvcs", emoji: "❄️" },
+  { title: "Painting", slug: "painting-v1pvcs", emoji: "🎨" },
+  { title: "Siding", slug: "siding-v1pvcs", emoji: "🏡" },
+  { title: "Walk in Tubs", slug: "walk-in-tubs-v1pvcs", emoji: "🛀" },
 ];
 
 function buildTrackedHref(slug) {
@@ -46,130 +47,123 @@ function buildTrackedHref(slug) {
 
 export default function Home() {
   return (
-    <div>
-      <header className="topbar home-topbar">
-        <div className="logo-wrap">
-          <div className="logo-mark">///</div>
-          <div className="logo-text">
-            <div className="logo-small">REMODEL</div>
-            <div className="logo-big">YOUR HOME</div>
+    <div className="rw-page">
+
+      {/* HEADER */}
+      <header className="rw-header">
+        <div className="rw-logo">
+          <span className="rw-logo-badge">RW</span>
+          <div className="rw-logo-text">
+            <span className="rw-logo-top">REMODEL</span>
+            <span className="rw-logo-bottom">WIZ</span>
           </div>
         </div>
+        <div className="rw-tagline-header">Your Home Improvement Wizard ✨</div>
       </header>
 
-      <section className="hero">
-        <div className="hero-overlay">
-          <div className="hero-content">
-            <h1>Let us Take care of Your Home Project</h1>
-
-            <ul className="hero-list">
-              <li>
-                <span className="check">✔</span>
-                <span>
-                  <strong>Free</strong> - Get the quote for your home project free
-                  of charge.
-                </span>
-              </li>
-              <li>
-                <span className="check">✔</span>
-                <span>
-                  <strong>No obligation</strong> - Get quote without obligation to
-                  purchase.
-                </span>
-              </li>
-              <li>
-                <span className="check">✔</span>
-                <span>
-                  <strong>Backup Available</strong> - Get up to 4 FREE quotes from
-                  our partners if we are not servicing your area.
-                </span>
-              </li>
-            </ul>
-
-            <Link href={buildTrackedHref("roofing-v1pvcs")} className="cta-link">
-              <button className="cta">Get Started ›</button>
-            </Link>
-          </div>
+      {/* HERO */}
+      <section className="rw-hero">
+        <div className="rw-hero-left">
+          <h1 className="rw-hero-title">
+            Let the Wizard Handle Your Home Project
+          </h1>
+          <ul className="rw-hero-list">
+            <li><span className="rw-check">✔</span><span><strong>Free Quotes</strong> — No cost, no obligation to purchase.</span></li>
+            <li><span className="rw-check">✔</span><span><strong>Top Contractors</strong> — Matched to your area and project.</span></li>
+            <li><span className="rw-check">✔</span><span><strong>Up to 4 FREE Quotes</strong> — From our trusted partner network.</span></li>
+          </ul>
+          <Link href={buildTrackedHref("roofing-v1pvcs")} className="rw-cta-link">
+            <button className="rw-cta-btn">Get Your Free Quote ›</button>
+          </Link>
+        </div>
+        <div className="rw-hero-right">
+          <Image
+            src="/remodel-wizard.png"
+            alt="Remodel Wiz Mascot"
+            width={420}
+            height={420}
+            className="rw-mascot"
+            priority
+          />
         </div>
       </section>
 
-      <section className="services-section">
-        <div className="services-grid">
+      {/* SERVICES */}
+      <section className="rw-services">
+        <h2 className="rw-section-title">What Can the Wizard Fix for You?</h2>
+        <div className="rw-services-grid">
           {services.map((item) => (
             <Link
               key={item.slug}
               href={buildTrackedHref(item.slug)}
-              className="service-link"
+              className="rw-service-link"
             >
-              <div className="service-card">
-                <div className="service-title">{item.title}</div>
-
-                <img
-                  src={`/services/${item.slug.replace("-v1pvcs", "")}.jpg`}
-                  className="service-image"
-                  alt={item.title}
-                />
-
-                <div className="service-btn">Learn More</div>
+              <div className="rw-service-card">
+                <div className="rw-service-img-wrap">
+                  <img
+                    src={`/services/${item.slug.replace("-v1pvcs", "")}.jpg`}
+                    className="rw-service-img"
+                    alt={item.title}
+                  />
+                  <div className="rw-service-overlay" />
+                </div>
+                <div className="rw-service-footer">
+                  <span className="rw-service-emoji">{item.emoji}</span>
+                  <span className="rw-service-name">{item.title}</span>
+                  <span className="rw-service-arrow">›</span>
+                </div>
               </div>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="how-it-works">
-        <h2>How It Works</h2>
-        <p>
-          Our Team receives your request and call you to set an appointment for
-          Free Inspection and Quote to get Started
+      {/* HOW IT WORKS */}
+      <section className="rw-how">
+        <h2 className="rw-section-title">How the Magic Works</h2>
+        <p className="rw-how-sub">
+          We connect homeowners with the best local contractors — fast, free, and hassle-free.
         </p>
-        <p>
-          If you are outside our Service area, we help to connect you with our
-          network of industry-leading contractors to get your home improvement
-          projects done.
-        </p>
-
-        <div className="how-grid">
-          <div className="how-card">
-            <div className="how-icon">👍</div>
-            <h3>Choose a project</h3>
-            <p>
-              Take our 30 seconds survey, answer a few questions about your needs
-              and preferences for your upcoming home improvement project.
-            </p>
+        <div className="rw-how-grid">
+          <div className="rw-how-card">
+            <div className="rw-how-num">1</div>
+            <div className="rw-how-icon">📋</div>
+            <h3>Tell Us Your Project</h3>
+            <p>Answer a quick 30-second survey about your home improvement needs.</p>
           </div>
-
-          <div className="how-card">
-            <div className="how-icon">👥</div>
-            <h3>Match with contractors</h3>
-            <p>
-              Our screening process ensures you have peace of mind. Whether we do
-              the job for you, or we will match you with reliable and most
-              recommended home improvement service professionals.
-            </p>
+          <div className="rw-how-card">
+            <div className="rw-how-num">2</div>
+            <div className="rw-how-icon">🧙</div>
+            <h3>We Work Our Magic</h3>
+            <p>We match you with screened, reliable contractors in your area.</p>
           </div>
-
-          <div className="how-card">
-            <div className="how-icon">📋</div>
-            <h3>Compare quote</h3>
-            <p>
-              If we won&apos;t be able to serve your area, we will send you up to
-              4 FREE quotes by email, phone and text. Compare each quote, select
-              your contractor and get started with your home project.
-            </p>
+          <div className="rw-how-card">
+            <div className="rw-how-num">3</div>
+            <div className="rw-how-icon">🏆</div>
+            <h3>Compare &amp; Choose</h3>
+            <p>Get up to 4 FREE quotes, compare, and pick the best fit for you.</p>
           </div>
         </div>
       </section>
 
-      <footer className="footer">
-        <div>©2026 leadlockerroom.com</div>
-        <div className="footer-links">
-          <a href="#">Privacy Policy</a>
+      {/* FOOTER */}
+      <footer className="rw-footer">
+        <div className="rw-footer-logo">
+          <span className="rw-logo-badge sm">RW</span>
+          <span className="rw-footer-brand">ReModelWiz.com</span>
+        </div>
+        <div className="rw-footer-copy">©2026 ReModelWiz.com · All rights reserved</div>
+        <div className="rw-footer-links">
+          <a href="/privacy-policy">Privacy Policy</a>
+          <span>·</span>
           <a href="/terms">Terms of Use</a>
-          <a href="#">Do Not Sell My Personal Information</a>
+          <span>·</span>
+          <a href="/do-not-sell-my-personal-information">Do Not Sell My Info</a>
+          <span>·</span>
           <a href="#">Contact Us</a>
         </div>
       </footer>
+
     </div>
   );
 }
