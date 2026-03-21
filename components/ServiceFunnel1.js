@@ -380,6 +380,11 @@ function getJornayaLeadId() {
     setForm(finalForm);
     setShowThankYouModal(true);
 
+    // Fire Meta Pixel Lead event on successful submission
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "Lead");
+    }
+
     console.log("FORM DATA:", finalForm);
     console.log("SERVICE:", config?.heading);
     console.log("LEAD ID:", submitData.leadId);

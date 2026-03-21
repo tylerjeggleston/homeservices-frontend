@@ -633,6 +633,11 @@ const progressPercent = useMemo(() => {
       setForm(finalForm);
       setStepIndex(allSteps.findIndex((step) => step.type === "thankyou"));
 
+      // Fire Meta Pixel Lead event on successful submission
+      if (typeof window !== "undefined" && window.fbq) {
+        window.fbq("track", "Lead");
+      }
+
       console.log("FORM DATA:", finalForm);
       console.log("SERVICE:", config?.heading);
       console.log("LEAD ID:", submitData.leadId);
