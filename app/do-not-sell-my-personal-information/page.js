@@ -24,13 +24,13 @@ export default function CaliforniaPrivacyNoticePage() {
             marginBottom: "28px",
           }}
         >
-          <div className="logo-wrap">
-          <div className="logo-mark">///</div>
-          <div className="logo-text">
-            <div className="logo-small">REMODEL</div>
-            <div className="logo-big">YOUR HOME</div>
+          <div className="rw-logo">
+            <span className="rw-logo-badge">RW</span>
+            <div className="rw-logo-text">
+              <span className="rw-logo-top">REMODEL</span>
+              <span className="rw-logo-bottom">WIZ</span>
+            </div>
           </div>
-        </div>
         </div>
 
         <div

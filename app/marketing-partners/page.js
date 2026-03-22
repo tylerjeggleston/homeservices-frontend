@@ -11,11 +11,11 @@ export default function MarketingPartnersPage() {
     <div className="marketing-page">
       <header className="marketing-header">
         <Link href="/" className="marketing-logo-link">
-          <div className="marketing-logo-wrap" aria-label="Remodel Your Home">
-            <div className="marketing-logo-mark">///</div>
-            <div className="marketing-logo-text">
-              <div className="marketing-logo-small">REMODEL</div>
-              <div className="marketing-logo-big">YOUR HOME</div>
+          <div className="rw-logo" aria-label="Remodel Wiz">
+            <span className="rw-logo-badge">RW</span>
+            <div className="rw-logo-text">
+              <span className="rw-logo-top">REMODEL</span>
+              <span className="rw-logo-bottom">WIZ</span>
             </div>
           </div>
         </Link>

@@ -39,16 +39,13 @@ const h3Style = {
             marginBottom: "28px",
           }}
         >
-          <img
-            src="/logo.png"
-            alt="Remodel Your Home"
-            style={{
-              maxWidth: "220px",
-              width: "100%",
-              height: "auto",
-              objectFit: "contain",
-            }}
-          />
+          <div className="rw-logo" style={{ justifyContent: "center" }}>
+            <span className="rw-logo-badge">RW</span>
+            <div className="rw-logo-text">
+              <span className="rw-logo-top">REMODEL</span>
+              <span className="rw-logo-bottom">WIZ</span>
+            </div>
+          </div>
         </div>
 
         <div
