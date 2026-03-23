@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import ServiceFunnel from "../../components/ServiceFunnel";
 import { funnelConfigs } from "../../components/funnelConfigs";
-import Link from "next/link";
+import HomeLogoButton from "../../components/HomeLogoButton";
 
 export function generateStaticParams() {
   return Object.keys(funnelConfigs).map((slug) => ({ slug }));
@@ -33,21 +33,12 @@ export default function ServicePage({ params }) {
   return (
     <div className="roofing-page">
       <header className="topbar">
-      <Link href="/" className="logo-link">
-    <div className="rw-logo">
-      <span className="rw-logo-badge">RW</span>
-      <div className="rw-logo-text">
-        <span className="rw-logo-top">REMODEL</span>
-        <span className="rw-logo-bottom">WIZ</span>
-      </div>
-    </div>
-  </Link>
+        <HomeLogoButton />
 
         <div className="header-right">
           <span className="service-dot">●</span>
           <span className="service-text">24-Hour Service</span>
           <span className="divider">|</span>
-
         </div>
       </header>
 

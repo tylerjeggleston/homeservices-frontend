@@ -261,6 +261,8 @@ const lowerServiceName = serviceName.toLowerCase();
 export default function ServiceFunnel({ config }) {
   const steps = useMemo(() => config?.steps || [], [config]);
 
+
+
   const allSteps = useMemo(
     () => [
       ...steps,
@@ -946,18 +948,22 @@ const progressPercent = useMemo(() => {
     autocompleteRef.current = autocomplete;
     autocompleteListenerRef.current = listener;
 
-    return () => {
-      if (autocompleteListenerRef.current?.remove) {
-        autocompleteListenerRef.current.remove();
-        autocompleteListenerRef.current = null;
-      }
+   return () => {
+  try {
+    if (autocompleteListenerRef.current?.remove) {
+      autocompleteListenerRef.current.remove();
+      autocompleteListenerRef.current = null;
+    }
 
-      if (window.google?.maps?.event && autocompleteRef.current) {
-        window.google.maps.event.clearInstanceListeners(autocompleteRef.current);
-      }
+    if (window.google?.maps?.event && autocompleteRef.current) {
+      window.google.maps.event.clearInstanceListeners(autocompleteRef.current);
+    }
 
-      autocompleteRef.current = null;
-    };
+    autocompleteRef.current = null;
+  } catch (err) {
+    console.warn("Autocomplete cleanup error:", err);
+  }
+};
   }, [currentStep, userCoords]);
 
   if (!currentStep) return null;
