@@ -881,15 +881,7 @@ const progressPercent = useMemo(() => {
     if (!window.google?.maps?.places) return;
     if (!addressInputRef.current) return;
 
-    if (autocompleteListenerRef.current?.remove) {
-      autocompleteListenerRef.current.remove();
-      autocompleteListenerRef.current = null;
-    }
 
-    if (autocompleteRef.current && window.google?.maps?.event) {
-      window.google.maps.event.clearInstanceListeners(autocompleteRef.current);
-      autocompleteRef.current = null;
-    }
 
     const autocomplete = new window.google.maps.places.Autocomplete(
       addressInputRef.current,
@@ -955,9 +947,7 @@ const progressPercent = useMemo(() => {
       autocompleteListenerRef.current = null;
     }
 
-    if (window.google?.maps?.event && autocompleteRef.current) {
-      window.google.maps.event.clearInstanceListeners(autocompleteRef.current);
-    }
+
 
     autocompleteRef.current = null;
   } catch (err) {
@@ -966,10 +956,18 @@ const progressPercent = useMemo(() => {
 };
   }, [currentStep, userCoords]);
 
+  useEffect(() => {
+    const handlePopState = () => {
+      window.location.href = "/";
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
   if (!currentStep) return null;
- if (currentStep.type === "thankyou") {
-  return <ThankYouScreen config={config} />;
-}
+  if (currentStep.type === "thankyou") {
+    return <ThankYouScreen config={config} />;
+  }
 
   const currentValue = String(form[currentStep.key] || "").trim();
 
