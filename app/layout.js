@@ -75,13 +75,7 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
-        <noscript>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="//create.leadid.com/noscript.gif?lac=5B706989-5F15-8CDB-54F3-8AEA22ABE09B&lck=4b095f65-6705-68af-b800-3770bed128b3&snippet_version=2"
-            alt=""
-          />
-        </noscript>
+        <noscript dangerouslySetInnerHTML={{ __html: `<img src="//create.leadid.com/noscript.gif?lac=5B706989-5F15-8CDB-54F3-8AEA22ABE09B&lck=4b095f65-6705-68af-b800-3770bed128b3&snippet_version=2" alt="" />` }} />
 
         {/* Meta Pixel */}
         <Script
@@ -102,16 +96,7 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
-        <noscript>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            src="https://www.facebook.com/tr?id=1277043514524468&ev=PageView&noscript=1"
-            alt=""
-          />
-        </noscript>
+        <noscript dangerouslySetInnerHTML={{ __html: `<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1277043514524468&ev=PageView&noscript=1" alt="" />` }} />
       </body>
     </html>
   );
