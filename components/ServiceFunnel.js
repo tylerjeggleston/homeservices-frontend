@@ -393,6 +393,14 @@ const progressPercent = useMemo(() => {
   }
 
   useEffect(() => {
+    const handlePopState = () => {
+      window.location.href = "/";
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  useEffect(() => {
   persistTrackingParams();
 
   const tracking = getTrackingParams();
