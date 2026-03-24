@@ -7,8 +7,9 @@ export function generateStaticParams() {
   return Object.keys(funnelConfigs).map((slug) => ({ slug }));
 }
 
-export function generateMetadata({ params }) {
-  const config = funnelConfigs[params.slug];
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const config = funnelConfigs[slug];
 
   if (!config) {
     return {
@@ -23,8 +24,9 @@ export function generateMetadata({ params }) {
   };
 }
 
-export default function ServicePage({ params }) {
-  const config = funnelConfigs[params.slug];
+export default async function ServicePage({ params }) {
+  const { slug } = await params;
+  const config = funnelConfigs[slug];
 
   if (!config) {
     notFound();
@@ -46,7 +48,7 @@ export default function ServicePage({ params }) {
         <h1 className="funnel-title">{config.heading}</h1>
         <p className="funnel-subtitle">It only takes 30 seconds.</p>
 
-        <ServiceFunnel config={{ ...config, slug: params.slug }} />
+        <ServiceFunnel config={{ ...config, slug }} />
       </main>
     </div>
   );
