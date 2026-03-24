@@ -38,10 +38,7 @@ export default function RootLayout({ children }) {
                 tf.src = (document.location.protocol === 'https:' ? 'https' : 'http') +
                   '://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl&use_tagged_consent=true&l=' +
                   new Date().getTime() + Math.random();
-                var s = document.getElementsByTagName('script')[0];
-                if (s && s.parentNode) {
-                  s.parentNode.insertBefore(tf, s);
-                }
+                document.body.appendChild(tf);
               })();
             `,
           }}
@@ -67,10 +64,7 @@ export default function RootLayout({ children }) {
                 s.type = 'text/javascript';
                 s.async = true;
                 s.src = '//create.lidstatic.com/campaign/4b095f65-6705-68af-b800-3770bed128b3.js?snippet_version=2';
-                var LeadiDscript = document.getElementById('LeadiDscript');
-                if (LeadiDscript && LeadiDscript.parentNode) {
-                  LeadiDscript.parentNode.insertBefore(s, LeadiDscript);
-                }
+                document.body.appendChild(s);
               })();
             `,
           }}
@@ -88,8 +82,7 @@ export default function RootLayout({ children }) {
               n.callMethod.apply(n,arguments):n.queue.push(arguments)};
               if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
               n.queue=[];t=b.createElement(e);t.async=!0;
-              t.src=v;s=b.getElementsByTagName(e)[0];
-              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              t.src=v;b.body.appendChild(t)}(window, document,'script',
               'https://connect.facebook.net/en_US/fbevents.js');
               fbq('init', '1277043514524468');
               fbq('track', 'PageView');
