@@ -2,11 +2,102 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-const OTP_API_BASE = "https://homeservices-backend-1fe53ea28f51.herokuapp.com";
-//const OTP_API_BASE = "https://homeservicesbackend-49679431e329.herokuapp.com";
+//const OTP_API_BASE = "https://homeservices-backend-1fe53ea28f51.herokuapp.com";
+const OTP_API_BASE = "https://homeservicesbackend-49679431e329.herokuapp.com";
 
 function isValidZip(zip) {
   return /^\d{5}(-\d{4})?$/.test(String(zip || "").trim());
+}
+
+function getTrackingParams() {
+  if (typeof window === "undefined") {
+    return {
+      affiliateId: "",
+      sub1: "",
+      sub2: "",
+      clickId: "",
+      utmSource: "",
+      utmMedium: "",
+      utmCampaign: "",
+      utmTerm: "",
+      utmContent: "",
+      referrer: "",
+      landingPage: "",
+    };
+  }
+
+  const params = new URLSearchParams(window.location.search);
+
+  const fromUrl = {
+    affiliateId: params.get("aff") || params.get("affiliate_id") || "",
+    sub1: params.get("sub1") || "",
+    sub2: params.get("sub2") || "",
+    clickId: params.get("click_id") || params.get("clickid") || "",
+    utmSource: params.get("utm_source") || "",
+    utmMedium: params.get("utm_medium") || "",
+    utmCampaign: params.get("utm_campaign") || "",
+    utmTerm: params.get("utm_term") || "",
+    utmContent: params.get("utm_content") || "",
+    referrer: document.referrer || "",
+    landingPage: window.location.href || "",
+  };
+
+  let stored = {};
+  try {
+    stored = JSON.parse(localStorage.getItem("affiliate_tracking") || "{}");
+  } catch {
+    stored = {};
+  }
+
+  return {
+    affiliateId: fromUrl.affiliateId || stored.affiliateId || "",
+    sub1: fromUrl.sub1 || stored.sub1 || "",
+    sub2: fromUrl.sub2 || stored.sub2 || "",
+    clickId: fromUrl.clickId || stored.clickId || "",
+    utmSource: fromUrl.utmSource || stored.utmSource || "",
+    utmMedium: fromUrl.utmMedium || stored.utmMedium || "",
+    utmCampaign: fromUrl.utmCampaign || stored.utmCampaign || "",
+    utmTerm: fromUrl.utmTerm || stored.utmTerm || "",
+    utmContent: fromUrl.utmContent || stored.utmContent || "",
+    referrer: fromUrl.referrer || stored.referrer || "",
+    landingPage: fromUrl.landingPage || stored.landingPage || "",
+  };
+}
+
+
+function persistTrackingParams() {
+  if (typeof window === "undefined") return;
+
+  const params = new URLSearchParams(window.location.search);
+
+  const tracking = {
+    affiliateId: params.get("aff") || params.get("affiliate_id") || "",
+    sub1: params.get("sub1") || "",
+    sub2: params.get("sub2") || "",
+    clickId: params.get("click_id") || params.get("clickid") || "",
+    utmSource: params.get("utm_source") || "",
+    utmMedium: params.get("utm_medium") || "",
+    utmCampaign: params.get("utm_campaign") || "",
+    utmTerm: params.get("utm_term") || "",
+    utmContent: params.get("utm_content") || "",
+    referrer: document.referrer || "",
+    landingPage: window.location.href || "",
+  };
+
+  const hasAnyTracking =
+    tracking.affiliateId ||
+    tracking.sub1 ||
+    tracking.sub2 ||
+    tracking.clickId ||
+    tracking.utmSource ||
+    tracking.utmMedium ||
+    tracking.utmCampaign ||
+    tracking.utmTerm ||
+    tracking.utmContent;
+
+  if (!hasAnyTracking) return;
+
+  localStorage.setItem("affiliate_tracking", JSON.stringify(tracking));
 }
 
 function extractAddressParts(place) {
@@ -49,11 +140,150 @@ function formatPhoneDisplay(value) {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
+function getTrustedFormCertUrl() {
+  if (typeof document === "undefined") return "";
+  return (
+    document.querySelector('input[name="xxTrustedFormCertUrl"]')?.value || ""
+  );
+}
+
+function getJornayaLeadId() {
+  if (typeof document === "undefined") return "";
+  return (
+    document.querySelector('input[name="universal_leadid"]')?.value ||
+    document.querySelector('input[name="leadid_token"]')?.value ||
+    ""
+  );
+}
+
+function getConsentSessionId() {
+  if (typeof window === "undefined") return "";
+
+  return (
+    sessionStorage.getItem("rrwebSessionId") ||
+    localStorage.getItem("rec_sid") ||
+    window?.ConsentRecorder?.getSessionId?.() ||
+    ""
+  );
+}
+
+function getConsentValue() {
+  const sessionId = getConsentSessionId();
+  return sessionId ? `${sessionId}` : "";
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function waitForValue(getter, { timeout = 4000, interval = 200 } = {}) {
+  const started = Date.now();
+
+  while (Date.now() - started < timeout) {
+    const value = getter();
+    if (value) return value;
+    await sleep(interval);
+  }
+
+  return getter() || "";
+}
+
+function syncTrackingFieldsToRecorder() {
+  if (typeof window === "undefined") return;
+
+  const trustedFormCertUrl = getTrustedFormCertUrl();
+  const jornayaLeadId = getJornayaLeadId();
+  const consent = getConsentValue();
+
+  window.__RECORDER_FORMDATA = {
+    ...(window.__RECORDER_FORMDATA || {}),
+    trustedFormCertUrl,
+    jornayaLeadId,
+    consent,
+  };
+}
+
+function ThankYouScreen({ config }) {
+  const serviceName =
+  config?.thankYouServiceLabel ||
+  config?.serviceLabel ||
+  config?.heading?.replace(/^free\s+/i, "").replace(/\s+estimate$/i, "").trim() ||
+  "home improvement";
+
+const lowerServiceName = serviceName.toLowerCase();
+  return (
+    <section className="thankyou-page" data-rec-finalize="true">
+      <div className="thankyou-page-logo">
+        <div className="rw-logo">
+          <span className="rw-logo-badge">RW</span>
+          <div className="rw-logo-text">
+            <span className="rw-logo-top">REMODEL</span>
+            <span className="rw-logo-bottom">WIZ</span>
+          </div>
+        </div>
+      </div>
+
+      <h1 className="thankyou-page-title">Thank You!</h1>
+
+      <div className="thankyou-page-grid">
+        <article className="thankyou-page-card">
+          <div className="thankyou-page-icon">🎉</div>
+          <h3>Congratulations!</h3>
+          <p>
+            You are one step closer to getting {lowerServiceName} information for your
+            home. A courteous expert will confirm your information and review your
+            eligibility.
+          </p>
+        </article>
+
+        <article className="thankyou-page-card">
+          <div className="thankyou-page-icon">📞</div>
+          <h3>Answer Your Phone!</h3>
+          <p>
+            The main goal is to help you save money. You will be contacted by a
+            courteous expert, so get ready.
+          </p>
+        </article>
+
+        <article className="thankyou-page-card">
+          <div className="thankyou-page-icon">✍️</div>
+          <h3>Grab A Pen!</h3>
+          <p>
+            You're moments away from obtaining information about your {lowerServiceName}{" "} project. When a courteous expert calls, make sure to write down their
+            quotes and ask any questions you may have.
+          </p>
+        </article>
+      </div>
+    </section>
+  );
+}
+
 export default function ServiceFunnel({ config }) {
   const steps = useMemo(() => config?.steps || [], [config]);
+
+
+
+  const allSteps = useMemo(
+    () => [
+      ...steps,
+      {
+        key: "__thankyou__",
+        type: "thankyou",
+        title: "Thank You!",
+      },
+      {
+        key: "__disqualified__",
+        type: "disqualified",
+        title: "Thank You!",
+      },
+    ],
+    [steps]
+  );
+
   const addressInputRef = useRef(null);
   const autocompleteRef = useRef(null);
-  const [showThankYouModal, setShowThankYouModal] = useState(false);
+  const autocompleteListenerRef = useRef(null);
+
   const initialForm = useMemo(() => {
     const obj = {};
 
@@ -71,8 +301,21 @@ export default function ServiceFunnel({ config }) {
     obj.lng = "";
     obj.addressValidated = false;
     obj.phoneVerified = false;
+    obj.verificationToken = "";
+    obj.trustedFormCertUrl = "";
+    obj.jornayaLeadId = "";
     obj.consent = "";
-
+    obj.affiliateId = "";
+    obj.sub1 = "";
+    obj.sub2 = "";
+    obj.clickId = "";
+    obj.utmSource = "";
+    obj.utmMedium = "";
+    obj.utmCampaign = "";
+    obj.utmTerm = "";
+    obj.utmContent = "";
+    obj.referrer = "";
+    obj.landingPage = "";
     return obj;
   }, [steps]);
 
@@ -86,16 +329,40 @@ export default function ServiceFunnel({ config }) {
   const [dynamicOptions, setDynamicOptions] = useState({});
   const [dynamicOptionsLoading, setDynamicOptionsLoading] = useState(false);
   const [selectSearch, setSelectSearch] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [disqualifyInfo, setDisqualifyInfo] = useState({
+    title: "Thank You!",
+    message: "",
+  });
+  const [selectOpen, setSelectOpen] = useState(true);
 
-  const currentStep = steps[stepIndex];
-  const progressPercent = steps.length
-    ? ((stepIndex + 1) / steps.length) * 100
-    : 0;
+  const currentStep = allSteps[stepIndex];
+  const progressSteps = useMemo(
+  () => allSteps.filter((step) => step.type !== "disqualified"),
+  [allSteps]
+);
+
+const progressPercent = useMemo(() => {
+  if (!progressSteps.length) return 0;
+
+  if (currentStep?.type === "thankyou" || currentStep?.type === "disqualified") {
+    return 100;
+  }
+
+  const visibleIndex = progressSteps.findIndex(
+    (step) => step.key === currentStep?.key
+  );
+
+  if (visibleIndex === -1) return 0;
+
+  return ((visibleIndex + 1) / progressSteps.length) * 100;
+}, [progressSteps, currentStep]);
 
   const isAddressStep = currentStep?.key === "address";
   const isZipStep = currentStep?.key === "zip";
   const isPhoneStep = currentStep?.key === "phone";
   const isVerificationStep = currentStep?.key === "verificationCode";
+  const isThankYouStep = currentStep?.type === "thankyou";
 
   const filteredSelectOptions = useMemo(() => {
     if (!currentStep || currentStep.type !== "select") return [];
@@ -125,8 +392,30 @@ export default function ServiceFunnel({ config }) {
     }
   }
 
+  useEffect(() => {
+  persistTrackingParams();
+
+  const tracking = getTrackingParams();
+
+  setForm((prev) => ({
+    ...prev,
+    affiliateId: tracking.affiliateId,
+    sub1: tracking.sub1,
+    sub2: tracking.sub2,
+    clickId: tracking.clickId,
+    utmSource: tracking.utmSource,
+    utmMedium: tracking.utmMedium,
+    utmCampaign: tracking.utmCampaign,
+    utmTerm: tracking.utmTerm,
+    utmContent: tracking.utmContent,
+    referrer: tracking.referrer,
+    landingPage: tracking.landingPage,
+  }));
+}, []);
+
   function validateCurrentStep() {
     if (!currentStep) return false;
+    if (isThankYouStep) return true;
 
     const rawValue = form[currentStep.key];
     const value = String(rawValue || "").trim();
@@ -216,20 +505,6 @@ export default function ServiceFunnel({ config }) {
     return true;
   }
 
-  function getTrustedFormCertUrl() {
-  if (typeof document === "undefined") return "";
-  return document.querySelector('input[name="xxTrustedFormCertUrl"]')?.value || "";
-}
-
-function getJornayaLeadId() {
-  if (typeof document === "undefined") return "";
-  return (
-    document.querySelector('input[name="universal_leadid"]')?.value ||
-    document.querySelector('input[name="leadid_token"]')?.value ||
-    ""
-  );
-}
-
   async function sendOtp() {
     setOtpSending(true);
     setError("");
@@ -266,139 +541,119 @@ function getJornayaLeadId() {
     }
   }
 
-  // async function verifyOtpAndSubmit() {
-  //   setOtpVerifying(true);
-  //   setError("");
-  //   setOtpInfo("");
+  useEffect(() => {
+  const t = setTimeout(() => {
+    console.log("TF script:", !!document.querySelector('script[src*="trustedform.com"]'));
+    console.log("Jornaya script:", !!document.querySelector('script[src*="lidstatic.com"]'));
+    console.log("TF input:", document.querySelector('input[name="xxTrustedFormCertUrl"]')?.value);
+    console.log("Jornaya universal_leadid:", document.querySelector('input[name="universal_leadid"]')?.value);
+    console.log("Jornaya leadid_token:", document.querySelector('input[name="leadid_token"]')?.value);
+  }, 5000);
 
-  //   try {
-  //     const res = await fetch(`${OTP_API_BASE}/api/otp/verify`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         phone: form.phone,
-  //         code: form.verificationCode,
-  //       }),
-  //     });
-
-  //     const data = await res.json();
-
-  //     if (!res.ok) {
-  //       throw new Error(data.error || "Verification failed.");
-  //     }
-
-  //     if (!data.ok || data.verified !== true || !data.verificationToken) {
-  //       throw new Error(data.error || "Verification failed.");
-  //     }
-
-  //     const finalForm = {
-  //       ...form,
-  //       phoneVerified: true,
-  //       verificationToken: data.verificationToken,
-  //     };
-
-  //     setForm(finalForm);
-
-  //     setShowThankYouModal(true);
-  //       console.log("FORM DATA:", finalForm);
-  //       console.log("SERVICE:", config?.heading);
-
-
-  //     // Replace this later with your actual final lead submit API call.
-  //   } catch (err) {
-  //     setForm((prev) => ({
-  //       ...prev,
-  //       phoneVerified: false,
-  //       verificationToken: "",
-  //     }));
-  //     setError(err.message || "Failed to verify code.");
-  //   } finally {
-  //     setOtpVerifying(false);
-  //   }
-  // }
+  return () => clearTimeout(t);
+}, []);
 
   async function verifyOtpAndSubmit() {
-  setOtpVerifying(true);
-  setError("");
-  setOtpInfo("");
+    setOtpVerifying(true);
+    setError("");
+    setOtpInfo("");
 
-  try {
-    const verifyRes = await fetch(`${OTP_API_BASE}/api/otp/verify`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        phone: form.phone,
-        code: form.verificationCode,
-      }),
-    });
+    try {
+      const verifyRes = await fetch(`${OTP_API_BASE}/api/otp/verify`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phone: form.phone,
+          code: form.verificationCode,
+        }),
+      });
 
-    const verifyData = await verifyRes.json();
+      const verifyData = await verifyRes.json();
 
-    if (!verifyRes.ok) {
-      throw new Error(verifyData.error || "Verification failed.");
+      if (!verifyRes.ok) {
+        throw new Error(verifyData.error || "Verification failed.");
+      }
+
+      if (
+        !verifyData.ok ||
+        verifyData.verified !== true ||
+        !verifyData.verificationToken
+      ) {
+        throw new Error(verifyData.error || "Verification failed.");
+      }
+
+      const trustedFormCertUrl = await waitForValue(getTrustedFormCertUrl, {
+        timeout: 4000,
+        interval: 200,
+      });
+
+      const jornayaLeadId = await waitForValue(getJornayaLeadId, {
+        timeout: 4000,
+        interval: 200,
+      });
+
+      const finalForm = {
+        ...form,
+        phoneVerified: true,
+        verificationToken: verifyData.verificationToken,
+        trustedFormCertUrl,
+        jornayaLeadId,
+        consent: getConsentValue(),
+      };
+
+      window.__RECORDER_FORMDATA = {
+        ...(window.__RECORDER_FORMDATA || {}),
+        trustedFormCertUrl,
+        jornayaLeadId,
+        consent: finalForm.consent,
+      };
+
+      console.log("TrustedFormCertUrl:", trustedFormCertUrl);
+      console.log("JornayaLeadId:", jornayaLeadId);
+      console.log("Consent:", finalForm.consent);
+
+      const submitRes = await fetch(`${OTP_API_BASE}/api/leads/submit`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          serviceSlug: config?.slug || "",
+          serviceHeading: config?.heading || "",
+          form: finalForm,
+        }),
+      });
+
+      const submitData = await submitRes.json();
+
+      if (!submitRes.ok || !submitData.ok) {
+        throw new Error(submitData.error || "Failed to save your information.");
+      }
+
+      setForm(finalForm);
+      setStepIndex(allSteps.findIndex((step) => step.type === "thankyou"));
+
+      // Fire Meta Pixel Lead event on successful submission
+      if (typeof window !== "undefined" && window.fbq) {
+        window.fbq("track", "Lead");
+      }
+
+      console.log("FORM DATA:", finalForm);
+      console.log("SERVICE:", config?.heading);
+      console.log("LEAD ID:", submitData.leadId);
+    } catch (err) {
+      setForm((prev) => ({
+        ...prev,
+        phoneVerified: false,
+        verificationToken: "",
+      }));
+      setError(err.message || "Failed to verify and submit.");
+    } finally {
+      setOtpVerifying(false);
     }
-
-    if (
-      !verifyData.ok ||
-      verifyData.verified !== true ||
-      !verifyData.verificationToken
-    ) {
-      throw new Error(verifyData.error || "Verification failed.");
-    }
-
-    const finalForm = {
-  ...form,
-  phoneVerified: true,
-  verificationToken: verifyData.verificationToken,
-  consent: verifyData.verificationToken,
-  trustedFormCertUrl: getTrustedFormCertUrl(),
-  jornayaLeadId: getJornayaLeadId(),
-};
-
-    const submitRes = await fetch(`${OTP_API_BASE}/api/leads/submit`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        serviceSlug: config?.slug || "",
-        serviceHeading: config?.heading || "",
-        form: finalForm,
-      }),
-    });
-
-    const submitData = await submitRes.json();
-
-    if (!submitRes.ok || !submitData.ok) {
-      throw new Error(submitData.error || "Failed to save your information.");
-    }
-
-    setForm(finalForm);
-    setShowThankYouModal(true);
-
-    // Fire Meta Pixel Lead event on successful submission
-    if (typeof window !== "undefined" && window.fbq) {
-      window.fbq("track", "Lead");
-    }
-
-    console.log("FORM DATA:", finalForm);
-    console.log("SERVICE:", config?.heading);
-    console.log("LEAD ID:", submitData.leadId);
-  } catch (err) {
-    setForm((prev) => ({
-      ...prev,
-      phoneVerified: false,
-      verificationToken: "",
-    }));
-    setError(err.message || "Failed to verify and submit.");
-  } finally {
-    setOtpVerifying(false);
   }
-}
 
   async function loadDynamicOptions(step) {
     if (!step?.dynamicOptionsFrom) return;
@@ -451,6 +706,21 @@ function getJornayaLeadId() {
     const valid = validateCurrentStep();
     if (!valid) return;
 
+    if (
+      currentStep?.type === "options" &&
+      currentStep?.disqualifyOn?.values?.includes(form[currentStep.key])
+    ) {
+      setDisqualifyInfo({
+        title: currentStep.disqualifyOn.title || "Thank You!",
+        message:
+          currentStep.disqualifyOn.message ||
+          "We are unable to continue with this request.",
+      });
+
+      setStepIndex(allSteps.findIndex((step) => step.type === "disqualified"));
+      return;
+    }
+
     if (currentStep.key === "phone") {
       await sendOtp();
       return;
@@ -461,12 +731,11 @@ function getJornayaLeadId() {
       return;
     }
 
-    if (stepIndex < steps.length - 1) {
+    if (stepIndex < allSteps.length - 1) {
       setStepIndex((prev) => prev + 1);
       return;
     }
 
-    alert("Submitted (demo)");
     console.log("FORM DATA:", form);
     console.log("SERVICE:", config?.heading);
   }
@@ -524,11 +793,45 @@ function getJornayaLeadId() {
     setError("");
     updateField(currentStep.key, option);
     setSelectSearch(option);
+    setSelectOpen(false);
   }
 
   useEffect(() => {
     setSelectSearch("");
-  }, [stepIndex]);
+    setSelectOpen(currentStep?.type === "select");
+  }, [stepIndex, currentStep?.type]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let cancelled = false;
+    let attempts = 0;
+    const maxAttempts = 20;
+
+    const pollTrackingFields = () => {
+      if (cancelled) return;
+
+      syncTrackingFieldsToRecorder();
+      attempts += 1;
+
+      const hasTrustedForm = !!getTrustedFormCertUrl();
+      const hasJornaya = !!getJornayaLeadId();
+
+      if ((hasTrustedForm && hasJornaya) || attempts >= maxAttempts) return;
+
+      setTimeout(pollTrackingFields, 500);
+    };
+
+    pollTrackingFields();
+
+    const onStorage = () => syncTrackingFieldsToRecorder();
+    window.addEventListener("storage", onStorage);
+
+    return () => {
+      cancelled = true;
+      window.removeEventListener("storage", onStorage);
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -558,20 +861,19 @@ function getJornayaLeadId() {
     loadDynamicOptions(currentStep);
   }, [stepIndex, form.zip, form.state, form.city]); // eslint-disable-line react-hooks/exhaustive-deps
 
-
   useEffect(() => {
-  if (!showThankYouModal) return;
+    if (currentStep?.type !== "thankyou") return;
 
-  const timer = setTimeout(() => {
-    window.dispatchEvent(
-      new CustomEvent("recorder:finalize", {
-        detail: { reason: "thank-you" },
-      })
-    );
-  }, 600); // allow modal animation + render
+    const timer = setTimeout(() => {
+      window.dispatchEvent(
+        new CustomEvent("recorder:finalize", {
+          detail: { reason: "thank-you-step" },
+        })
+      );
+    }, 800);
 
-  return () => clearTimeout(timer);
-}, [showThankYouModal]);
+    return () => clearTimeout(timer);
+  }, [currentStep]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -579,10 +881,7 @@ function getJornayaLeadId() {
     if (!window.google?.maps?.places) return;
     if (!addressInputRef.current) return;
 
-    if (autocompleteRef.current) {
-      autocompleteRef.current.unbindAll?.();
-      autocompleteRef.current = null;
-    }
+
 
     const autocomplete = new window.google.maps.places.Autocomplete(
       addressInputRef.current,
@@ -603,7 +902,7 @@ function getJornayaLeadId() {
       if (bounds) autocomplete.setBounds(bounds);
     }
 
-    autocomplete.addListener("place_changed", () => {
+    const listener = autocomplete.addListener("place_changed", () => {
       const place = autocomplete.getPlace();
       const parts = extractAddressParts(place);
 
@@ -639,9 +938,36 @@ function getJornayaLeadId() {
     });
 
     autocompleteRef.current = autocomplete;
+    autocompleteListenerRef.current = listener;
+
+   return () => {
+  try {
+    if (autocompleteListenerRef.current?.remove) {
+      autocompleteListenerRef.current.remove();
+      autocompleteListenerRef.current = null;
+    }
+
+
+
+    autocompleteRef.current = null;
+  } catch (err) {
+    console.warn("Autocomplete cleanup error:", err);
+  }
+};
   }, [currentStep, userCoords]);
 
+  useEffect(() => {
+    const handlePopState = () => {
+      window.location.href = "/";
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
   if (!currentStep) return null;
+  if (currentStep.type === "thankyou") {
+    return <ThankYouScreen config={config} />;
+  }
 
   const currentValue = String(form[currentStep.key] || "").trim();
 
@@ -675,7 +1001,16 @@ function getJornayaLeadId() {
     currentStep.type === "range" ? currentStep.suffix || "" : "";
 
   return (
-    <div className="funnel-card">
+    <form
+  className="funnel-card"
+  onSubmit={(e) => {
+    e.preventDefault();
+    goNext();
+  }}
+>
+
+      <input type="hidden" name="leadid_token" id="leadid_token" />
+      <input type="hidden" name="universal_leadid" id="universal_leadid" />
       <div className="progress-shell">
         <div
           className="progress-fill"
@@ -684,7 +1019,20 @@ function getJornayaLeadId() {
       </div>
 
       <div className="funnel-inner">
-        <h2 className="question-title">{currentStep.title}</h2>
+        {currentStep.type !== "thankyou" && currentStep.type !== "disqualified" && (
+  <h2 className="question-title">{currentStep.title}</h2>
+)}
+
+
+        {currentStep.type === "disqualified" && (
+          <div className="thankyou-step">
+            <div className="thankyou-icon">✓</div>
+
+            <h3 className="thankyou-title">{disqualifyInfo.title}</h3>
+
+            <p className="thankyou-text">{disqualifyInfo.message}</p>
+          </div>
+        )}
 
         {currentStep.type === "options" && (
           <>
@@ -774,10 +1122,13 @@ function getJornayaLeadId() {
         {currentStep.type === "select" && (
           <>
             <div className="custom-select-wrap">
-              <div className="select-selected">
+              <button
+                type="button"
+                className="select-selected"
+                onClick={() => setSelectOpen((prev) => !prev)}
+              >
                 {form[currentStep.key] || currentStep.placeholder || "Select one"}
-                <span className="select-caret">▼</span>
-              </div>
+              </button>
 
               <input
                 className="select-search-input"
@@ -790,21 +1141,25 @@ function getJornayaLeadId() {
                 <div className="address-help">Loading utility companies...</div>
               )}
 
-              <div className="select-options-box">
-                {filteredSelectOptions.map((option) => {
-                  const selected = form[currentStep.key] === option;
-                  return (
-                    <button
-                      key={option}
-                      type="button"
-                      className={`select-option-item ${selected ? "active" : ""}`}
-                      onClick={() => handleSelectChoose(option)}
-                    >
-                      {option}
-                    </button>
-                  );
-                })}
-              </div>
+              {selectOpen && (
+                <div className="select-options-box">
+                  {filteredSelectOptions.map((option) => {
+                    const selected = form[currentStep.key] === option;
+                    return (
+                      <button
+                        key={option}
+                        type="button"
+                        className={`select-option-item ${
+                          selected ? "active" : ""
+                        }`}
+                        onClick={() => handleSelectChoose(option)}
+                      >
+                        {option}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             <div className="nav-row">
@@ -842,41 +1197,54 @@ function getJornayaLeadId() {
               </div>
             )}
 
-{isPhoneStep && (
-  <div className="address-help consent-copy">
-    By clicking Submit, I agree to the{" "}
-    <a href="/terms" target="_blank" rel="noopener noreferrer">
-      Terms of use
-    </a>{" "}
-    and{" "}
-    <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
-      privacy policy
-    </a>{" "}
-    and authorize up to{" "}
-    <a href="/marketing-partners" target="_blank" rel="noopener noreferrer">
-      4 home improvement companies, their contractors and partners
-    </a>{" "}
-    to contact me with offers about home improvement products or services by
-    telephone calls, emails, artificial voice, and pre-recorded/text messages,
-    using an automated telephone technology, to the number and email I provided
-    above, even if my number is a mobile number or is currently listed on any
-    state, federal or corporate Do Not Call list. I understand that my consent
-    here is not a condition of purchase of any goods or services. Message and
-    data rates may apply.{" "}
-    <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
-      California Residents
-    </a>
-    . (or{" "}
-    <a
-      href="/do-not-sell-my-personal-information"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Do Not Contact
-    </a>
-    ).
-  </div>
-)}
+            {isPhoneStep && (
+              <div className="address-help consent-copy">
+                By clicking Submit, I agree to the{" "}
+                <a href="/terms" target="_blank" rel="noopener noreferrer">
+                  Terms of use
+                </a>{" "}
+                and{" "}
+                <a
+                  href="/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  privacy policy
+                </a>{" "}
+                and authorize up to{" "}
+                <a
+                  href="/marketing-partners"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  4 home improvement companies, their contractors and partners
+                </a>{" "}
+                to contact me with offers about home improvement products or
+                services by telephone calls, emails, artificial voice, and
+                pre-recorded/text messages, using an automated telephone
+                technology, to the number and email I provided above, even if my
+                number is a mobile number or is currently listed on any state,
+                federal or corporate Do Not Call list. I understand that my
+                consent here is not a condition of purchase of any goods or
+                services. Message and data rates may apply.{" "}
+                <a
+                  href="/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  California Residents
+                </a>
+                . (or{" "}
+                <a
+                  href="/do-not-sell-my-personal-information"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Do Not Contact
+                </a>
+                ).
+              </div>
+            )}
 
             {isVerificationStep && otpInfo && (
               <div className="address-help">{otpInfo}</div>
@@ -937,42 +1305,8 @@ function getJornayaLeadId() {
           </>
         )}
 
-        {showThankYouModal && (
-  <div className="thankyou-modal-overlay">
-    <div className="thankyou-modal">
-      <button
-        type="button"
-        className="thankyou-close"
-        onClick={() => setShowThankYouModal(false)}
-      >
-        ×
-      </button>
-
-      <div className="thankyou-icon">✓</div>
-
-      <h3 className="thankyou-title">Thank You!</h3>
-
-      <p className="thankyou-text">
-        Your information has been submitted successfully.
-      </p>
-
-      <p className="thankyou-subtext">
-        One of our partners will contact you shortly.
-      </p>
-
-      <button
-        type="button"
-        className="thankyou-btn"
-        onClick={() => setShowThankYouModal(false)}
-      >
-        Done
-      </button>
-    </div>
-  </div>
-)}
-
         {error && <div className="address-help error-text">{error}</div>}
       </div>
-    </div>
+    </form>
   );
 }
