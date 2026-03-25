@@ -74,7 +74,7 @@ export default function Home() {
             <li><span className="rw-check">✔</span><span><strong>Top Contractors</strong> — Matched to your area and project.</span></li>
             <li><span className="rw-check">✔</span><span><strong>Up to 4 FREE Quotes</strong> — From our trusted partner network.</span></li>
           </ul>
-          <Link href={buildTrackedHref("solar-v1pvcs")} className="rw-cta-link">
+          <Link href={buildTrackedHref("roofing-v1pvcs")} className="rw-cta-link">
             <button className="rw-cta-btn">Get Your Free Quote ›</button>
           </Link>
         </div>

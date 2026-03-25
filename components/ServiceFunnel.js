@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 //const OTP_API_BASE = "https://homeservices-backend-1fe53ea28f51.herokuapp.com";
 const OTP_API_BASE = "https://homeservicesbackend-49679431e329.herokuapp.com";
-
+const PHONE_VERIFICATION_ENABLED = false;
 function isValidZip(zip) {
   return /^\d{5}(-\d{4})?$/.test(String(zip || "").trim());
 }
@@ -259,9 +259,13 @@ const lowerServiceName = serviceName.toLowerCase();
 }
 
 export default function ServiceFunnel({ config }) {
-  const steps = useMemo(() => config?.steps || [], [config]);
+  //const steps = useMemo(() => config?.steps || [], [config]);
 
-
+  const steps = useMemo(() => {
+  const rawSteps = config?.steps || [];
+  if (PHONE_VERIFICATION_ENABLED) return rawSteps;
+  return rawSteps.filter((step) => step.key !== "verificationCode");
+}, [config]);
 
   const allSteps = useMemo(
     () => [
@@ -655,6 +659,69 @@ const progressPercent = useMemo(() => {
     }
   }
 
+  async function submitLeadWithoutOtp() {
+  setOtpVerifying(true);
+  setError("");
+  setOtpInfo("");
+
+  try {
+    const trustedFormCertUrl = await waitForValue(getTrustedFormCertUrl, {
+      timeout: 4000,
+      interval: 200,
+    });
+
+    const jornayaLeadId = await waitForValue(getJornayaLeadId, {
+      timeout: 4000,
+      interval: 200,
+    });
+
+    const finalForm = {
+      ...form,
+      phoneVerified: false,
+      verificationToken: "",
+      trustedFormCertUrl,
+      jornayaLeadId,
+      consent: getConsentValue(),
+    };
+
+    window.__RECORDER_FORMDATA = {
+      ...(window.__RECORDER_FORMDATA || {}),
+      trustedFormCertUrl,
+      jornayaLeadId,
+      consent: finalForm.consent,
+    };
+
+    const submitRes = await fetch(`${OTP_API_BASE}/api/leads/submit`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        serviceSlug: config?.slug || "",
+        serviceHeading: config?.heading || "",
+        form: finalForm,
+      }),
+    });
+
+    const submitData = await submitRes.json();
+
+    if (!submitRes.ok || !submitData.ok) {
+      throw new Error(submitData.error || "Failed to save your information.");
+    }
+
+    setForm(finalForm);
+    setStepIndex(allSteps.findIndex((step) => step.type === "thankyou"));
+
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "Lead");
+    }
+  } catch (err) {
+    setError(err.message || "Failed to submit lead.");
+  } finally {
+    setOtpVerifying(false);
+  }
+}
+
   async function loadDynamicOptions(step) {
     if (!step?.dynamicOptionsFrom) return;
 
@@ -721,10 +788,19 @@ const progressPercent = useMemo(() => {
       return;
     }
 
+    // if (currentStep.key === "phone") {
+    //   await sendOtp();
+    //   return;
+    // }
+
     if (currentStep.key === "phone") {
-      await sendOtp();
-      return;
-    }
+  if (PHONE_VERIFICATION_ENABLED) {
+    await sendOtp();
+  } else {
+    await submitLeadWithoutOtp();
+  }
+  return;
+  }
 
     if (currentStep.key === "verificationCode") {
       await verifyOtpAndSubmit();
@@ -989,11 +1065,23 @@ const progressPercent = useMemo(() => {
     nextDisabled = !currentValue;
   }
 
+  // let nextLabel = "Next ›";
+  // if (isPhoneStep) nextLabel = otpSending ? "Sending..." : "Send Code ›";
+  // if (isVerificationStep) {
+  //   nextLabel = otpVerifying ? "Verifying..." : "Verify & Submit";
+  // }
+
   let nextLabel = "Next ›";
-  if (isPhoneStep) nextLabel = otpSending ? "Sending..." : "Send Code ›";
-  if (isVerificationStep) {
-    nextLabel = otpVerifying ? "Verifying..." : "Verify & Submit";
-  }
+
+if (isPhoneStep) {
+  nextLabel = PHONE_VERIFICATION_ENABLED
+    ? (otpSending ? "Sending..." : "Send Code ›")
+    : (otpVerifying ? "Submitting..." : "Submit");
+}
+
+if (isVerificationStep) {
+  nextLabel = otpVerifying ? "Verifying..." : "Verify & Submit";
+}
 
   const rangePrefix =
     currentStep.type === "range" ? currentStep.prefix || "" : "";
