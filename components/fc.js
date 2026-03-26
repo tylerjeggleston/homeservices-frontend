@@ -23,6 +23,7 @@ export const funnelConfigs = {
         type: "options",
         options: ["Asphalt", "Wood", "Tile/Clay", "Slate", "Metal", "Not Sure"],
       },
+      commonCreditStep(),
       commonZipStep(),
       commonAddressStep("roof"),
       commonEmailStep(),
@@ -56,6 +57,7 @@ export const funnelConfigs = {
         layout: "stack",
         options: ["1-2", "3-5", "6-9", "10+"],
       },
+      commonCreditStep(),
       commonZipStep(),
       {
         key: "address",
@@ -112,6 +114,7 @@ export const funnelConfigs = {
       layout: "stack",
       options: ["Full Sun", "Partial Shade", "Full Shade", "Not Sure"],
     },
+    commonCreditStep(),
     {
       key: "electricBill",
       title: "How much is your average monthly electric bill?",
@@ -170,6 +173,7 @@ export const funnelConfigs = {
       type: "options",
       options: ["Yes", "No"],
     },
+    commonCreditStep(),
     commonZipStep(),
     commonAddressStep("bathroom project"),
     commonEmailStep(),
@@ -202,6 +206,7 @@ export const funnelConfigs = {
         type: "options",
         options: ["Seamless Metal", "Copper", "Galvanized", "PVC", "Wood", "Not Sure"],
       },
+      commonCreditStep(),
       commonZipStep(),
       commonAddressStep("gutters"),
       commonEmailStep(),
@@ -248,6 +253,7 @@ export const funnelConfigs = {
         "Thermostat",
       ],
     },
+    commonCreditStep(),
     commonZipStep(),
     commonAddressStep("HVAC work"),
     commonEmailStep(),
@@ -283,6 +289,7 @@ export const funnelConfigs = {
       type: "options",
       options: ["Yes", "No"],
     },
+    commonCreditStep(),
     commonZipStep(),
     commonAddressStep("painting project"),
     commonEmailStep(),
@@ -324,6 +331,7 @@ export const funnelConfigs = {
         "Wood",
       ],
     },
+    commonCreditStep(),
     commonZipStep(),
     commonAddressStep("siding work"),
     commonEmailStep(),
@@ -361,6 +369,7 @@ export const funnelConfigs = {
         type: "options",
         options: ["Yes", "No"],
       },
+      commonCreditStep(),
       commonZipStep(),
       commonAddressStep("walk-in tub installation"),
       commonEmailStep(),
@@ -433,5 +442,14 @@ function commonVerificationStep() {
     title: "Enter the Verification code that we have sent to your phone",
     type: "input",
     placeholder: "------",
+  };
+}
+
+function commonCreditStep() {
+  return {
+    key: "creditRating",
+    title: "What's your estimated credit score?",
+    type: "options",
+    options: ["Excellent", "Good", "Fair", "Poor"],
   };
 }
