@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import ServiceFunnel from "../../components/ServiceFunnelOTP";
+import ServiceFunnel from "../../components/ServiceFunnel";
 import { funnelConfigs } from "../../components/funnelConfigs";
 import HomeLogoButton from "../../components/HomeLogoButton";
 

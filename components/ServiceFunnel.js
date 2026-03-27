@@ -795,7 +795,8 @@ const progressPercent = useMemo(() => {
 
     if (currentStep.key === "phone") {
   if (PHONE_VERIFICATION_ENABLED) {
-    await sendOtp();
+    // await sendOtp();
+    await submitLeadWithoutOtp();
   } else {
     await submitLeadWithoutOtp();
   }
