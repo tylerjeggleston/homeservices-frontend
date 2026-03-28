@@ -72,6 +72,11 @@ html {
   letter-spacing: 1px;
 }
 
+/* WIZ text is white on dark navy homepage header */
+.rw-header .rw-logo-bottom {
+  color: #ffffff;
+}
+
 .rw-tagline-header {
   font-size: 15px;
   color: #c8d6f5;
