@@ -41,7 +41,7 @@ export default function MarketingPartnersPage() {
       </main>
 
       <footer className="marketing-footer">
-        <div>© 2026 RemodelYourHome.net</div>
+        <div>© 2026 RemodelWiz.com</div>
 
         <div className="marketing-footer-links">
           <Link href="/privacy-policy">Privacy Policy</Link>
