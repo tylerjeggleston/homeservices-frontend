@@ -4,6 +4,7 @@ export const funnelConfigs = {
   "roofing-v1pvcs": {
     heading: "Free Roofing Quotes",
     steps: [
+      commonHomeTypeStep(),
       {
         key: "service",
         title: "What type of roofing service do you need?",
@@ -41,6 +42,7 @@ export const funnelConfigs = {
   "windows-v1pvcs": {
     heading: "Free Windows Quotes",
     steps: [
+      commonHomeTypeStep(),
       {
         key: "service",
         title: "What type of window service do you need?",
@@ -99,6 +101,7 @@ export const funnelConfigs = {
   "solar-v1pvcs": {
   heading: "Free Solar Estimate",
   steps: [
+    commonHomeTypeStep(),
     {
       key: "homeowner",
       title: "Are you a Homeowner?",
@@ -156,6 +159,7 @@ export const funnelConfigs = {
   "bathroom-v1pvcs": {
   heading: "Free Bathroom Quotes",
   steps: [
+    commonHomeTypeStep(),
     {
       key: "service",
       title: "What type of bathroom service do you need?",
@@ -196,6 +200,7 @@ export const funnelConfigs = {
   "gutters-v1pvcs": {
     heading: "Free Gutter Quotes",
     steps: [
+      commonHomeTypeStep(),
       {
         key: "service",
         title: "What type of gutter service do you need?",
@@ -229,6 +234,7 @@ export const funnelConfigs = {
   "hvac-v1pvcs": {
   heading: "Free HVAC Quotes",
   steps: [
+    commonHomeTypeStep(),
     {
       key: "service",
       title: "What HVAC service do you need?",
@@ -276,6 +282,7 @@ export const funnelConfigs = {
   "painting-v1pvcs": {
   heading: "Free Painting Quotes",
   steps: [
+    commonHomeTypeStep(),
     {
       key: "service",
       title: "What type of painting service do you need?",
@@ -312,7 +319,7 @@ export const funnelConfigs = {
   "siding-v1pvcs": {
   heading: "Free Siding Quotes",
   steps: [
-
+    commonHomeTypeStep(),
     {
       key: "service",
       title: "What type of siding service do you need?",
@@ -354,6 +361,7 @@ export const funnelConfigs = {
   "walk-in-tubs-v1pvcs": {
     heading: "Free Walk-In Tub Quotes",
     steps: [
+      commonHomeTypeStep(),
       {
       key: "homeowner",
       title: "Are you a Homeowner?",
@@ -460,5 +468,19 @@ function commonCreditStep() {
     title: "What's your estimated credit score?",
     type: "options",
     options: ["Excellent", "Good", "Fair", "Poor"],
+  };
+}
+
+function commonHomeTypeStep() {
+  return {
+    key: "propertyType",
+    title: "What Type Of Home Do You Live In?",
+    type: "image-options",
+    subtitle: "Select Your Response Below",
+    options: [
+      { label: "Single Family Home", icon: "🏠", image: "/single-family-home.png" },
+      { label: "Mobile Home", icon: "🚐", image: "/services/mobile-home.png" },
+      { label: "Apartment", icon: "🏢", image: "/services/apartment.png" },
+    ],
   };
 }

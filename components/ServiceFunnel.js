@@ -1123,6 +1123,55 @@ if (isVerificationStep) {
           </div>
         )}
 
+        {currentStep.type === "image-options" && (
+          <>
+            {currentStep.subtitle && (
+              <p className="image-options-subtitle">{currentStep.subtitle}</p>
+            )}
+            <div className="image-options-grid">
+              {currentStep.options.map((option) => {
+                const selected = form[currentStep.key] === option.label;
+                return (
+                  <button
+                    key={option.label}
+                    type="button"
+                    className={`image-option-card ${selected ? "selected" : ""}`}
+                    onClick={() => selectOption(option.label)}
+                  >
+                    <div className="image-option-img-wrap">
+                      {option.image ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={option.image} alt={option.label} className="image-option-img" />
+                      ) : (
+                        <div className="image-option-icon">{option.icon}</div>
+                      )}
+                    </div>
+                    <span className="radio-circle">{selected ? "◉" : "○"}</span>
+                    <span className="image-option-label">{option.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+            <div className="nav-row">
+              {stepIndex > 0 ? (
+                <button type="button" className="back-btn" onClick={goBack}>
+                  ‹ Back
+                </button>
+              ) : (
+                <div />
+              )}
+              <button
+                type="button"
+                className="next-btn"
+                onClick={goNext}
+                disabled={nextDisabled}
+              >
+                {nextLabel}
+              </button>
+            </div>
+          </>
+        )}
+
         {currentStep.type === "options" && (
           <>
             <div
