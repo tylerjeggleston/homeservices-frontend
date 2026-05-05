@@ -9,6 +9,14 @@ function isValidZip(zip) {
   return /^\d{5}(-\d{4})?$/.test(String(zip || "").trim());
 }
 
+function getCanonicalLandingPage() {
+  if (typeof window === "undefined") return "";
+  const url = new URL(window.location.href);
+  // Strip /affiliate/<slug>/ prefix so lead buyers see the main site URL
+  url.pathname = url.pathname.replace(/^\/affiliate\/[^/]+\//, "/");
+  return url.href;
+}
+
 function getTrackingParams() {
   if (typeof window === "undefined") {
     return {
@@ -39,7 +47,7 @@ function getTrackingParams() {
     utmTerm: params.get("utm_term") || "",
     utmContent: params.get("utm_content") || "",
     referrer: document.referrer || "",
-    landingPage: window.location.href || "",
+    landingPage: getCanonicalLandingPage(),
   };
 
   let stored = {};
@@ -81,7 +89,7 @@ function persistTrackingParams() {
     utmTerm: params.get("utm_term") || "",
     utmContent: params.get("utm_content") || "",
     referrer: document.referrer || "",
-    landingPage: window.location.href || "",
+    landingPage: getCanonicalLandingPage(),
   };
 
   const hasAnyTracking =
