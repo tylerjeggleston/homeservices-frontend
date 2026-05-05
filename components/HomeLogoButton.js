@@ -1,8 +1,17 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+
 export default function HomeLogoButton() {
+  const pathname = usePathname();
+
+  const getHomeUrl = () => {
+    const match = pathname?.match(/^\/affiliate\/([^/]+)/);
+    return match ? `/affiliate/${match[1]}` : "/";
+  };
+
   const handleGoHome = () => {
-    window.location.assign("/");
+    window.location.assign(getHomeUrl());
   };
 
   return (
