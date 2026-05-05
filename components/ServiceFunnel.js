@@ -634,6 +634,7 @@ const progressPercent = useMemo(() => {
         body: JSON.stringify({
           serviceSlug: config?.slug || "",
           serviceHeading: config?.heading || "",
+          affiliateSlug: config?.affiliateSlug || "",
           form: finalForm,
         }),
       });
@@ -707,6 +708,7 @@ const progressPercent = useMemo(() => {
       body: JSON.stringify({
         serviceSlug: config?.slug || "",
         serviceHeading: config?.heading || "",
+        affiliateSlug: config?.affiliateSlug || "",
         form: finalForm,
       }),
     });
