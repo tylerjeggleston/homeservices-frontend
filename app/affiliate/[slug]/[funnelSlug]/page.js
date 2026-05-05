@@ -39,7 +39,7 @@ export default async function AffiliateFunnelPage({ params }) {
       <main className="funnel-page-wrap">
         <h1 className="funnel-title">{config.heading}</h1>
         <p className="funnel-subtitle">It only takes 30 seconds.</p>
-        <ServiceFunnel config={{ ...config, slug: funnelSlug }} />
+        <ServiceFunnel config={{ ...config, slug: funnelSlug, affiliateSlug: slug }} />
       </main>
     </div>
   );

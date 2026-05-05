@@ -411,7 +411,7 @@ const progressPercent = useMemo(() => {
 
   setForm((prev) => ({
     ...prev,
-    affiliateId: tracking.affiliateId,
+    affiliateId: tracking.affiliateId || config?.affiliateSlug || "",
     sub1: tracking.sub1,
     sub2: tracking.sub2,
     clickId: tracking.clickId,
