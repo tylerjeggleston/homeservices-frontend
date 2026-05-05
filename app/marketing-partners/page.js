@@ -32,8 +32,12 @@ export default function MarketingPartnersPage() {
         <section className="marketing-list-wrap">
           <ul className="marketing-list">
             {MARKETING_PARTNERS.map((partner, index) => (
-              <li key={`${partner}-${index}`} className="marketing-list-item">
-                {partner}
+              <li key={`${typeof partner === "object" ? partner.name : partner}-${index}`} className="marketing-list-item">
+                {typeof partner === "object" ? (
+                  <a href={partner.url} target="_blank" rel="noopener noreferrer">{partner.name}</a>
+                ) : (
+                  partner
+                )}
               </li>
             ))}
           </ul>
