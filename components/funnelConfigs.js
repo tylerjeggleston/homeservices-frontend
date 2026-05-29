@@ -4,6 +4,7 @@ export const funnelConfigs = {
   "roofing-v1pvcs": {
     heading: "Free Roofing Quotes",
     steps: [
+      commonZipStep(),
       commonHomeTypeStep(),
       {
         key: "service",
@@ -29,7 +30,6 @@ export const funnelConfigs = {
         options: ["Asphalt", "Wood", "Tile/Clay", "Slate", "Metal", "Not Sure"],
       },
       commonCreditStep(),
-      commonZipStep(),
       commonAddressStep("roof"),
       commonEmailStep(),
       commonFirstNameStep(),
@@ -42,6 +42,7 @@ export const funnelConfigs = {
   "windows-v1pvcs": {
     heading: "Free Windows Quotes",
     steps: [
+      commonZipStep(),
       commonHomeTypeStep(),
       {
         key: "service",
@@ -64,7 +65,6 @@ export const funnelConfigs = {
         options: ["1-2", "3-5", "6-9", "10+"],
       },
       commonCreditStep(),
-      commonZipStep(),
       {
         key: "address",
         title: "Type below the home address where you want the window to be Installed",
@@ -101,6 +101,7 @@ export const funnelConfigs = {
   "solar-v1pvcs": {
   heading: "Free Solar Estimate",
   steps: [
+    commonZipStep(),
     commonHomeTypeStep(),
     {
       key: "homeowner",
@@ -137,7 +138,6 @@ export const funnelConfigs = {
       defaultValue: 435,
       prefix: "$",
     },
-    commonZipStep(),
     commonAddressStep("solar panels"),
     {
       key: "utilityCompany",
@@ -159,6 +159,7 @@ export const funnelConfigs = {
   "bathroom-v1pvcs": {
   heading: "Free Bathroom Quotes",
   steps: [
+    commonZipStep(),
     commonHomeTypeStep(),
     {
       key: "service",
@@ -187,7 +188,6 @@ export const funnelConfigs = {
       options: ["Yes", "No"],
     },
     commonCreditStep(),
-    commonZipStep(),
     commonAddressStep("bathroom project"),
     commonEmailStep(),
     commonFirstNameStep(),
@@ -200,6 +200,7 @@ export const funnelConfigs = {
   "gutters-v1pvcs": {
     heading: "Free Gutter Quotes",
     steps: [
+      commonZipStep(),
       commonHomeTypeStep(),
       {
         key: "service",
@@ -207,21 +208,19 @@ export const funnelConfigs = {
         type: "options",
         options: ["Install", "Replace", "Repair"],
       },
-
       {
         key: "homeowner",
         title: "Are you a Homeowner?",
         type: "options",
         options: ["Yes", "No"],
       },
-          {
+      {
         key: "gutterType",
         title: "What type of gutters are you interested in?",
         type: "options",
         options: ["Seamless Metal", "Copper", "Galvanized", "PVC", "Wood", "Not Sure"],
       },
       commonCreditStep(),
-      commonZipStep(),
       commonAddressStep("gutters"),
       commonEmailStep(),
       commonFirstNameStep(),
@@ -234,6 +233,7 @@ export const funnelConfigs = {
   "hvac-v1pvcs": {
   heading: "Free HVAC Quotes",
   steps: [
+    commonZipStep(),
     commonHomeTypeStep(),
     {
       key: "service",
@@ -269,7 +269,6 @@ export const funnelConfigs = {
       ],
     },
     commonCreditStep(),
-    commonZipStep(),
     commonAddressStep("HVAC work"),
     commonEmailStep(),
     commonFirstNameStep(),
@@ -282,6 +281,7 @@ export const funnelConfigs = {
   "painting-v1pvcs": {
   heading: "Free Painting Quotes",
   steps: [
+    commonZipStep(),
     commonHomeTypeStep(),
     {
       key: "service",
@@ -306,7 +306,6 @@ export const funnelConfigs = {
       options: ["Yes", "No"],
     },
     commonCreditStep(),
-    commonZipStep(),
     commonAddressStep("painting project"),
     commonEmailStep(),
     commonFirstNameStep(),
@@ -319,6 +318,7 @@ export const funnelConfigs = {
   "siding-v1pvcs": {
   heading: "Free Siding Quotes",
   steps: [
+    commonZipStep(),
     commonHomeTypeStep(),
     {
       key: "service",
@@ -348,7 +348,6 @@ export const funnelConfigs = {
       ],
     },
     commonCreditStep(),
-    commonZipStep(),
     commonAddressStep("siding work"),
     commonEmailStep(),
     commonFirstNameStep(),
@@ -361,13 +360,14 @@ export const funnelConfigs = {
   "walk-in-tubs-v1pvcs": {
     heading: "Free Walk-In Tub Quotes",
     steps: [
+      commonZipStep(),
       commonHomeTypeStep(),
       {
-      key: "homeowner",
-      title: "Are you a Homeowner?",
-      type: "options",
-      options: ["Yes", "No"],
-    },
+        key: "homeowner",
+        title: "Are you a Homeowner?",
+        type: "options",
+        options: ["Yes", "No"],
+      },
       // {
       //   key: "service",
       //   title: "What type of project do you need?",
@@ -380,14 +380,7 @@ export const funnelConfigs = {
       //   type: "options",
       //   options: ["Yes", "No"],
       // },
-      {
-        key: "homeowner",
-        title: "Are you a Homeowner?",
-        type: "options",
-        options: ["Yes", "No"],
-      },
       commonCreditStep(),
-      commonZipStep(),
       commonAddressStep("walk-in tub installation"),
       commonEmailStep(),
       commonFirstNameStep(),
