@@ -1,9 +1,13 @@
 import { notFound } from "next/navigation";
+import dynamic from "next/dynamic";
 import { AFFILIATES } from "../../../../lib/affiliates";
 import { funnelConfigs } from "../../../../components/funnelConfigs";
-import ServiceFunnel from "../../../../components/ServiceFunnel";
 import HomeLogoButton from "../../../../components/HomeLogoButton";
 import AffiliatePixel from "../../../../components/AffiliatePixel";
+
+const ServiceFunnel = dynamic(() => import("../../../../components/ServiceFunnel"), {
+  loading: () => <div style={{ minHeight: "400px" }} />,
+});
 
 export async function generateMetadata({ params }) {
   const { funnelSlug } = await params;
@@ -24,6 +28,8 @@ export default async function AffiliateFunnelPage({ params }) {
   if (!config) notFound();
 
   return (
+    <>
+      <link rel="preload" as="image" href="/single-family-home.webp" />
     <div className="roofing-page">
       <AffiliatePixel pixelId={affiliate.pixelId} />
 
@@ -42,5 +48,6 @@ export default async function AffiliateFunnelPage({ params }) {
         <ServiceFunnel config={{ ...config, slug: funnelSlug, affiliateSlug: slug }} />
       </main>
     </div>
+    </>
   );
 }

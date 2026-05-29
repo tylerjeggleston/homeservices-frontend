@@ -1,7 +1,11 @@
 import { notFound } from "next/navigation";
-import ServiceFunnel from "../../components/ServiceFunnel";
+import dynamic from "next/dynamic";
 import { funnelConfigs } from "../../components/funnelConfigs";
 import HomeLogoButton from "../../components/HomeLogoButton";
+
+const ServiceFunnel = dynamic(() => import("../../components/ServiceFunnel"), {
+  loading: () => <div style={{ minHeight: "400px" }} />,
+});
 
 export function generateStaticParams() {
   return Object.keys(funnelConfigs).map((slug) => ({ slug }));
@@ -33,6 +37,9 @@ export default async function ServicePage({ params }) {
   }
 
   return (
+    <>
+      {/* Preload first funnel step image so browser discovers it immediately */}
+      <link rel="preload" as="image" href="/single-family-home.webp" />
     <div className="roofing-page">
       <header className="topbar">
         <HomeLogoButton />
@@ -51,5 +58,6 @@ export default async function ServicePage({ params }) {
         <ServiceFunnel config={{ ...config, slug }} />
       </main>
     </div>
+    </>
   );
 }
