@@ -71,7 +71,7 @@ export default function AffiliateHome({ affiliateSlug, affiliate }) {
         </div>
         <div className="rw-hero-right">
           <Image
-            src="/remodel-wizard.png"
+            src="/remodel-wizard.webp"
             alt="Remodel Wiz Mascot"
             width={420}
             height={420}
@@ -93,10 +93,13 @@ export default function AffiliateHome({ affiliateSlug, affiliate }) {
             >
               <div className="rw-service-card">
                 <div className="rw-service-img-wrap">
-                  <img
-                    src={`/services/${item.slug.replace("-v1pvcs", "")}.jpg`}
+                  <Image
+                    src={`/services/${item.slug.replace("-v1pvcs", "")}.webp`}
                     className="rw-service-img"
                     alt={item.title}
+                    width={400}
+                    height={300}
+                    loading="lazy"
                   />
                   <div className="rw-service-overlay" />
                 </div>

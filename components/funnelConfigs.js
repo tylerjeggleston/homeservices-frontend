@@ -478,9 +478,9 @@ function commonHomeTypeStep() {
     type: "image-options",
     subtitle: "Select Your Response Below",
     options: [
-      { label: "Single Family Home", icon: "🏠", image: "/single-family-home.png" },
-      { label: "Mobile Home", icon: "🚐", image: "/services/mobile-home.png" },
-      { label: "Apartment", icon: "🏢", image: "/services/apartment.png" },
+      { label: "Single Family Home", icon: "🏠", image: "/single-family-home.webp" },
+      { label: "Mobile Home", icon: "🚐", image: "/services/mobile-home.webp" },
+      { label: "Apartment", icon: "🏢", image: "/services/apartment.webp" },
     ],
   };
 }

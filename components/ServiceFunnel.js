@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 
 //const OTP_API_BASE = "https://homeservices-backend-1fe53ea28f51.herokuapp.com";
 const OTP_API_BASE = "https://homeservicesbackend-49679431e329.herokuapp.com";
@@ -1150,8 +1151,14 @@ if (isVerificationStep) {
                   >
                     <div className="image-option-img-wrap">
                       {option.image ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={option.image} alt={option.label} className="image-option-img" />
+                        <Image
+                          src={option.image}
+                          alt={option.label}
+                          className="image-option-img"
+                          width={300}
+                          height={200}
+                          loading="lazy"
+                        />
                       ) : (
                         <div className="image-option-icon">{option.icon}</div>
                       )}
