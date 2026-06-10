@@ -13,9 +13,8 @@ function isValidZip(zip) {
 function getCanonicalLandingPage() {
   if (typeof window === "undefined") return "";
   const url = new URL(window.location.href);
-  // Strip /affiliate/<slug>/ prefix so lead buyers see the main site URL
   url.pathname = url.pathname.replace(/^\/affiliate\/[^/]+\//, "/");
-  return url.href;
+  return url.origin + url.pathname;
 }
 
 function getTrackingParams() {
