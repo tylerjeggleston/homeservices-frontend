@@ -124,6 +124,11 @@ export const funnelConfigs = {
       title: "Do you already have Solar Panels on the Roof of your Home?",
       type: "options",
       options: ["No", "Yes"],
+      disqualifyOn: {
+        values: ["Yes"],
+        title: "Thank you for checking!",
+        message: "This offer is only available for those who haven't gone solar yet.",
+      },
     },
     {
       key: "roofSun",
