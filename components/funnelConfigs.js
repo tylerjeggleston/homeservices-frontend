@@ -56,6 +56,11 @@ export const funnelConfigs = {
         type: "options",
         layout: "stack",
         options: ["Yes", "No"],
+        disqualifyOn: {
+          values: ["No"],
+          title: "Thank you for checking!",
+          message: "As of now, there aren't any offers available in your area.",
+        },
       },
       {
         key: "windowCount",
@@ -186,6 +191,11 @@ export const funnelConfigs = {
       title: "Are you a Homeowner?",
       type: "options",
       options: ["Yes", "No"],
+      disqualifyOn: {
+        values: ["No"],
+        title: "Thank you for checking!",
+        message: "As of now, there aren't any offers available in your area.",
+      },
     },
     commonCreditStep(),
     commonAddressStep("bathroom project"),
@@ -213,6 +223,11 @@ export const funnelConfigs = {
         title: "Are you a Homeowner?",
         type: "options",
         options: ["Yes", "No"],
+        disqualifyOn: {
+          values: ["No"],
+          title: "Thank you for checking!",
+          message: "As of now, there aren't any offers available in your area.",
+        },
       },
       {
         key: "gutterType",
@@ -246,6 +261,11 @@ export const funnelConfigs = {
       title: "Are you a Homeowner?",
       type: "options",
       options: ["Yes", "No"],
+      disqualifyOn: {
+        values: ["No"],
+        title: "Thank you for checking!",
+        message: "As of now, there aren't any offers available in your area.",
+      },
     },
     {
       key: "hvacSystem",
@@ -304,6 +324,11 @@ export const funnelConfigs = {
       title: "Are you a Homeowner?",
       type: "options",
       options: ["Yes", "No"],
+      disqualifyOn: {
+        values: ["No"],
+        title: "Thank you for checking!",
+        message: "As of now, there aren't any offers available in your area.",
+      },
     },
     commonCreditStep(),
     commonAddressStep("painting project"),
@@ -331,6 +356,11 @@ export const funnelConfigs = {
       title: "Are you a Homeowner?",
       type: "options",
       options: ["Yes", "No"],
+      disqualifyOn: {
+        values: ["No"],
+        title: "Thank you for checking!",
+        message: "As of now, there aren't any offers available in your area.",
+      },
     },
     {
       key: "sidingMaterial",
@@ -367,6 +397,11 @@ export const funnelConfigs = {
         title: "Are you a Homeowner?",
         type: "options",
         options: ["Yes", "No"],
+        disqualifyOn: {
+          values: ["No"],
+          title: "Thank you for checking!",
+          message: "As of now, there aren't any offers available in your area.",
+        },
       },
       // {
       //   key: "service",
