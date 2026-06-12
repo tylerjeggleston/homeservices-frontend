@@ -350,7 +350,7 @@ export default function ServiceFunnel({ config }) {
 
   const currentStep = allSteps[stepIndex];
   const progressSteps = useMemo(
-  () => allSteps.filter((step) => step.type !== "disqualified"),
+  () => allSteps.filter((step) => step.type !== "disqualified" && step.type !== "thankyou" && step.key !== "verificationCode"),
   [allSteps]
 );
 
