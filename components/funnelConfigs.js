@@ -124,7 +124,8 @@ export const funnelConfigs = {
     },
     {
       key: "existingSolar",
-      title: "Do you already have Solar Panels on the Roof of your Home?",
+      title: "Does your home already have solar panels?",
+      description: "This helps us determine which solar options may be available for your property.",
       type: "options",
       options: ["No", "Yes"],
       disqualifyOn: {
