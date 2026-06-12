@@ -1253,9 +1253,11 @@ if (isVerificationStep) {
         {currentStep.type === "range" && (
           <>
             <div className="range-value-display">
-              {rangePrefix}
-              {Number(form[currentStep.key] || 0).toLocaleString()}
-              {rangeSuffix}
+              {(() => {
+                const val = Number(form[currentStep.key] || currentStep.defaultValue || 0);
+                const isMax = currentStep.maxLabel && val >= (currentStep.max ?? 1000);
+                return isMax ? currentStep.maxLabel : `${rangePrefix}${val.toLocaleString()}${rangeSuffix}`;
+              })()}
             </div>
 
             <input
@@ -1267,6 +1269,18 @@ if (isVerificationStep) {
               onChange={handleRangeChange}
               className="bill-range"
             />
+
+            {currentStep.markers && (
+              <div className="range-markers">
+                {currentStep.markers.map((m, i) => (
+                  <span key={i}>
+                    {i === currentStep.markers.length - 1 && currentStep.maxLabel
+                      ? currentStep.maxLabel
+                      : `$${m}`}
+                  </span>
+                ))}
+              </div>
+            )}
 
             <div className="nav-row">
               <button type="button" className="back-btn" onClick={goBack}>
