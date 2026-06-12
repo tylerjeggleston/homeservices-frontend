@@ -761,15 +761,17 @@ const progressPercent = useMemo(() => {
           throw new Error(data.error || "Failed to load utility companies.");
         }
 
+        const utilities = data.utilities || ["OTHER PROVIDER"];
+        if (!utilities.includes("I'm not sure")) utilities.push("I'm not sure");
         setDynamicOptions((prev) => ({
           ...prev,
-          [step.key]: data.utilities || ["OTHER PROVIDER"],
+          [step.key]: utilities,
         }));
       } catch (err) {
         setError(err.message || "Failed to load utility companies.");
         setDynamicOptions((prev) => ({
           ...prev,
-          [step.key]: ["OTHER PROVIDER"],
+          [step.key]: ["OTHER PROVIDER", "I'm not sure"],
         }));
       } finally {
         setDynamicOptionsLoading(false);
