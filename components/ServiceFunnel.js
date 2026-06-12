@@ -1120,7 +1120,7 @@ if (isVerificationStep) {
       </div>
       {currentStep?.type !== "thankyou" && currentStep?.type !== "disqualified" && progressSteps.findIndex(s => s.key === currentStep?.key) > 0 && (
         <p className="progress-label">
-          Step {Math.min(progressSteps.findIndex(s => s.key === currentStep?.key) + 1, progressSteps.length)} of {progressSteps.length}
+          {Math.ceil(((progressSteps.findIndex(s => s.key === currentStep?.key) + 1) / progressSteps.length) * 100)}% complete
         </p>
       )}
 
