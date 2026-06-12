@@ -357,7 +357,7 @@ export default function ServiceFunnel({ config }) {
 const progressPercent = useMemo(() => {
   if (!progressSteps.length) return 0;
 
-  if (currentStep?.type === "thankyou" || currentStep?.type === "disqualified") {
+  if (currentStep?.type === "thankyou" || currentStep?.type === "disqualified" || currentStep?.progressComplete) {
     return 100;
   }
 

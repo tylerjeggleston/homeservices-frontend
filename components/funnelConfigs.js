@@ -197,6 +197,7 @@ export const funnelConfigs = {
       pageHeading: "Your solar assessment is ready!",
       pageDescription: null,
       pageSubtitle: "",
+      progressComplete: true,
     },
     commonPhoneStep(),
     commonVerificationStep(),
