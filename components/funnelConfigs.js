@@ -158,7 +158,13 @@ export const funnelConfigs = {
       markers: [0, 100, 200, 300, 400, 500],
       maxLabel: "$500+",
     },
-    commonAddressStep("solar panels"),
+    {
+      key: "address",
+      title: "What's the property address?",
+      description: "We'll use satellite imagery to review roof size, shading, and solar potential.",
+      type: "input",
+      placeholder: "Enter property address",
+    },
     {
       key: "roofSun",
       title: "How sunny is your roof area?",

@@ -1460,7 +1460,7 @@ if (isVerificationStep) {
               ref={addressInputRef}
               className="text-input"
               value={form.address}
-              placeholder="Start typing your full address"
+              placeholder={currentStep.placeholder || "Start typing your full address"}
               onChange={handleAddressChange}
               onKeyDown={(e) => {
                 if (e.key === "Enter") e.preventDefault();
@@ -1470,9 +1470,9 @@ if (isVerificationStep) {
             <div className="address-help">
               {form.address && !form.addressValidated
                 ? "Please choose a full address from the dropdown suggestions."
-                : userCoords
+                : !currentStep.description && (userCoords
                 ? "Nearby address suggestions are enabled."
-                : "Allow location for faster nearby suggestions."}
+                : "Allow location for faster nearby suggestions.")}
             </div>
 
             <div className="nav-row">
