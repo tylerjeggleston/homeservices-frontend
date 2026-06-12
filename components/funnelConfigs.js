@@ -190,7 +190,7 @@ export const funnelConfigs = {
       ],
     },
     { ...commonFirstNameStep(), title: "Who should this report go to?" },
-    commonLastNameStep(),
+    { ...commonLastNameStep(), title: "And your last name?" },
     commonEmailStep(),
     commonPhoneStep(),
     commonVerificationStep(),
