@@ -135,7 +135,8 @@ export const funnelConfigs = {
     },
     {
       key: "utilityCompany",
-      title: "What is your electric utility company?",
+      title: "Who provides your electricity?",
+      description: "Utility rates vary significantly by provider. We'll use this to estimate how solar may compare to your current electricity costs.",
       type: "select",
       placeholder: "Select utility company",
       searchPlaceholder: "Search utility company",
