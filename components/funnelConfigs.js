@@ -167,10 +167,15 @@ export const funnelConfigs = {
     },
     {
       key: "roofSun",
-      title: "How sunny is your roof area?",
+      title: "Before we review your property, is your roof mostly sunny or mostly shaded?",
       type: "options",
       layout: "stack",
-      options: ["No Shade", "Some Shade", "Full Shade", "Not Sure"],
+      options: [
+        { label: "Mostly Sunny", value: "No Shade" },
+        { label: "Some shade during the day", value: "Some Shade" },
+        { label: "Heavy shade most of the day", value: "Full Shade" },
+        { label: "Not sure", value: "Not Sure" },
+      ],
     },
     commonCreditStep(),
     commonFirstNameStep(),

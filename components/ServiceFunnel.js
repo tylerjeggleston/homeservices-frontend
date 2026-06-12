@@ -1212,17 +1212,19 @@ if (isVerificationStep) {
               }`}
             >
               {currentStep.options.map((option) => {
-                const selected = form[currentStep.key] === option;
+                const optionLabel = typeof option === "object" ? option.label : option;
+                const optionValue = typeof option === "object" ? option.value : option;
+                const selected = form[currentStep.key] === optionValue;
 
                 return (
                   <button
-                    key={option}
+                    key={optionValue}
                     type="button"
                     className={`option-btn ${selected ? "selected" : ""}`}
-                    onClick={() => selectOption(option)}
+                    onClick={() => selectOption(optionValue)}
                   >
                     <span className="radio-circle">{selected ? "◉" : "○"}</span>
-                    <span>{option}</span>
+                    <span>{optionLabel}</span>
                   </button>
                 );
               })}
