@@ -1282,6 +1282,7 @@ if (isVerificationStep) {
               </div>
             )}
 
+
             <div className="nav-row">
               <button type="button" className="back-btn" onClick={goBack}>
                 ‹ Back

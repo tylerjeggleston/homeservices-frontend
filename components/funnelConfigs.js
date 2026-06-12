@@ -153,7 +153,7 @@ export const funnelConfigs = {
       step: 5,
       defaultValue: 100,
       prefix: "$",
-      markers: [100, 200, 300, 400, 500],
+      markers: [0, 100, 200, 300, 400, 500],
       maxLabel: "$500+",
     },
     commonAddressStep("solar panels"),
