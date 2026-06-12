@@ -170,7 +170,7 @@ export const funnelConfigs = {
       title: "How sunny is your roof area?",
       type: "options",
       layout: "stack",
-      options: ["Full Sun", "Partial Shade", "Full Shade", "Not Sure"],
+      options: ["No Shade", "Some Shade", "Full Shade", "Not Sure"],
     },
     commonCreditStep(),
     commonFirstNameStep(),
