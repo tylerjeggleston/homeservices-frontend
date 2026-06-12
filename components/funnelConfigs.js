@@ -153,7 +153,7 @@ export const funnelConfigs = {
       min: 0,
       max: 500,
       step: 5,
-      defaultValue: 100,
+      defaultValue: 150,
       prefix: "$",
       markers: [0, 100, 200, 300, 400, 500],
       maxLabel: "$500+",
