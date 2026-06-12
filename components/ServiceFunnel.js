@@ -1116,6 +1116,11 @@ if (isVerificationStep) {
           style={{ width: `${progressPercent}%` }}
         />
       </div>
+      {currentStep?.type !== "thankyou" && currentStep?.type !== "disqualified" && (
+        <p className="progress-label">
+          Step {Math.min(progressSteps.findIndex(s => s.key === currentStep?.key) + 1, progressSteps.length)} of {progressSteps.length}
+        </p>
+      )}
 
       <div className="funnel-inner">
         {currentStep.type !== "thankyou" && currentStep.type !== "disqualified" && (

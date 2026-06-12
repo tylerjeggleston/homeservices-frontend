@@ -109,7 +109,7 @@ export const funnelConfigs = {
   subtitle: "Takes about 30 seconds.",
   steps: [
     { ...commonZipStep(), title: "First, what ZIP code is the property located in?" },
-    commonHomeTypeStep(),
+    { ...commonHomeTypeStep(), subtitle: "Different home types have different solar requirements. This helps us determine whether solar may be a fit for your property." },
     {
       key: "homeowner",
       title: "Are you a Homeowner?",
