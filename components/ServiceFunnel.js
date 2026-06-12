@@ -1272,13 +1272,19 @@ if (isVerificationStep) {
 
             {currentStep.markers && (
               <div className="range-markers">
-                {currentStep.markers.map((m, i) => (
-                  <span key={i}>
-                    {i === currentStep.markers.length - 1 && currentStep.maxLabel
-                      ? currentStep.maxLabel
-                      : `$${m}`}
-                  </span>
-                ))}
+                {currentStep.markers.map((m, i) => {
+                  const min = currentStep.min ?? 0;
+                  const max = currentStep.max ?? 1000;
+                  const pct = ((m - min) / (max - min)) * 100;
+                  const label = i === currentStep.markers.length - 1 && currentStep.maxLabel
+                    ? currentStep.maxLabel
+                    : `$${m}`;
+                  return (
+                    <span key={i} style={{ left: `calc(${pct}% - ${pct * 0.16}px)` }}>
+                      {label}
+                    </span>
+                  );
+                })}
               </div>
             )}
 
