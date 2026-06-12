@@ -189,7 +189,7 @@ export const funnelConfigs = {
         { label: "Below 620", value: "Poor" },
       ],
     },
-    commonFirstNameStep(),
+    { ...commonFirstNameStep(), title: "Who should this report go to?" },
     commonLastNameStep(),
     commonEmailStep(),
     commonPhoneStep(),
