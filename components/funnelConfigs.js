@@ -104,9 +104,11 @@ export const funnelConfigs = {
   },
 
   "solar-v1pvcs": {
-  heading: "Free Solar Estimate",
+  heading: "Find Out If Solar Makes Sense For Your Home",
+  description: "We'll check your local utility rates, available solar programs, and whether your area is a good fit.",
+  subtitle: "Takes about 30 seconds.",
   steps: [
-    commonZipStep(),
+    { ...commonZipStep(), title: "First, what ZIP code is the property located in?" },
     commonHomeTypeStep(),
     {
       key: "homeowner",
