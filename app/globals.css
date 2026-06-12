@@ -1470,7 +1470,13 @@ input {
 .question-title {
   font-size: 24px;
   font-weight: 400;
-  margin: 0 0 28px;
+  margin: 0 0 8px;
+}
+
+.question-description {
+  font-size: 15px;
+  color: #666;
+  margin: 0 0 20px;
 }
 
 /* Image option cards (home type question) */

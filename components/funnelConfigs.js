@@ -112,13 +112,14 @@ export const funnelConfigs = {
     { ...commonHomeTypeStep(), subtitle: "Different home types have different solar requirements. This helps us determine whether solar may be a fit for your property." },
     {
       key: "homeowner",
-      title: "Are you a Homeowner?",
+      title: "Do you own the home?",
+      description: "Solar programs are typically available to property owners.",
       type: "options",
       options: ["Yes", "No"],
       disqualifyOn: {
         values: ["No"],
-        title: "Thank You!",
-        message: "Our solar program is currently for homeowners only.",
+        title: "Thank you for checking!",
+        message: "As of now, there aren't any offers available in your area.",
       },
     },
     {
