@@ -300,7 +300,7 @@ export default function ServiceFunnel({ config }) {
     const obj = {};
 
     steps.forEach((step) => {
-      if (step.type === "range" && step.defaultValue !== undefined) {
+      if (step.defaultValue !== undefined) {
         obj[step.key] = step.defaultValue;
       } else {
         obj[step.key] = "";
