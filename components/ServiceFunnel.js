@@ -1101,7 +1101,15 @@ if (isVerificationStep) {
   const rangeSuffix =
     currentStep.type === "range" ? currentStep.suffix || "" : "";
 
+  const activeHeading = currentStep?.pageHeading ?? config?.heading;
+  const activeDescription = currentStep?.pageDescription !== undefined ? currentStep.pageDescription : config?.description;
+  const activeSubtitle = currentStep?.pageSubtitle !== undefined ? currentStep.pageSubtitle : (config?.subtitle || "It only takes 30 seconds.");
+
   return (
+    <>
+      <h1 className="funnel-title">{activeHeading}</h1>
+      {activeDescription && <p className="funnel-description">{activeDescription}</p>}
+      <p className="funnel-subtitle">{activeSubtitle}</p>
     <form
   className="funnel-card"
   onSubmit={(e) => {
@@ -1497,5 +1505,6 @@ if (isVerificationStep) {
         {error && <div className="address-help error-text">{error}</div>}
       </div>
     </form>
+    </>
   );
 }

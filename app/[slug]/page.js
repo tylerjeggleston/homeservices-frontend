@@ -52,12 +52,6 @@ export default async function ServicePage({ params }) {
       </header>
 
       <main className="funnel-page-wrap">
-        <h1 className="funnel-title">{config.heading}</h1>
-        {config.description && (
-          <p className="funnel-description">{config.description}</p>
-        )}
-        <p className="funnel-subtitle">{config.subtitle || "It only takes 30 seconds."}</p>
-
         <ServiceFunnel config={{ ...config, slug }} />
       </main>
     </div>
