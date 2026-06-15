@@ -1480,7 +1480,7 @@ if (isVerificationStep) {
             <div className="address-help">
               {form.address && !form.addressValidated
                 ? "Please choose a full address from the dropdown suggestions."
-                : !currentStep.description && (userCoords
+                : !currentStep.description && !currentStep.hideLocationHint && (userCoords
                 ? "Nearby address suggestions are enabled."
                 : "Allow location for faster nearby suggestions.")}
             </div>
