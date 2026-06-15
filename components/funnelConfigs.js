@@ -304,7 +304,12 @@ export const funnelConfigs = {
       key: "service",
       title: "What HVAC service do you need?",
       type: "options",
-      options: ["Install", "Replace", "Repair"],
+      options: [
+        "Install",
+        "Replace",
+        "Repair",
+        { label: "Free Inspection", value: "Repair" },
+      ],
     },
     {
       key: "homeowner",
