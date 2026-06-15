@@ -301,6 +301,17 @@ export const funnelConfigs = {
     { ...commonZipStep(), title: "What ZIP code should we check service availability for?" },
     commonHomeTypeStep(),
     {
+      key: "hvacSystem",
+      title: "Which HVAC system do you need help with?",
+      type: "options",
+      layout: "stack",
+      options: [
+        { label: "Air Conditioner", value: "Air Conditioner" },
+        { label: "Heating System", value: "Heating System" },
+        { label: "Both", value: "Both" },
+      ],
+    },
+    {
       key: "service",
       title: "To help with your free inspection, how would you describe your A/C or Heating system?",
       type: "options",
@@ -320,17 +331,6 @@ export const funnelConfigs = {
         title: "Thank you for checking!",
         message: "As of now, there aren't any offers available in your area.",
       },
-    },
-    {
-      key: "hvacSystem",
-      title: "Which HVAC system do you need help with?",
-      type: "options",
-      layout: "stack",
-      options: [
-        { label: "Air Conditioner", value: "Air Conditioner" },
-        { label: "Heating System", value: "Heating System" },
-        { label: "Both", value: "Both" },
-      ],
     },
     { ...commonCreditStep(), title: "If repairs or replacement are needed, how would you describe your credit?" },
     { ...commonAddressStep("HVAC work"), title: "What address needs the A/C & Heating inspection?", hideLocationHint: true },
