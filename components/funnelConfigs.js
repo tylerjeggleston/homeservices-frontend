@@ -103,7 +103,7 @@ export const funnelConfigs = {
       },
       {
         ...commonPhoneStep(),
-        title: "What phone number can our contractors call you for a free quote?",
+        title: "What's the best number for discussing your window project?",
         placeholder: "e.g 7021234567",
       },
       commonVerificationStep(),
