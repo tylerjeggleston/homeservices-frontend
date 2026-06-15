@@ -302,12 +302,12 @@ export const funnelConfigs = {
     commonHomeTypeStep(),
     {
       key: "service",
-      title: "Which best describes your situation?",
+      title: "To help with your free inspection, how would you describe your A/C or Heating system?",
       type: "options",
       options: [
-        { label: "My system isn't working", value: "My system isn't working" },
-        { label: "My system may need replacement", value: "My system may need replacement" },
-        { label: "I'd like a free inspection", value: "I'd like a free inspection" },
+        { label: "Not working properly", value: "Not working properly" },
+        { label: "Working, but getting old", value: "Working, but getting old" },
+        { label: "Just want a routine inspection", value: "Just want a routine inspection" },
       ],
     },
     {
