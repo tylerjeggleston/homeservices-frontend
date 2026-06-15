@@ -296,9 +296,9 @@ export const funnelConfigs = {
   },
 
   "hvac-v1pvcs": {
-  heading: "Free HVAC Quotes",
+  heading: "Free A/C & Heating Inspection",
   steps: [
-    commonZipStep(),
+    { ...commonZipStep(), title: "What ZIP code should we check service availability for?" },
     commonHomeTypeStep(),
     {
       key: "service",
