@@ -254,7 +254,7 @@ export const funnelConfigs = {
         message: "As of now, there aren't any offers available in your area.",
       },
     },
-    commonCreditStep(),
+    { ...commonCreditStep(), title: "If financing is needed, how would you rate your credit?" },
     commonAddressStep("bathroom project"),
     commonEmailStep(),
     commonFirstNameStep(),
