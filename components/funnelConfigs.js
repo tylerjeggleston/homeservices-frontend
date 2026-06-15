@@ -58,7 +58,7 @@ export const funnelConfigs = {
       },
       {
         key: "homeowner",
-        title: "Are you a Homeowner?",
+        title: "Are you the Homeowner?",
         type: "options",
         layout: "stack",
         options: ["Yes", "No"],
