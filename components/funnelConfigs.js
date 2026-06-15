@@ -47,9 +47,14 @@ export const funnelConfigs = {
       commonHomeTypeStep(),
       {
         key: "service",
-        title: "What type of window service do you need?",
+        title: "What's the biggest issue with your current windows?",
         type: "options",
-        options: ["Install", "Replace", "Repair"],
+        options: [
+          { label: "Rooms get too hot or cold", value: "Rooms get too hot or cold" },
+          { label: "High energy bills", value: "High energy bills" },
+          { label: "Windows are damaged or outdated", value: "Windows are damaged or outdated" },
+          { label: "Just exploring replacement options", value: "Just exploring replacement options" },
+        ],
       },
       {
         key: "homeowner",
