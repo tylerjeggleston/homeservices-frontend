@@ -338,7 +338,7 @@ export const funnelConfigs = {
     { ...commonEmailStep(), title: "What email address should we use for your inspection?" },
     commonFirstNameStep(),
     commonLastNameStep(),
-    commonPhoneStep(),
+    { ...commonPhoneStep(), title: "What is the best number to reach you?" },
     commonVerificationStep(),
   ],
 },
