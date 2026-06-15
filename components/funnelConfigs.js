@@ -245,7 +245,7 @@ export const funnelConfigs = {
     // },
     {
       key: "homeowner",
-      title: "Are you a Homeowner?",
+      title: "Do you own the home?",
       type: "options",
       options: ["Yes", "No"],
       disqualifyOn: {
