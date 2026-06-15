@@ -70,7 +70,7 @@ export const funnelConfigs = {
       },
       {
         key: "windowCount",
-        title: "How many windows?",
+        title: "How many windows need to be fixed or replaced?",
         type: "options",
         layout: "stack",
         options: ["1-2", "3-5", "6-9", "10+"],
