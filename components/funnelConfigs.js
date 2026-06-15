@@ -40,7 +40,8 @@ export const funnelConfigs = {
   },
 
   "windows-v1pvcs": {
-    heading: "Free Windows Quotes",
+    heading: "Get New Windows With No Upfront Cost",
+    subtitle: "",
     steps: [
       commonZipStep(),
       commonHomeTypeStep(),
