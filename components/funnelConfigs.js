@@ -333,7 +333,7 @@ export const funnelConfigs = {
         { label: "Both", value: "Both" },
       ],
     },
-    commonCreditStep(),
+    { ...commonCreditStep(), title: "If repairs or replacement are needed, how would you describe your credit?" },
     commonAddressStep("HVAC work"),
     commonEmailStep(),
     commonFirstNameStep(),
