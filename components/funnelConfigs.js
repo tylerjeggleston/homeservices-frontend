@@ -85,7 +85,7 @@ export const funnelConfigs = {
       },
       {
         key: "email",
-        title: "What email address can our contractors reach you at?",
+        title: "What email should we use for your window project?",
         type: "input",
         placeholder: "Enter email address",
       },
