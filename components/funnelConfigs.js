@@ -308,7 +308,7 @@ export const funnelConfigs = {
         "Install",
         "Replace",
         "Repair",
-        { label: "Free Inspection", value: "Repair" },
+        "Free Inspection",
       ],
     },
     {
