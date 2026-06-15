@@ -225,16 +225,16 @@ export const funnelConfigs = {
     commonHomeTypeStep(),
     {
       key: "service",
-      title: "What type of bathroom service do you need?",
+      title: "What type of bathroom project are you considering?",
       type: "options",
       layout: "stack",
       options: [
-        "Full Bathroom Remodel",
-        "Walk-In Tub",
-        "Bath to shower conversion",
-        "Bath/Shower Updates",
-        "Bath Liner/Shower Enclosure",
-        "Walk-In Shower",
+        { label: "Walk-In Shower", value: "Walk-In Shower" },
+        { label: "Bath to Shower Conversion", value: "Bath to Shower Conversion" },
+        { label: "Full Bathroom Remodel", value: "Full Bathroom Remodel" },
+        { label: "Bath/Shower Updates", value: "Bath/Shower Updates" },
+        { label: "Walk-In Tub", value: "Walk-In Tub" },
+        { label: "Not Sure / Need Recommendations", value: "Not Sure / Need Recommendations" },
       ],
     },
     // {
