@@ -328,9 +328,9 @@ export const funnelConfigs = {
       type: "options",
       layout: "stack",
       options: [
-        "Central A/C",
-        "Electric Furnace",
-        "Propane Furnace",
+        { label: "Air Conditioner", value: "Air Conditioner" },
+        { label: "Heating System", value: "Heating System" },
+        { label: "Both", value: "Both" },
       ],
     },
     commonCreditStep(),
