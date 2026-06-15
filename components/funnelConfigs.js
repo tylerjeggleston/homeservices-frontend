@@ -78,9 +78,10 @@ export const funnelConfigs = {
       { ...commonCreditStep(), title: "If financing is needed, how would you rate your credit?" },
       {
         key: "address",
-        title: "Type below the home address where you want the window to be Installed",
+        title: "What is the property address?",
         type: "input",
         placeholder: "Complete Address",
+        hideLocationHint: true,
       },
       {
         key: "email",
