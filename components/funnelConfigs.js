@@ -333,7 +333,7 @@ export const funnelConfigs = {
       },
     },
     { ...commonCreditStep(), title: "If repairs or replacement are needed, how would you describe your credit?" },
-    { ...commonAddressStep("HVAC work"), title: "What address needs the A/C & Heating inspection?", hideLocationHint: true },
+    { ...commonAddressStep("HVAC work"), title: "What address needs the A/C or Heating inspection?", hideLocationHint: true },
     { ...commonEmailStep(), title: "What email address should we use for your inspection?" },
     commonFirstNameStep(),
     commonLastNameStep(),
