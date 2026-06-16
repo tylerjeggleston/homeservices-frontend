@@ -111,9 +111,9 @@ export const funnelConfigs = {
   },
 
   "solar-v1pvcs": {
-  heading: "",
+  heading: "Get Solar For No Upfront Cost!",
   description: null,
-  subtitle: "",
+  subtitle: "It only takes 30 seconds.",
   steps: [
     {
       ...commonZipStep(),
@@ -154,7 +154,7 @@ export const funnelConfigs = {
         message: "As of now, there aren't any offers available in your area.",
       },
     },
-    commonHomeTypeStep(),
+    { ...commonHomeTypeStep(), pageHeading: "", pageSubtitle: "" },
     {
       key: "utilityCompany",
       title: "Who provides your electricity?",
@@ -163,6 +163,8 @@ export const funnelConfigs = {
       searchPlaceholder: "Search utility company",
       dynamicOptionsFrom: "utilityLookup",
       options: [],
+      pageHeading: "",
+      pageSubtitle: "",
     },
     {
       key: "electricBill",
@@ -175,6 +177,8 @@ export const funnelConfigs = {
       prefix: "$",
       markers: [0, 100, 200, 300, 400, 500],
       maxLabel: "$500+",
+      pageHeading: "",
+      pageSubtitle: "",
     },
     {
       key: "address",
@@ -182,6 +186,8 @@ export const funnelConfigs = {
       hideLocationHint: true,
       type: "input",
       placeholder: "Enter property address",
+      pageHeading: "",
+      pageSubtitle: "",
     },
     {
       key: "roofSun",
@@ -194,6 +200,8 @@ export const funnelConfigs = {
         { label: "Heavy shade most of the day", value: "Full Shade" },
         { label: "Not sure", value: "Not Sure" },
       ],
+      pageHeading: "",
+      pageSubtitle: "",
     },
     {
       key: "creditRating",
@@ -206,13 +214,17 @@ export const funnelConfigs = {
         { label: "Fair", value: "Fair" },
         { label: "Poor", value: "Poor" },
       ],
+      pageHeading: "",
+      pageSubtitle: "",
     },
-    { ...commonFirstNameStep(), title: "What's your First Name?" },
-    { ...commonLastNameStep(), title: "And your last name?" },
+    { ...commonFirstNameStep(), title: "What's your First Name?", pageHeading: "", pageSubtitle: "" },
+    { ...commonLastNameStep(), title: "And your last name?", pageHeading: "", pageSubtitle: "" },
     {
       ...commonEmailStep(),
       title: "What's your email?",
       progressComplete: true,
+      pageHeading: "",
+      pageSubtitle: "",
     },
     {
       ...commonPhoneStep(),
@@ -222,7 +234,7 @@ export const funnelConfigs = {
       pageSubtitle: "",
       progressComplete: true,
     },
-    commonVerificationStep(),
+    { ...commonVerificationStep(), pageHeading: "", pageSubtitle: "" },
   ],
 },
 
