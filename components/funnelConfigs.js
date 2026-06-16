@@ -192,7 +192,7 @@ export const funnelConfigs = {
         { label: "Below 620", value: "Poor" },
       ],
     },
-    { ...commonFirstNameStep(), title: "Who should this report go to?" },
+    { ...commonFirstNameStep(), title: "What's your First Name?" },
     { ...commonLastNameStep(), title: "And your last name?" },
     {
       ...commonEmailStep(),
