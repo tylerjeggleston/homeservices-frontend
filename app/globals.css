@@ -1511,6 +1511,12 @@ input {
 @media (max-width: 600px) {
   .dual-input-row {
     flex-direction: column;
+    gap: 14px;
+  }
+
+  .dual-input-row .text-input {
+    height: 58px;
+    font-size: 22px;
   }
 }
 
