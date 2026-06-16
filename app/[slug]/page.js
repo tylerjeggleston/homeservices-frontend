@@ -1,15 +1,15 @@
 import { notFound } from "next/navigation";
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
+import { headers } from "next/headers";
 import { funnelConfigs } from "../../components/funnelConfigs";
+import { getStateFromHeaders } from "../../lib/geoState";
 import HomeLogoButton from "../../components/HomeLogoButton";
 
-const ServiceFunnel = dynamic(() => import("../../components/ServiceFunnel"), {
+const ServiceFunnel = nextDynamic(() => import("../../components/ServiceFunnel"), {
   loading: () => <div style={{ minHeight: "400px" }} />,
 });
 
-export function generateStaticParams() {
-  return Object.keys(funnelConfigs).map((slug) => ({ slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -36,6 +36,9 @@ export default async function ServicePage({ params }) {
     notFound();
   }
 
+  const headersList = await headers();
+  const userState = await getStateFromHeaders(headersList);
+
   return (
     <>
       {/* Preload first funnel step image so browser discovers it immediately */}
@@ -52,7 +55,7 @@ export default async function ServicePage({ params }) {
       </header>
 
       <main className="funnel-page-wrap">
-        <ServiceFunnel config={{ ...config, slug }} />
+        <ServiceFunnel config={{ ...config, slug, userState }} />
       </main>
     </div>
     </>
