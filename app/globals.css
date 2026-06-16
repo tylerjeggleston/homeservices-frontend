@@ -1555,13 +1555,9 @@ input {
 
 .question-title {
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 700;
   margin: 0 0 8px;
   text-align: center;
-}
-
-.question-title-bold {
-  font-weight: 700;
 }
 
 .question-description {
