@@ -1096,6 +1096,10 @@ if (isVerificationStep) {
   nextLabel = otpVerifying ? "Verifying..." : "Verify & Submit";
 }
 
+if (currentStep?.nextLabel) {
+  nextLabel = currentStep.nextLabel;
+}
+
   const rangePrefix =
     currentStep.type === "range" ? currentStep.prefix || "" : "";
   const rangeSuffix =
@@ -1451,9 +1455,13 @@ if (isVerificationStep) {
             )}
 
             <div className="nav-row">
-              <button type="button" className="back-btn" onClick={goBack}>
-                ‹ Back
-              </button>
+              {stepIndex > 0 ? (
+                <button type="button" className="back-btn" onClick={goBack}>
+                  ‹ Back
+                </button>
+              ) : (
+                <div />
+              )}
 
               <button
                 type="button"
