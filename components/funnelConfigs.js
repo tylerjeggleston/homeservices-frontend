@@ -120,7 +120,6 @@ export const funnelConfigs = {
     {
       key: "homeowner",
       title: "Do you own the home?",
-      description: "Solar programs are typically available to property owners.",
       type: "options",
       options: ["Yes", "No"],
       disqualifyOn: {
