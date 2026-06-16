@@ -196,10 +196,7 @@ export const funnelConfigs = {
     { ...commonLastNameStep(), title: "And your last name?" },
     {
       ...commonEmailStep(),
-      title: "What email should we send it to?",
-      pageHeading: "Your solar assessment is ready!",
-      pageDescription: null,
-      pageSubtitle: "",
+      title: "What's your email?",
       progressComplete: true,
     },
     {
