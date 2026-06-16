@@ -213,7 +213,6 @@ export const funnelConfigs = {
       title: "Where should we send your results?",
       description: "We'll email your personalized savings estimate",
       nextLabel: "Send My Estimate →",
-      progressComplete: true,
       pageHeading: "",
       pageSubtitle: "",
     },
