@@ -1527,6 +1527,19 @@ input {
   }
 }
 
+.step-banner {
+  background: #f1e6c8;
+  border: 1px solid #e3d2a0;
+  color: #e57373;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin: 0 auto 24px;
+  max-width: 700px;
+}
+
 .question-title {
   font-size: 24px;
   font-weight: 400;

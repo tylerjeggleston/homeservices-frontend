@@ -1166,6 +1166,10 @@ if (currentStep?.nextLabel) {
           </div>
         ) : (
         <>
+        {currentStep.banner && (
+          <div className="step-banner">{currentStep.banner}</div>
+        )}
+
         {currentStep.type !== "thankyou" && currentStep.type !== "disqualified" && (
           <>
             <h2 className="question-title">{currentStep.title}</h2>

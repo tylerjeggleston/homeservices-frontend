@@ -220,7 +220,10 @@ export const funnelConfigs = {
     },
     {
       ...commonEmailStep(),
-      title: "What's your email?",
+      banner: "YOU MAY QUALIFY FOR NO COST SOLAR",
+      title: "Where should we send your results?",
+      description: "We'll email your personalized savings estimate",
+      nextLabel: "Send My Estimate →",
       progressComplete: true,
       pageHeading: "",
       pageSubtitle: "",
