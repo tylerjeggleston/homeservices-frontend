@@ -259,7 +259,7 @@ export const funnelConfigs = {
     { ...commonEmailStep(), title: "What email address should we send your quotes to?" },
     commonFirstNameStep(),
     commonLastNameStep(),
-    commonPhoneStep(),
+    { ...commonPhoneStep(), title: "What's the best number to reach you?" },
     commonVerificationStep(),
   ],
 },
