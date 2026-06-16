@@ -1560,6 +1560,10 @@ input {
   text-align: center;
 }
 
+.question-title-bold {
+  font-weight: 700;
+}
+
 .question-description {
   font-size: 15px;
   color: #666;
