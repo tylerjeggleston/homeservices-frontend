@@ -230,8 +230,8 @@ export const funnelConfigs = {
     },
     {
       ...commonPhoneStep(),
-      title: "What's the best phone number to reach you?",
-      pageHeading: "You're Almost Done!",
+      title: "Last step: Enter your phone number to get your quote!",
+      pageHeading: "Great News — You Qualify!",
       pageDescription: null,
       pageSubtitle: "",
       progressComplete: true,
