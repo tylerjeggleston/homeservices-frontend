@@ -116,6 +116,7 @@ export const funnelConfigs = {
   subtitle: "It only takes 30 seconds.",
   titleClassName: "funnel-title-black",
   showStepLogo: true,
+  noCardBorder: true,
   steps: [
     {
       ...commonZipStep(),

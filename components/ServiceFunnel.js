@@ -1141,7 +1141,7 @@ if (currentStep?.nextLabel) {
       {activeDescription && <p className="funnel-description">{activeDescription}</p>}
       <p className="funnel-subtitle">{activeSubtitle}</p>
     <form
-  className="funnel-card"
+  className={`funnel-card${config?.noCardBorder ? " funnel-card-no-border" : ""}`}
   onSubmit={(e) => {
     e.preventDefault();
     goNext();
