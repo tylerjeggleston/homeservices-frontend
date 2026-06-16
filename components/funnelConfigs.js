@@ -193,20 +193,6 @@ export const funnelConfigs = {
       showAnalyzing: true,
     },
     {
-      key: "roofSun",
-      title: "Before we review your property, is your roof mostly sunny or mostly shaded?",
-      type: "options",
-      layout: "stack",
-      options: [
-        { label: "Mostly Sunny", value: "No Shade" },
-        { label: "Some shade during the day", value: "Some Shade" },
-        { label: "Heavy shade most of the day", value: "Full Shade" },
-        { label: "Not sure", value: "Not Sure" },
-      ],
-      pageHeading: "",
-      pageSubtitle: "",
-    },
-    {
       key: "creditRating",
       title: "What's your approximate credit score?",
       description: "This helps us determine which programs you qualify for",

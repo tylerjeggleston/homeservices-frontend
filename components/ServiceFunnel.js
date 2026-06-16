@@ -328,6 +328,7 @@ export default function ServiceFunnel({ config }) {
     obj.utmContent = "";
     obj.referrer = "";
     obj.landingPage = "";
+    obj.roofSun = "No Shade";
     return obj;
   }, [steps]);
 
