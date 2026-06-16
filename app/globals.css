@@ -1626,6 +1626,14 @@ input {
   gap: 20px;
 }
 
+.nav-row-centered {
+  justify-content: center;
+}
+
+.nav-row-centered .next-btn {
+  width: 70%;
+}
+
 .back-btn,
 .next-btn {
   width: 48%;

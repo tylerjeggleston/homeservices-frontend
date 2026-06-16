@@ -1454,13 +1454,11 @@ if (currentStep?.nextLabel) {
               <div className="address-help">{otpInfo}</div>
             )}
 
-            <div className="nav-row">
-              {stepIndex > 0 ? (
+            <div className={`nav-row${stepIndex === 0 ? " nav-row-centered" : ""}`}>
+              {stepIndex > 0 && (
                 <button type="button" className="back-btn" onClick={goBack}>
                   ‹ Back
                 </button>
-              ) : (
-                <div />
               )}
 
               <button
