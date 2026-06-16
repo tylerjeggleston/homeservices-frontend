@@ -1874,4 +1874,12 @@ input {
   .next-btn {
     width: 100%;
   }
+
+  .nav-row-centered {
+    align-items: center;
+  }
+
+  .nav-row-centered .next-btn {
+    width: 70%;
+  }
 }
