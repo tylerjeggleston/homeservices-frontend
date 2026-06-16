@@ -113,7 +113,7 @@ export const funnelConfigs = {
   "solar-v1pvcs": {
   heading: "Get Solar For No Upfront Cost!",
   description: null,
-  subtitle: "See if your home qualifies in 30 seconds.",
+  subtitle: "See if your home qualifies for the {state}No Cost Solar Program.",
   steps: [
     { ...commonZipStep(), title: "What's your ZIP code?" },
     commonHomeTypeStep(),

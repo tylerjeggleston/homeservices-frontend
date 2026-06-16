@@ -1101,9 +1101,12 @@ if (isVerificationStep) {
   const rangeSuffix =
     currentStep.type === "range" ? currentStep.suffix || "" : "";
 
-  const activeHeading = currentStep?.pageHeading ?? config?.heading;
-  const activeDescription = currentStep?.pageDescription !== undefined ? currentStep.pageDescription : config?.description;
-  const activeSubtitle = currentStep?.pageSubtitle !== undefined ? currentStep.pageSubtitle : (config?.subtitle || "It only takes 30 seconds.");
+  const stateLabel = config?.userState ? `${config.userState} ` : "";
+  const withState = (text) => text?.replace?.(/\{state\}\s*/g, stateLabel) ?? text;
+
+  const activeHeading = withState(currentStep?.pageHeading ?? config?.heading);
+  const activeDescription = withState(currentStep?.pageDescription !== undefined ? currentStep.pageDescription : config?.description);
+  const activeSubtitle = withState(currentStep?.pageSubtitle !== undefined ? currentStep.pageSubtitle : (config?.subtitle || "It only takes 30 seconds."));
 
   return (
     <>

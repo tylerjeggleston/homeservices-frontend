@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
+import { headers } from "next/headers";
 import { AFFILIATES } from "../../../../lib/affiliates";
 import { funnelConfigs } from "../../../../components/funnelConfigs";
+import { getStateFromHeaders } from "../../../../lib/geoState";
 import HomeLogoButton from "../../../../components/HomeLogoButton";
 import AffiliatePixel from "../../../../components/AffiliatePixel";
 
@@ -27,6 +29,9 @@ export default async function AffiliateFunnelPage({ params }) {
   const config = funnelConfigs[funnelSlug];
   if (!config) notFound();
 
+  const headersList = await headers();
+  const userState = await getStateFromHeaders(headersList);
+
   return (
     <>
       <link rel="preload" as="image" href="/single-family-home.webp" />
@@ -43,7 +48,7 @@ export default async function AffiliateFunnelPage({ params }) {
       </header>
 
       <main className="funnel-page-wrap">
-        <ServiceFunnel config={{ ...config, slug: funnelSlug, affiliateSlug: slug }} />
+        <ServiceFunnel config={{ ...config, slug: funnelSlug, affiliateSlug: slug, userState }} />
       </main>
     </div>
     </>
