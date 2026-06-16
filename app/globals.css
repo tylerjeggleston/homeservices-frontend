@@ -1527,6 +1527,15 @@ input {
   }
 }
 
+.next-btn-red {
+  background: #c0392b;
+  border-color: #c0392b;
+}
+
+.next-btn-red:hover {
+  background: #a93226;
+}
+
 .step-banner {
   background: #f1e6c8;
   border: 1px solid #e3d2a0;

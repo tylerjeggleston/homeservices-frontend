@@ -1534,7 +1534,7 @@ if (currentStep?.nextLabel) {
 
               <button
                 type="button"
-                className="next-btn"
+                className={`next-btn${currentStep.nextButtonClassName ? ` ${currentStep.nextButtonClassName}` : ""}`}
                 onClick={goNext}
                 disabled={nextDisabled}
               >
