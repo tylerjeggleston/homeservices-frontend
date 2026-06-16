@@ -118,9 +118,9 @@ export const funnelConfigs = {
   steps: [
     {
       ...commonZipStep(),
-      title: "What's your ZIP code?",
+      title: "See if your home qualifies for the {state}No Cost Solar Program",
       description: "Not all areas qualify — check your zip code",
-      pageHeading: "See if your home qualifies for the {state}No Cost Solar Program",
+      pageHeading: "",
       pageSubtitle: "",
       nextLabel: "Check My Area →",
     },

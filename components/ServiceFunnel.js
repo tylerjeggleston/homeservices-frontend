@@ -1172,7 +1172,7 @@ if (currentStep?.nextLabel) {
 
         {currentStep.type !== "thankyou" && currentStep.type !== "disqualified" && (
           <>
-            <h2 className="question-title">{currentStep.title}</h2>
+            <h2 className="question-title">{withState(currentStep.title)}</h2>
             {currentStep.description && (
               <p className="question-description">{currentStep.description}</p>
             )}
