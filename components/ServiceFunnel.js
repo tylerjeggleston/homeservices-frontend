@@ -1150,6 +1150,19 @@ if (currentStep?.nextLabel) {
 
       <input type="hidden" name="leadid_token" id="leadid_token" />
       <input type="hidden" name="universal_leadid" id="universal_leadid" />
+
+      {config?.showStepLogo && (
+        <div className="step-logo">
+          <div className="rw-logo">
+            <span className="rw-logo-badge">RW</span>
+            <div className="rw-logo-text">
+              <span className="rw-logo-top">REMODEL</span>
+              <span className="rw-logo-bottom">WIZ</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="progress-shell">
         <div
           className="progress-fill"

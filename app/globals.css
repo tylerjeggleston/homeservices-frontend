@@ -965,6 +965,12 @@ input {
   margin: 0 0 70px;
 }
 
+.step-logo {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 18px;
+}
+
 .thankyou-page-title {
   margin: 0 0 56px;
   font-size: 56px;
