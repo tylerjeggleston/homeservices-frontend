@@ -1482,6 +1482,35 @@ input {
   padding: 30px 36px 32px;
 }
 
+.analyzing-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 20px;
+}
+
+.analyzing-spinner {
+  width: 56px;
+  height: 56px;
+  border: 5px solid #d8e6fb;
+  border-top-color: #147cf1;
+  border-radius: 50%;
+  animation: analyzing-spin 0.8s linear infinite;
+}
+
+.analyzing-text {
+  font-size: 18px;
+  color: #444;
+}
+
+@keyframes analyzing-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .question-title {
   font-size: 24px;
   font-weight: 400;

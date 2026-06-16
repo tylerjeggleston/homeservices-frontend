@@ -342,6 +342,7 @@ export default function ServiceFunnel({ config }) {
   const [dynamicOptionsLoading, setDynamicOptionsLoading] = useState(false);
   const [selectSearch, setSelectSearch] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [analyzing, setAnalyzing] = useState(false);
   const [disqualifyInfo, setDisqualifyInfo] = useState({
     title: "Thank You!",
     message: "",
@@ -820,6 +821,15 @@ const progressPercent = useMemo(() => {
       return;
     }
 
+    if (currentStep?.showAnalyzing) {
+      setAnalyzing(true);
+      setTimeout(() => {
+        setAnalyzing(false);
+        setStepIndex((prev) => prev + 1);
+      }, 3000);
+      return;
+    }
+
     if (stepIndex < allSteps.length - 1) {
       setStepIndex((prev) => prev + 1);
       return;
@@ -1136,6 +1146,13 @@ if (currentStep?.nextLabel) {
 
 
       <div className="funnel-inner">
+        {analyzing ? (
+          <div className="analyzing-wrap">
+            <div className="analyzing-spinner" />
+            <p className="analyzing-text">Analyzing your roof...</p>
+          </div>
+        ) : (
+        <>
         {currentStep.type !== "thankyou" && currentStep.type !== "disqualified" && (
           <>
             <h2 className="question-title">{currentStep.title}</h2>
@@ -1508,6 +1525,8 @@ if (currentStep?.nextLabel) {
         )}
 
         {error && <div className="address-help error-text">{error}</div>}
+        </>
+        )}
       </div>
     </form>
     </>

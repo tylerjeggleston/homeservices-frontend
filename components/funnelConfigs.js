@@ -189,6 +189,8 @@ export const funnelConfigs = {
       placeholder: "Enter property address",
       pageHeading: "",
       pageSubtitle: "",
+      nextLabel: "Analyze My Roof",
+      showAnalyzing: true,
     },
     {
       key: "roofSun",
