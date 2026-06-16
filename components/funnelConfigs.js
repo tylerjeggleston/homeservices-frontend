@@ -111,9 +111,9 @@ export const funnelConfigs = {
   },
 
   "solar-v1pvcs": {
-  heading: "Get Solar For No Upfront Cost!",
+  heading: "",
   description: null,
-  subtitle: "It only takes 30 seconds.",
+  subtitle: "",
   steps: [
     {
       ...commonZipStep(),

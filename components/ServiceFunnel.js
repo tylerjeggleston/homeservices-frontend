@@ -1110,7 +1110,7 @@ if (currentStep?.nextLabel) {
 
   const activeHeading = withState(currentStep?.pageHeading ?? config?.heading);
   const activeDescription = withState(currentStep?.pageDescription !== undefined ? currentStep.pageDescription : config?.description);
-  const activeSubtitle = withState(currentStep?.pageSubtitle !== undefined ? currentStep.pageSubtitle : (config?.subtitle || "It only takes 30 seconds."));
+  const activeSubtitle = withState(currentStep?.pageSubtitle !== undefined ? currentStep.pageSubtitle : (config?.subtitle !== undefined ? config.subtitle : "It only takes 30 seconds."));
 
   return (
     <>
