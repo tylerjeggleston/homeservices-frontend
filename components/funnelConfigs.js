@@ -111,11 +111,11 @@ export const funnelConfigs = {
   },
 
   "solar-v1pvcs": {
-  heading: "Find Out If Solar Makes Sense For Your Home",
-  description: "We'll check your local utility rates, available solar programs, and whether your area is a good fit.",
-  subtitle: "Takes about 30 seconds.",
+  heading: "Get Solar For No Upfront Cost!",
+  description: null,
+  subtitle: "See if your home qualifies in 30 seconds.",
   steps: [
-    { ...commonZipStep(), title: "First, what ZIP code is the property located in?" },
+    { ...commonZipStep(), title: "What's your ZIP code?" },
     { ...commonHomeTypeStep(), subtitle: "Different home types have different solar requirements. This helps us determine whether solar may be a fit for your property." },
     {
       key: "homeowner",
