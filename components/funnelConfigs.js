@@ -122,6 +122,21 @@ export const funnelConfigs = {
       pageSubtitle: "Not all areas qualify — check your ZIP code",
       nextLabel: "Check My Area →",
     },
+    {
+      key: "existingSolar",
+      title: "Do you currently have solar panels installed?",
+      description: "These programs are available for new installations only.",
+      type: "options",
+      defaultValue: "No",
+      options: ["No", "Yes"],
+      pageHeading: "",
+      pageSubtitle: "",
+      disqualifyOn: {
+        values: ["Yes"],
+        title: "Thank you for checking!",
+        message: "This offer is only available for those who haven't gone solar yet.",
+      },
+    },
     commonHomeTypeStep(),
     {
       key: "homeowner",
@@ -132,18 +147,6 @@ export const funnelConfigs = {
         values: ["No"],
         title: "Thank you for checking!",
         message: "As of now, there aren't any offers available in your area.",
-      },
-    },
-    {
-      key: "existingSolar",
-      title: "Does your home already have solar panels?",
-      type: "options",
-      defaultValue: "No",
-      options: ["No", "Yes"],
-      disqualifyOn: {
-        values: ["Yes"],
-        title: "Thank you for checking!",
-        message: "This offer is only available for those who haven't gone solar yet.",
       },
     },
     {
