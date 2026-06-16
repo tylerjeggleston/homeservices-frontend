@@ -164,7 +164,7 @@ export const funnelConfigs = {
     {
       key: "address",
       title: "What's the property address?",
-      description: "We'll use satellite imagery to review roof size, shading, and solar potential.",
+      hideLocationHint: true,
       type: "input",
       placeholder: "Enter property address",
     },
