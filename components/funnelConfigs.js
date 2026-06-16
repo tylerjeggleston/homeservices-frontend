@@ -152,7 +152,6 @@ export const funnelConfigs = {
     {
       key: "electricBill",
       title: "About how much is your average monthly electric bill?",
-      description: "We'll use this to estimate how solar compares to your current electricity costs.",
       type: "range",
       min: 0,
       max: 500,
