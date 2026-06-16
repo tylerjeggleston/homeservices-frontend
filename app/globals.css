@@ -1540,6 +1540,55 @@ input {
   background: #a93226;
 }
 
+.trust-badges {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.trust-line {
+  font-size: 14px;
+  color: #555;
+  margin: 0 0 18px;
+}
+
+.trust-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+}
+
+.bbb-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.bbb-label {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  color: #1f3c88;
+}
+
+.google-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.google-logo {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.google-stars {
+  color: #fbbc05;
+  font-size: 16px;
+}
+
 .step-banner {
   background: #f1e6c8;
   border: 1px solid #e3d2a0;

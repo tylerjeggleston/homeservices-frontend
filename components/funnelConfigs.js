@@ -123,6 +123,7 @@ export const funnelConfigs = {
       pageHeading: "",
       pageSubtitle: "",
       nextLabel: "Check My Area →",
+      trustBadges: true,
     },
     {
       key: "existingSolar",

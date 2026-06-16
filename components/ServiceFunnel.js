@@ -1541,6 +1541,33 @@ if (currentStep?.nextLabel) {
                 {nextLabel}
               </button>
             </div>
+
+            {currentStep.trustBadges && (
+              <div className="trust-badges">
+                <p className="trust-line">🔒 Takes 60 seconds &bull; No commitment required</p>
+                <div className="trust-logos">
+                  <div className="bbb-badge">
+                    <svg viewBox="0 0 24 24" width="34" height="34" fill="#1f3c88">
+                      <path d="M12 2c1.2 1.8 2.4 2.6 4 2.6-.3 1.4-1 2.2-2.2 2.7 1.4.2 2.3 1 2.7 2.4-1.6.1-2.7.7-3.5 2 1.5.6 2.2 1.7 2.3 3.3H8.7c.1-1.6.8-2.7 2.3-3.3-.8-1.3-1.9-1.9-3.5-2 .4-1.4 1.3-2.2 2.7-2.4-1.2-.5-1.9-1.3-2.2-2.7 1.6 0 2.8-.8 4-2.6z" />
+                      <rect x="9.5" y="15.5" width="5" height="1.3" />
+                      <rect x="8.5" y="17.2" width="7" height="1.3" />
+                    </svg>
+                    <span className="bbb-label">BBB</span>
+                  </div>
+                  <div className="google-badge">
+                    <span className="google-logo">
+                      <span style={{ color: "#4285F4" }}>G</span>
+                      <span style={{ color: "#EA4335" }}>o</span>
+                      <span style={{ color: "#FBBC05" }}>o</span>
+                      <span style={{ color: "#4285F4" }}>g</span>
+                      <span style={{ color: "#34A853" }}>l</span>
+                      <span style={{ color: "#EA4335" }}>e</span>
+                    </span>
+                    <span className="google-stars">★★★★★</span>
+                  </div>
+                </div>
+              </div>
+            )}
           </>
         )}
 
