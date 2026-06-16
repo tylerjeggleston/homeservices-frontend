@@ -182,7 +182,8 @@ export const funnelConfigs = {
     },
     {
       key: "address",
-      title: "What's the property address?",
+      title: "Let's analyze your roof",
+      description: "We use satellite imagery to estimate your home's solar potential",
       hideLocationHint: true,
       type: "input",
       placeholder: "Enter property address",
