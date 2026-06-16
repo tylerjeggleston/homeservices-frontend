@@ -137,18 +137,21 @@ export const funnelConfigs = {
         message: "This offer is only available for those who haven't gone solar yet.",
       },
     },
-    commonHomeTypeStep(),
     {
       key: "homeowner",
-      title: "Do you own the home?",
+      title: "Do you own your home?",
+      description: "Homeowners may qualify for no cost installation",
       type: "options",
       options: ["Yes", "No"],
+      pageHeading: "",
+      pageSubtitle: "",
       disqualifyOn: {
         values: ["No"],
         title: "Thank you for checking!",
         message: "As of now, there aren't any offers available in your area.",
       },
     },
+    commonHomeTypeStep(),
     {
       key: "utilityCompany",
       title: "Who provides your electricity?",

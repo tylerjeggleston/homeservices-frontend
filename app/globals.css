@@ -1486,12 +1486,14 @@ input {
   font-size: 24px;
   font-weight: 400;
   margin: 0 0 8px;
+  text-align: center;
 }
 
 .question-description {
   font-size: 15px;
   color: #666;
   margin: 0 0 20px;
+  text-align: center;
 }
 
 /* Image option cards (home type question) */
