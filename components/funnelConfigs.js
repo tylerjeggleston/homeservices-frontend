@@ -256,7 +256,7 @@ export const funnelConfigs = {
     },
     { ...commonCreditStep(), title: "If financing is needed, how would you rate your credit?" },
     { ...commonAddressStep("bathroom project"), title: "What is the property address for this bathroom project?", hideLocationHint: true },
-    commonEmailStep(),
+    { ...commonEmailStep(), title: "What email address should we send your quotes to?" },
     commonFirstNameStep(),
     commonLastNameStep(),
     commonPhoneStep(),
