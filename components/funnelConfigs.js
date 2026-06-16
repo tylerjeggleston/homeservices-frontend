@@ -204,8 +204,8 @@ export const funnelConfigs = {
     },
     {
       ...commonPhoneStep(),
-      title: "What's the best number to reach you if your property appears to be a good fit for solar?",
-      pageHeading: "Your property review is complete.",
+      title: "What's the best phone number to reach you?",
+      pageHeading: "You're Almost Done!",
       pageDescription: null,
       pageSubtitle: "",
       progressComplete: true,
