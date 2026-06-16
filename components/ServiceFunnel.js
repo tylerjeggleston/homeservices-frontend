@@ -1137,7 +1137,7 @@ if (currentStep?.nextLabel) {
 
   return (
     <>
-      <h1 className="funnel-title">{activeHeading}</h1>
+      <h1 className={`funnel-title${config?.titleClassName ? ` ${config.titleClassName}` : ""}`}>{activeHeading}</h1>
       {activeDescription && <p className="funnel-description">{activeDescription}</p>}
       <p className="funnel-subtitle">{activeSubtitle}</p>
     <form

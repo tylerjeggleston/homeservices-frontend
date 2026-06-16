@@ -114,12 +114,14 @@ export const funnelConfigs = {
   heading: "Get Solar For No Upfront Cost!",
   description: null,
   subtitle: "It only takes 30 seconds.",
+  titleClassName: "funnel-title-black",
   steps: [
     {
       ...commonZipStep(),
       title: "What's your ZIP code?",
+      description: "Not all areas qualify — check your zip code",
       pageHeading: "See if your home qualifies for the {state}No Cost Solar Program",
-      pageSubtitle: "Not all areas qualify — check your ZIP code",
+      pageSubtitle: "",
       nextLabel: "Check My Area →",
     },
     {

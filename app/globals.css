@@ -1422,6 +1422,10 @@ input {
   max-width: 900px;
 }
 
+.funnel-title-black {
+  color: #1a1a1a;
+}
+
 .funnel-description {
   text-align: center;
   font-size: 18px;
