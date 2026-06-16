@@ -128,7 +128,10 @@ export const funnelConfigs = {
       description: "These programs are available for new installations only.",
       type: "options",
       defaultValue: "No",
-      options: ["No", "Yes"],
+      options: [
+        { label: "No, not yet", value: "No" },
+        { label: "Yes", value: "Yes" },
+      ],
       pageHeading: "",
       pageSubtitle: "",
       disqualifyOn: {
