@@ -206,8 +206,18 @@ export const funnelConfigs = {
       pageHeading: "",
       pageSubtitle: "",
     },
-    { ...commonFirstNameStep(), title: "What's your First Name?", pageHeading: "", pageSubtitle: "" },
-    { ...commonLastNameStep(), title: "And your last name?", pageHeading: "", pageSubtitle: "" },
+    {
+      key: "name",
+      title: "Who should we prepare this estimate for?",
+      description: "So we can personalize your savings results",
+      type: "input",
+      fields: [
+        { key: "firstName", placeholder: "First Name" },
+        { key: "lastName", placeholder: "Last Name" },
+      ],
+      pageHeading: "",
+      pageSubtitle: "",
+    },
     {
       ...commonEmailStep(),
       title: "What's your email?",

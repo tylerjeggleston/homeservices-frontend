@@ -431,6 +431,16 @@ const progressPercent = useMemo(() => {
     if (!currentStep) return false;
     if (isThankYouStep) return true;
 
+    if (currentStep.fields) {
+      for (const field of currentStep.fields) {
+        if (!String(form[field.key] || "").trim()) {
+          setError(field.errorMessage || "This field is required.");
+          return false;
+        }
+      }
+      return true;
+    }
+
     const rawValue = form[currentStep.key];
     const value = String(rawValue || "").trim();
 
@@ -1073,7 +1083,9 @@ const progressPercent = useMemo(() => {
 
   let nextDisabled = false;
 
-  if (currentStep.type === "options" || currentStep.type === "select") {
+  if (currentStep.fields) {
+    nextDisabled = currentStep.fields.some((field) => !String(form[field.key] || "").trim());
+  } else if (currentStep.type === "options" || currentStep.type === "select") {
     nextDisabled = !currentValue;
   } else if (currentStep.type === "range") {
     nextDisabled = false;
@@ -1397,7 +1409,48 @@ if (currentStep?.nextLabel) {
           </>
         )}
 
-        {currentStep.type === "input" && !isAddressStep && (
+        {currentStep.type === "input" && currentStep.fields && (
+          <>
+            <div className="dual-input-row">
+              {currentStep.fields.map((field) => (
+                <input
+                  key={field.key}
+                  className="text-input"
+                  value={form[field.key] || ""}
+                  placeholder={field.placeholder}
+                  onChange={(e) => {
+                    setError("");
+                    updateField(field.key, e.target.value);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") goNext();
+                  }}
+                />
+              ))}
+            </div>
+
+            <div className="nav-row">
+              {stepIndex > 0 ? (
+                <button type="button" className="back-btn" onClick={goBack}>
+                  ‹ Back
+                </button>
+              ) : (
+                <div />
+              )}
+
+              <button
+                type="button"
+                className="next-btn"
+                onClick={goNext}
+                disabled={nextDisabled}
+              >
+                {nextLabel}
+              </button>
+            </div>
+          </>
+        )}
+
+        {currentStep.type === "input" && !currentStep.fields && !isAddressStep && (
           <>
             <input
               className="text-input"

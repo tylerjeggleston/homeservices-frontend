@@ -1482,6 +1482,22 @@ input {
   padding: 30px 36px 32px;
 }
 
+.dual-input-row {
+  display: flex;
+  gap: 16px;
+}
+
+.dual-input-row .text-input {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 600px) {
+  .dual-input-row {
+    flex-direction: column;
+  }
+}
+
 .analyzing-wrap {
   display: flex;
   flex-direction: column;
