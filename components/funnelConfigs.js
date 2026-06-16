@@ -116,7 +116,7 @@ export const funnelConfigs = {
   subtitle: "See if your home qualifies in 30 seconds.",
   steps: [
     { ...commonZipStep(), title: "What's your ZIP code?" },
-    { ...commonHomeTypeStep(), subtitle: "Different home types have different solar requirements. This helps us determine whether solar may be a fit for your property." },
+    commonHomeTypeStep(),
     {
       key: "homeowner",
       title: "Do you own the home?",
