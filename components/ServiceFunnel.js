@@ -288,6 +288,10 @@ export default function ServiceFunnel({ config }) {
         type: "disqualified",
         title: "Thank You!",
       },
+      {
+        key: "__upsell__",
+        type: "upsell",
+      },
     ],
     [steps]
   );
@@ -344,6 +348,7 @@ export default function ServiceFunnel({ config }) {
   const [selectSearch, setSelectSearch] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
+  const [upsellInfo, setUpsellInfo] = useState(null);
   const [disqualifyInfo, setDisqualifyInfo] = useState({
     title: "Thank You!",
     message: "",
@@ -801,14 +806,18 @@ const progressPercent = useMemo(() => {
       currentStep?.type === "options" &&
       currentStep?.disqualifyOn?.values?.includes(form[currentStep.key])
     ) {
-      setDisqualifyInfo({
-        title: currentStep.disqualifyOn.title || "Thank You!",
-        message:
-          currentStep.disqualifyOn.message ||
-          "We are unable to continue with this request.",
-      });
-
-      setStepIndex(allSteps.findIndex((step) => step.type === "disqualified"));
+      if (currentStep.disqualifyOn.redirectSlug) {
+        setUpsellInfo(currentStep.disqualifyOn);
+        setStepIndex(allSteps.findIndex((step) => step.type === "upsell"));
+      } else {
+        setDisqualifyInfo({
+          title: currentStep.disqualifyOn.title || "Thank You!",
+          message:
+            currentStep.disqualifyOn.message ||
+            "We are unable to continue with this request.",
+        });
+        setStepIndex(allSteps.findIndex((step) => step.type === "disqualified"));
+      }
       return;
     }
 
@@ -1200,6 +1209,30 @@ if (currentStep?.nextLabel) {
             <h3 className="thankyou-title">{disqualifyInfo.title}</h3>
 
             <p className="thankyou-text">{disqualifyInfo.message}</p>
+          </div>
+        )}
+
+        {currentStep.type === "upsell" && upsellInfo && (
+          <div className="upsell-step">
+            {upsellInfo.badge && (
+              <div className="upsell-badge">{upsellInfo.badge}</div>
+            )}
+            <h2 className="upsell-title">{upsellInfo.title}</h2>
+            <p className="upsell-body">{upsellInfo.message}</p>
+            {upsellInfo.bullets && (
+              <ul className="upsell-bullets">
+                {upsellInfo.bullets.map((b, i) => (
+                  <li key={i}>{b}</li>
+                ))}
+              </ul>
+            )}
+            <button
+              type="button"
+              className="next-btn upsell-cta"
+              onClick={() => { window.location.href = `/${upsellInfo.redirectSlug}`; }}
+            >
+              {upsellInfo.ctaLabel || "Continue →"}
+            </button>
           </div>
         )}
 

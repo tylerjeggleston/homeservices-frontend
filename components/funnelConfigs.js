@@ -141,8 +141,16 @@ export const funnelConfigs = {
       pageSubtitle: "",
       disqualifyOn: {
         values: ["Yes"],
-        title: "Thank you for checking!",
-        message: "This offer is only available for those who haven't gone solar yet.",
+        redirectSlug: "roofing-v1pvcs",
+        badge: "Solar Home Advantage",
+        title: "Free Roof Check for Solar Homes",
+        message: "Protect your solar investment with a complimentary roof inspection from our roofing specialists. We'll make sure your roof is ready for long-term solar performance.",
+        bullets: [
+          "Certified roofing pros familiar with solar installs",
+          "Identify leaks, uplift, or wear before it spreads",
+          "No-obligation guidance tailored to your home",
+        ],
+        ctaLabel: "Continue -->",
       },
     },
     {
