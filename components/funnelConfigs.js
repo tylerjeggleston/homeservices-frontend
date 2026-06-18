@@ -349,8 +349,17 @@ export const funnelConfigs = {
 
   "hvac-v1pvcs": {
   heading: "Free A/C & Heating Inspection",
+  titleClassName: "funnel-title-black",
+  showStepLogo: true,
+  noCardBorder: true,
   steps: [
-    { ...commonZipStep(), title: "What ZIP code should we check service availability for?" },
+    {
+      ...commonZipStep(),
+      title: "Get Your Free A/C & Heating Inspection",
+      description: "Check availability in your area",
+      nextLabel: "Check My Area →",
+      trustBadges: true,
+    },
     commonHomeTypeStep(),
     {
       key: "hvacSystem",
