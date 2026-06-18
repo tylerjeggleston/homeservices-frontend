@@ -803,7 +803,7 @@ const progressPercent = useMemo(() => {
     if (!valid) return;
 
     if (
-      currentStep?.type === "options" &&
+      (currentStep?.type === "options" || currentStep?.type === "image-options") &&
       currentStep?.disqualifyOn?.values?.includes(form[currentStep.key])
     ) {
       if (currentStep.disqualifyOn.redirectSlug) {

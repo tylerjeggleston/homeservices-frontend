@@ -174,7 +174,7 @@ export const funnelConfigs = {
       disqualifyOn: {
         values: ["Mobile Home", "Apartment"],
         title: "Thanks for your interest!",
-        message: "Current solar programs are only available for homeowners at this time.",
+        message: "This program is currently available only for single-family homes.",
       },
     },
     {
