@@ -361,7 +361,6 @@ export const funnelConfigs = {
       nextLabel: "Check My Area →",
       trustBadges: true,
     },
-    commonHomeTypeStep(),
     {
       key: "hvacSystem",
       title: "Which HVAC system do you need help with?",
@@ -371,16 +370,6 @@ export const funnelConfigs = {
         { label: "Air Conditioner", value: "Air Conditioner" },
         { label: "Heating System", value: "Heating System" },
         { label: "Both", value: "Both" },
-      ],
-    },
-    {
-      key: "service",
-      title: "Do you currently have an issue with your system?",
-      type: "options",
-      options: [
-        { label: "Yes, it's not working properly", value: "Not working properly" },
-        { label: "No, but it's getting older", value: "Working, but getting old" },
-        { label: "No, I just want a free inspection", value: "Just want a routine inspection" },
       ],
     },
     {
@@ -394,11 +383,30 @@ export const funnelConfigs = {
         message: "As of now, there aren't any offers available in your area.",
       },
     },
-    commonCreditStep(),
+    commonHomeTypeStep(),
+    {
+      key: "service",
+      title: "Do you currently have an issue with your system?",
+      type: "options",
+      options: [
+        { label: "Yes, it's not working properly", value: "Not working properly" },
+        { label: "No, but it's getting older", value: "Working, but getting old" },
+        { label: "No, I just want a free inspection", value: "Just want a routine inspection" },
+      ],
+    },
     { ...commonAddressStep("HVAC work"), title: "What address needs the A/C or Heating inspection?", hideLocationHint: true },
+    commonCreditStep(),
+    {
+      key: "name",
+      title: "Who should we prepare this inspection for?",
+      description: "So we can personalize your results",
+      type: "input",
+      fields: [
+        { key: "firstName", placeholder: "First Name" },
+        { key: "lastName", placeholder: "Last Name" },
+      ],
+    },
     { ...commonEmailStep(), title: "What email address should we use for your inspection?" },
-    commonFirstNameStep(),
-    commonLastNameStep(),
     { ...commonPhoneStep(), title: "What is the best number to reach you?" },
     commonVerificationStep(),
   ],
