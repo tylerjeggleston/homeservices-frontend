@@ -1140,9 +1140,10 @@ if (currentStep?.nextLabel) {
   const stateLabel = config?.userState ? `${config.userState} ` : "";
   const withState = (text) => text?.replace?.(/\{state\}\s*/g, stateLabel) ?? text;
 
-  const activeHeading = withState(currentStep?.pageHeading ?? config?.heading);
-  const activeDescription = withState(currentStep?.pageDescription !== undefined ? currentStep.pageDescription : config?.description);
-  const activeSubtitle = withState(currentStep?.pageSubtitle !== undefined ? currentStep.pageSubtitle : (config?.subtitle !== undefined ? config.subtitle : "It only takes 30 seconds."));
+  const isUpsellStep = currentStep?.type === "upsell";
+  const activeHeading = isUpsellStep ? "" : withState(currentStep?.pageHeading ?? config?.heading);
+  const activeDescription = isUpsellStep ? null : withState(currentStep?.pageDescription !== undefined ? currentStep.pageDescription : config?.description);
+  const activeSubtitle = isUpsellStep ? "" : withState(currentStep?.pageSubtitle !== undefined ? currentStep.pageSubtitle : (config?.subtitle !== undefined ? config.subtitle : "It only takes 30 seconds."));
 
   return (
     <>
