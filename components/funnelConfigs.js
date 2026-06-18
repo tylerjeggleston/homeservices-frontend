@@ -375,12 +375,12 @@ export const funnelConfigs = {
     },
     {
       key: "service",
-      title: "To help with your free inspection, how would you describe your A/C or Heating system?",
+      title: "Do you currently have an issue with your system?",
       type: "options",
       options: [
-        { label: "Not working properly", value: "Not working properly" },
-        { label: "Working, but getting old", value: "Working, but getting old" },
-        { label: "Just want a routine inspection", value: "Just want a routine inspection" },
+        { label: "Yes, it's not working properly", value: "Not working properly" },
+        { label: "No, but it's getting older", value: "Working, but getting old" },
+        { label: "No, I just want a free inspection", value: "Just want a routine inspection" },
       ],
     },
     {
