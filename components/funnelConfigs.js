@@ -75,7 +75,7 @@ export const funnelConfigs = {
         layout: "stack",
         options: ["1-2", "3-5", "6-9", "10+"],
       },
-      { ...commonCreditStep(), title: "If financing is needed, how would you rate your credit?" },
+      commonCreditStep(),
       {
         key: "address",
         title: "What is the property address?",
@@ -299,7 +299,7 @@ export const funnelConfigs = {
         message: "As of now, there aren't any offers available in your area.",
       },
     },
-    { ...commonCreditStep(), title: "If financing is needed, how would you rate your credit?" },
+    commonCreditStep(),
     { ...commonAddressStep("bathroom project"), title: "What is the property address for this bathroom project?", hideLocationHint: true },
     { ...commonEmailStep(), title: "What email address should we send your quotes to?" },
     commonFirstNameStep(),
@@ -394,7 +394,7 @@ export const funnelConfigs = {
         message: "As of now, there aren't any offers available in your area.",
       },
     },
-    { ...commonCreditStep(), title: "If repairs or replacement are needed, how would you describe your credit?" },
+    commonCreditStep(),
     { ...commonAddressStep("HVAC work"), title: "What address needs the A/C or Heating inspection?", hideLocationHint: true },
     { ...commonEmailStep(), title: "What email address should we use for your inspection?" },
     commonFirstNameStep(),
@@ -599,7 +599,8 @@ function commonVerificationStep() {
 function commonCreditStep() {
   return {
     key: "creditRating",
-    title: "What's your estimated credit score?",
+    title: "What's your approximate credit score?",
+    description: "This helps us determine which programs you qualify for",
     type: "options",
     options: ["Excellent", "Good", "Fair", "Poor"],
   };
