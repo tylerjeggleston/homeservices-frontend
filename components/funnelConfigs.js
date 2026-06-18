@@ -348,7 +348,8 @@ export const funnelConfigs = {
   },
 
   "hvac-v1pvcs": {
-  heading: "Free A/C & Heating Inspection",
+  heading: "",
+  subtitle: "",
   titleClassName: "funnel-title-black",
   showStepLogo: true,
   noCardBorder: true,
