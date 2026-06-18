@@ -159,7 +159,16 @@ export const funnelConfigs = {
         message: "As of now, there aren't any offers available in your area.",
       },
     },
-    { ...commonHomeTypeStep(), pageHeading: "", pageSubtitle: "" },
+    {
+      ...commonHomeTypeStep(),
+      pageHeading: "",
+      pageSubtitle: "",
+      disqualifyOn: {
+        values: ["Mobile Home", "Apartment"],
+        title: "Thanks for your interest!",
+        message: "Current solar programs are only available for homeowners at this time.",
+      },
+    },
     {
       key: "utilityCompany",
       title: "Who provides your electricity?",
