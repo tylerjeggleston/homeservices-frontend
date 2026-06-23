@@ -802,6 +802,13 @@ const progressPercent = useMemo(() => {
     const valid = validateCurrentStep();
     if (!valid) return;
 
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("trackCustom", "FunnelStep", {
+        step: currentStep?.key || "",
+        funnel: config?.slug || "",
+      });
+    }
+
     if (
       (currentStep?.type === "options" || currentStep?.type === "image-options") &&
       currentStep?.disqualifyOn?.values?.includes(form[currentStep.key])
