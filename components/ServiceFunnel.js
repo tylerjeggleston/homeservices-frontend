@@ -17,6 +17,21 @@ function getCanonicalLandingPage() {
   return url.origin + url.pathname;
 }
 
+function getFbp() {
+  if (typeof document === "undefined") return "";
+  const match = document.cookie.match(/_fbp=([^;]+)/);
+  return match ? match[1] : "";
+}
+
+function getFbc() {
+  if (typeof window === "undefined") return "";
+  const params = new URLSearchParams(window.location.search);
+  const fbclid = params.get("fbclid");
+  if (fbclid) return `fb.1.${Date.now()}.${fbclid}`;
+  const match = document.cookie.match(/_fbc=([^;]+)/);
+  return match ? match[1] : "";
+}
+
 function getTrackingParams() {
   if (typeof window === "undefined") {
     return {
@@ -31,6 +46,8 @@ function getTrackingParams() {
       utmContent: "",
       referrer: "",
       landingPage: "",
+      fbc: "",
+      fbp: "",
     };
   }
 
@@ -48,6 +65,8 @@ function getTrackingParams() {
     utmContent: params.get("utm_content") || "",
     referrer: document.referrer || "",
     landingPage: getCanonicalLandingPage(),
+    fbc: getFbc(),
+    fbp: getFbp(),
   };
 
   let stored = {};
@@ -429,6 +448,8 @@ const progressPercent = useMemo(() => {
     utmContent: tracking.utmContent,
     referrer: tracking.referrer,
     landingPage: tracking.landingPage,
+    fbc: tracking.fbc,
+    fbp: tracking.fbp,
   }));
 }, []);
 
