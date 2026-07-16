@@ -75,7 +75,6 @@ export const funnelConfigs = {
         layout: "stack",
         options: ["1-2", "3-5", "6-9", "10+"],
       },
-      commonCreditStep(),
       {
         key: "address",
         title: "What is the property address?",
@@ -90,17 +89,15 @@ export const funnelConfigs = {
         placeholder: "Enter email address",
       },
       {
-        key: "firstName",
-        title: "What's your first name?",
+        key: "name",
+        title: "Who should we prepare this estimate for?",
         type: "input",
-        placeholder: "John",
+        fields: [
+          { key: "firstName", placeholder: "First Name" },
+          { key: "lastName", placeholder: "Last Name" },
+        ],
       },
-      {
-        key: "lastName",
-        title: "What's your last name?",
-        type: "input",
-        placeholder: "Doe",
-      },
+      commonCreditStep(),
       {
         ...commonPhoneStep(),
         title: "What's the best number for discussing your window project?",
