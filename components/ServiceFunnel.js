@@ -318,6 +318,7 @@ export default function ServiceFunnel({ config }) {
   const addressInputRef = useRef(null);
   const autocompleteRef = useRef(null);
   const autocompleteListenerRef = useRef(null);
+  const submitLockRef = useRef(false);
 
   const initialForm = useMemo(() => {
     const obj = {};
@@ -855,17 +856,24 @@ const progressPercent = useMemo(() => {
     // }
 
     if (currentStep.key === "phone") {
-  if (PHONE_VERIFICATION_ENABLED) {
-    // await sendOtp();
+  if (submitLockRef.current) return;
+  submitLockRef.current = true;
+  try {
     await submitLeadWithoutOtp();
-  } else {
-    await submitLeadWithoutOtp();
+  } finally {
+    submitLockRef.current = false;
   }
   return;
   }
 
     if (currentStep.key === "verificationCode") {
-      await verifyOtpAndSubmit();
+      if (submitLockRef.current) return;
+      submitLockRef.current = true;
+      try {
+        await verifyOtpAndSubmit();
+      } finally {
+        submitLockRef.current = false;
+      }
       return;
     }
 
@@ -1502,7 +1510,10 @@ if (currentStep?.nextLabel) {
                     updateField(field.key, e.target.value);
                   }}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") goNext();
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      goNext();
+                    }
                   }}
                 />
               ))}
@@ -1537,7 +1548,10 @@ if (currentStep?.nextLabel) {
               placeholder={currentStep.placeholder}
               onChange={handleRegularInputChange}
               onKeyDown={(e) => {
-                if (e.key === "Enter") goNext();
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  goNext();
+                }
               }}
             />
 
