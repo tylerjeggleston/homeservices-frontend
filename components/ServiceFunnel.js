@@ -689,7 +689,7 @@ const progressPercent = useMemo(() => {
 
       // Fire Meta Pixel Lead event on successful submission
       if (typeof window !== "undefined" && window.fbq) {
-        window.fbq("track", "Lead");
+        window.fbq("track", "Lead", { currency: "USD" });
       }
 
       console.log("FORM DATA:", finalForm);
@@ -762,7 +762,7 @@ const progressPercent = useMemo(() => {
     setStepIndex(allSteps.findIndex((step) => step.type === "thankyou"));
 
     if (typeof window !== "undefined" && window.fbq) {
-      window.fbq("track", "Lead");
+      window.fbq("track", "Lead", { currency: "USD" });
     }
   } catch (err) {
     setError(err.message || "Failed to submit lead.");
