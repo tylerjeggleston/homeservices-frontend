@@ -280,7 +280,7 @@ export const funnelConfigs = {
     {
       key: "homeowner",
       title: "Do you own your home?",
-      description: "Homeowners may qualify for no cost installation",
+      description: null,
       type: "options",
       options: ["Yes", "No"],
       pageHeading: "",
