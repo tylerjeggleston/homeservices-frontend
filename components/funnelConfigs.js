@@ -316,7 +316,7 @@ export const funnelConfigs = {
     {
       key: "address",
       title: "What is the property address?",
-      description: "We use this to check availability in your area",
+      description: "We use this to check the square footage of your yard.",
       hideLocationHint: true,
       type: "input",
       placeholder: "Enter property address",
@@ -324,6 +324,7 @@ export const funnelConfigs = {
       pageSubtitle: "",
       nextLabel: "Check Availability",
       showAnalyzing: true,
+      analyzingText: "Analyzing Your Yard Square Footage...",
     },
     {
       key: "name",

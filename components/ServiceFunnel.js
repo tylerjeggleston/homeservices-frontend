@@ -1221,7 +1221,7 @@ if (currentStep?.nextLabel) {
         {analyzing ? (
           <div className="analyzing-wrap">
             <div className="analyzing-spinner" />
-            <p className="analyzing-text">Analyzing your roof...</p>
+            <p className="analyzing-text">{currentStep?.analyzingText || "Analyzing your roof..."}</p>
           </div>
         ) : (
         <>
