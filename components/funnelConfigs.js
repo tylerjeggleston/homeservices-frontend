@@ -270,8 +270,8 @@ export const funnelConfigs = {
   steps: [
     {
       ...commonZipStep(),
-      title: "See if your home qualifies for the {state}No Cost Artificial Turf Program",
-      description: "Not all areas qualify — check your zip code",
+      title: "Let's Make a Custom Turf Design For Your Home!",
+      description: null,
       pageHeading: "",
       pageSubtitle: "",
       nextLabel: "Check My Area →",
