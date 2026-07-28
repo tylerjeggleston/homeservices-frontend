@@ -327,6 +327,18 @@ export const funnelConfigs = {
       analyzingText: "Analyzing Your Yard Square Footage...",
     },
     {
+      key: "turfProjectType",
+      title: "How do you plan to use your artificial turf?",
+      type: "options",
+      options: [
+        { label: "🌿 A beautiful lawn year-round", value: "Lawn" },
+        { label: "⛳ My own putting green", value: "Putting Green" },
+        { label: "🌴 Both!", value: "Lawn and Putting Green" },
+      ],
+      pageHeading: "",
+      pageSubtitle: "",
+    },
+    {
       key: "name",
       title: "What's your Name?",
       description: null,
