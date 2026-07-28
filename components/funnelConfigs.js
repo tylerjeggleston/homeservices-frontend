@@ -302,6 +302,18 @@ export const funnelConfigs = {
       },
     },
     {
+      key: "turfLocation",
+      title: "Where would you like artificial turf installed?",
+      type: "options",
+      options: [
+        { label: "Front Yard", value: "Front Yard" },
+        { label: "Back Yard", value: "Back Yard" },
+        { label: "Both Front & Back", value: "Both Front & Back" },
+      ],
+      pageHeading: "",
+      pageSubtitle: "",
+    },
+    {
       key: "address",
       title: "What is the property address?",
       description: "We use this to check availability in your area",
