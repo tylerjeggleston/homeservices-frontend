@@ -341,8 +341,8 @@ export const funnelConfigs = {
     {
       ...commonEmailStep(),
       banner: "YOU MAY QUALIFY FOR NO COST ARTIFICIAL TURF",
-      title: "Where should we send your results?",
-      description: "We'll email your personalized estimate",
+      title: "Where should we send your mock up design?",
+      description: "We'll email you personalized Turf options.",
       nextLabel: "Send My Estimate →",
       pageHeading: "",
       pageSubtitle: "",
