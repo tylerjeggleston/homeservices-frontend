@@ -13,6 +13,7 @@ const services = [
   { title: "Painting", slug: "painting-v1pvcs", emoji: "🎨" },
   { title: "Siding", slug: "siding-v1pvcs", emoji: "🏡" },
   { title: "Walk in Tubs", slug: "walk-in-tubs-v1pvcs", emoji: "🛀" },
+  { title: "Artificial Turf", slug: "turf-v1pvcs", emoji: "🌿" },
 ];
 
 function buildTrackedHref(slug) {
@@ -103,7 +104,7 @@ export default function Home() {
               <div className="rw-service-card">
                 <div className="rw-service-img-wrap">
                   <Image
-                    src={`/services/${item.slug.replace("-v1pvcs", "")}.webp`}
+                    src={item.slug === "turf-v1pvcs" ? "/services/turf.png" : `/services/${item.slug.replace("-v1pvcs", "")}.webp`}
                     className="rw-service-img"
                     alt={item.title}
                     width={400}
