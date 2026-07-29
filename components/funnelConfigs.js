@@ -667,6 +667,7 @@ function commonZipStep() {
     title: "What is your zip code?",
     type: "input",
     placeholder: "Enter your zip code",
+    nextLabel: "Check My Area →",
   };
 }
 
