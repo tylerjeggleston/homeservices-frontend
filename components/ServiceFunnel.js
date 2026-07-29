@@ -158,9 +158,9 @@ function extractAddressParts(place) {
 }
 
 function formatPhoneDisplay(value) {
-  let digits = String(value || "").replace(/\D/g, "");
-  if (digits.length === 11 && digits.startsWith("1")) digits = digits.slice(1);
-  digits = digits.slice(0, 10);
+  const digits = String(value || "")
+    .replace(/\D/g, "")
+    .slice(0, 10);
 
   if (digits.length <= 3) return digits;
   if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
@@ -533,6 +533,10 @@ const progressPercent = useMemo(() => {
 
     if (currentStep.key === "phone") {
       const digits = value.replace(/\D/g, "");
+      if (digits.startsWith("1")) {
+        setError("It looks like your number includes a country code. Please enter your 10-digit number without the leading 1.");
+        return false;
+      }
       if (digits.length < 10) {
         setError("Please enter a valid phone number.");
         return false;
