@@ -182,8 +182,9 @@ export const funnelConfigs = {
           { key: "firstName", placeholder: "First Name" },
           { key: "lastName", placeholder: "Last Name" },
         ],
-        pageHeading: "Good News! We Found Someone In Your Area!",
+        pageHeading: "",
         pageSubtitle: "",
+        stepHeading: "Good News! We Found Someone In Your Area!",
       },
       {
         ...commonEmailStep(),
@@ -326,8 +327,9 @@ export const funnelConfigs = {
         { key: "firstName", placeholder: "First Name" },
         { key: "lastName", placeholder: "Last Name" },
       ],
-      pageHeading: "Good News! Your Roof Gets Enough Sunlight!",
+      pageHeading: "",
       pageSubtitle: "",
+      stepHeading: "Good News! Your Roof Gets Enough Sunlight!",
     },
     {
       ...commonEmailStep(),

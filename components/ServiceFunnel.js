@@ -1233,6 +1233,10 @@ if (currentStep?.nextLabel) {
           <div className="step-banner">{currentStep.banner}</div>
         )}
 
+        {currentStep.stepHeading && (
+          <div className="step-heading">{currentStep.stepHeading}</div>
+        )}
+
         {currentStep.type !== "thankyou" && currentStep.type !== "disqualified" && (
           <>
             <h2 className={`question-title${currentStep.titleClassName ? ` ${currentStep.titleClassName}` : ""}`}>{withState(currentStep.title)}</h2>
