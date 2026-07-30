@@ -146,6 +146,7 @@ export const funnelConfigs = {
       {
         key: "service",
         title: "Do Your Windows Currently Broken Or Have Cracks?",
+        description: "Many Home Insurance Companies Cover The Cost of a Broken or Cracked Window",
         type: "options",
         options: ["Yes", "No"],
         pageHeading: "",
