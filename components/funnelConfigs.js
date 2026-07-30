@@ -114,7 +114,7 @@ export const funnelConfigs = {
     steps: [
       {
         ...commonZipStep(),
-        title: "See if your home qualifies for the {state}No Cost Window Program",
+        title: "Replace Your Windows For No Upfront Cost",
         description: "Not all areas qualify — check your zip code",
         pageHeading: "",
         pageSubtitle: "",
