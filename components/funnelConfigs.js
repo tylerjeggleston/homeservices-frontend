@@ -132,14 +132,9 @@ export const funnelConfigs = {
       },
       {
         key: "service",
-        title: "What's the biggest issue with your current windows?",
+        title: "Are Your Windows Currently Broken Or Have Cracks?",
         type: "options",
-        options: [
-          { label: "Rooms get too hot or cold", value: "Rooms get too hot or cold" },
-          { label: "High energy bills", value: "High energy bills" },
-          { label: "Windows are damaged or outdated", value: "Windows are damaged or outdated" },
-          { label: "Just exploring replacement options", value: "Just exploring replacement options" },
-        ],
+        options: ["Yes", "No"],
         pageHeading: "",
         pageSubtitle: "",
       },
