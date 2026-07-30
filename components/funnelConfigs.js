@@ -307,7 +307,7 @@ export const funnelConfigs = {
     },
     {
       key: "address",
-      title: "Let's analyze your roof",
+      title: "We Need To Analyze Your Roof For Shading",
       description: "We use satellite imagery to estimate your home's solar potential",
       hideLocationHint: true,
       type: "input",
