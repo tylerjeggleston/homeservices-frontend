@@ -145,7 +145,7 @@ export const funnelConfigs = {
       },
       {
         key: "service",
-        title: "Are Your Windows Currently Broken Or Have Cracks?",
+        title: "Do Your Windows Currently Broken Or Have Cracks?",
         type: "options",
         options: ["Yes", "No"],
         pageHeading: "",
@@ -153,7 +153,7 @@ export const funnelConfigs = {
       },
       {
         key: "windowCount",
-        title: "How many windows need to be fixed or replaced?",
+        title: "How many windows would you want to be replaced?",
         type: "options",
         options: ["1-2", "3-5", "6-9", "10+"],
         pageHeading: "",
