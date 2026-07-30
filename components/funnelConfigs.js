@@ -170,6 +170,7 @@ export const funnelConfigs = {
         pageHeading: "",
         pageSubtitle: "",
         showAnalyzing: true,
+        analyzingText: "Checking Availability...",
         nextLabel: "Check Availability",
       },
       {
@@ -181,7 +182,7 @@ export const funnelConfigs = {
           { key: "firstName", placeholder: "First Name" },
           { key: "lastName", placeholder: "Last Name" },
         ],
-        pageHeading: "",
+        pageHeading: "Good News! We Found Someone In Your Area!",
         pageSubtitle: "",
       },
       {
