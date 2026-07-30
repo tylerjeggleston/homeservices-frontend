@@ -355,7 +355,7 @@ export const funnelConfigs = {
     },
     {
       ...commonPhoneStep(),
-      title: "Last step: Enter your phone number to get your quote!",
+      title: "Last Step: Enter your Phone Number to get your Results!",
       pageHeading: "Great News — You Qualify!",
       pageDescription: null,
       pageSubtitle: "",
