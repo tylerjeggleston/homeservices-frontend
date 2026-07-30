@@ -145,7 +145,7 @@ export const funnelConfigs = {
       },
       {
         key: "service",
-        title: "Do Your Windows Currently Broken Or Have Cracks?",
+        title: "Do Any Of Your Windows Currently Have Cracks, Chips, or Are Completely Broken?",
         description: "Many Home Insurance Companies Cover The Cost of a Broken or Cracked Window",
         type: "options",
         options: ["Yes", "No"],
