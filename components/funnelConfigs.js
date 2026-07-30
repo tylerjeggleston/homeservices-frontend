@@ -333,7 +333,6 @@ export const funnelConfigs = {
     },
     {
       ...commonEmailStep(),
-      banner: "YOU MAY QUALIFY FOR NO COST SOLAR",
       title: "What's your email address?",
       description: "If we need to ask additional questions",
       nextLabel: "Next",
