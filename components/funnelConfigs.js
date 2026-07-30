@@ -173,8 +173,8 @@ export const funnelConfigs = {
       },
       {
         key: "name",
-        title: "Who should we prepare this estimate for?",
-        description: "So we can personalize your results",
+        title: "What's Your Name?",
+        description: "",
         type: "input",
         fields: [
           { key: "firstName", placeholder: "First Name" },
