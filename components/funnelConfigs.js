@@ -154,7 +154,7 @@ export const funnelConfigs = {
       },
       {
         key: "windowCount",
-        title: "How many windows would you want to be replaced?",
+        title: "How many windows are you looking to replace?",
         type: "options",
         options: ["1-2", "3-5", "6-9", "10+"],
         pageHeading: "",
