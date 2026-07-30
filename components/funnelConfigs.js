@@ -319,14 +319,14 @@ export const funnelConfigs = {
     },
     {
       key: "name",
-      title: "Who should we prepare this estimate for?",
-      description: "So we can personalize your savings results",
+      title: "What's Your Name?",
+      description: "",
       type: "input",
       fields: [
         { key: "firstName", placeholder: "First Name" },
         { key: "lastName", placeholder: "Last Name" },
       ],
-      pageHeading: "",
+      pageHeading: "Good News! Your Roof Gets Enough Sunlight!",
       pageSubtitle: "",
     },
     {
