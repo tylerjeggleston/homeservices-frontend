@@ -121,6 +121,19 @@ export const funnelConfigs = {
         trustBadges: true,
       },
       {
+        key: "homeowner",
+        title: "Do you own your home?",
+        type: "options",
+        options: ["Yes", "No"],
+        pageHeading: "",
+        pageSubtitle: "",
+        disqualifyOn: {
+          values: ["No"],
+          title: "Thank you for checking!",
+          message: "As of now, there aren't any offers available in your area.",
+        },
+      },
+      {
         ...commonHomeTypeStep(),
         pageHeading: "",
         pageSubtitle: "",
@@ -137,19 +150,6 @@ export const funnelConfigs = {
         options: ["Yes", "No"],
         pageHeading: "",
         pageSubtitle: "",
-      },
-      {
-        key: "homeowner",
-        title: "Do you own your home?",
-        type: "options",
-        options: ["Yes", "No"],
-        pageHeading: "",
-        pageSubtitle: "",
-        disqualifyOn: {
-          values: ["No"],
-          title: "Thank you for checking!",
-          message: "As of now, there aren't any offers available in your area.",
-        },
       },
       {
         key: "windowCount",
