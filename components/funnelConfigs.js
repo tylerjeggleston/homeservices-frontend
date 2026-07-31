@@ -760,7 +760,7 @@ export const funnelConfigs = {
       pageDescription: null,
       pageSubtitle: "",
       progressComplete: true,
-      nextLabel: "👍 See My Results",
+      nextLabel: "👍 Claim My Code",
       nextButtonClassName: "next-btn-red",
     },
     { ...commonVerificationStep(), pageHeading: "", pageSubtitle: "" },
