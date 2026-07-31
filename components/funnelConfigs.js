@@ -697,6 +697,7 @@ export const funnelConfigs = {
   titleClassName: "funnel-title-black",
   showStepLogo: true,
   noCardBorder: true,
+  showCouponCode: true,
   steps: [
     {
       ...commonZipStep(),

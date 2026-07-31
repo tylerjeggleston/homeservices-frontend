@@ -230,6 +230,11 @@ function syncTrackingFieldsToRecorder() {
   };
 }
 
+function generateCouponCode() {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  return Array.from({ length: 4 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
+}
+
 function ThankYouScreen({ config }) {
   const serviceName =
   config?.thankYouServiceLabel ||
@@ -238,6 +243,8 @@ function ThankYouScreen({ config }) {
   "home improvement";
 
 const lowerServiceName = serviceName.toLowerCase();
+const couponCode = config?.showCouponCode ? generateCouponCode() : null;
+
   return (
     <section className="thankyou-page" data-rec-finalize="true">
       <div className="thankyou-page-logo">
@@ -250,7 +257,16 @@ const lowerServiceName = serviceName.toLowerCase();
         </div>
       </div>
 
-      <h1 className="thankyou-page-title">Thank You!</h1>
+      {couponCode ? (
+        <>
+          <h1 className="thankyou-page-title">Here&apos;s Your Code!</h1>
+          <p className="thankyou-coupon-message">Give It To Your Local Contractor To Claim Your No Upfront Cost Offer.</p>
+          <div className="thankyou-coupon-code">{couponCode}</div>
+          <p className="thankyou-coupon-expiry">Code is Valid for 15 Days</p>
+        </>
+      ) : (
+        <h1 className="thankyou-page-title">Thank You!</h1>
+      )}
 
       <div className="thankyou-page-grid">
         <article className="thankyou-page-card">

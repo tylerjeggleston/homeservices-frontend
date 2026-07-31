@@ -980,6 +980,37 @@ input {
   text-align: center;
 }
 
+.thankyou-coupon-message {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin: 0 auto 24px;
+  max-width: 500px;
+}
+
+.thankyou-coupon-code {
+  font-size: 64px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: #1273eb;
+  text-align: center;
+  background: #f0f6ff;
+  border: 3px dashed #1273eb;
+  border-radius: 16px;
+  padding: 24px 48px;
+  margin: 0 auto 16px;
+  display: block;
+  width: fit-content;
+}
+
+.thankyou-coupon-expiry {
+  font-size: 14px;
+  color: #888;
+  text-align: center;
+  margin: 0 auto 40px;
+}
+
 .thankyou-page-grid {
   width: 100%;
   max-width: 1280px;
