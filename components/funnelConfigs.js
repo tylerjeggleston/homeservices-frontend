@@ -755,7 +755,7 @@ export const funnelConfigs = {
     commonCreditStep(),
     {
       ...commonPhoneStep(),
-      title: "Last Step: Enter your Phone Number to get your Results!",
+      title: "Last Step: Enter your Phone Number to Claim your Coupon Code!",
       pageHeading: "Great News — You Qualify!",
       pageDescription: null,
       pageSubtitle: "",
