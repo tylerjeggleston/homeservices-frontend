@@ -735,7 +735,7 @@ export const funnelConfigs = {
       hideLocationHint: true,
       showAnalyzing: true,
       analyzingText: "Checking for Promotions In Your Area",
-      nextLabel: "Check Availability",
+      nextLabel: "Check Promotions",
       pageHeading: "",
       pageSubtitle: "",
     },
