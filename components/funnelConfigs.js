@@ -700,7 +700,7 @@ export const funnelConfigs = {
   steps: [
     {
       ...commonZipStep(),
-      title: "Get Your Free A/C & Heating Inspection",
+      title: "See if Your Home Qualifies For a New A/C or Heater Unit For No Upfront Cost!",
       description: "Check availability in your area",
       nextLabel: "Check My Area →",
       trustBadges: true,
