@@ -728,16 +728,6 @@ export const funnelConfigs = {
       },
     },
     commonHomeTypeStep(),
-    {
-      key: "service",
-      title: "Do you currently have an issue with your system?",
-      type: "options",
-      options: [
-        { label: "Yes, it's not working properly", value: "Not working properly" },
-        { label: "No, but it's getting older", value: "Working, but getting old" },
-        { label: "No, I just want a free inspection", value: "Just want a routine inspection" },
-      ],
-    },
     { ...commonAddressStep("HVAC work"), title: "What address needs the A/C or Heating inspection?", hideLocationHint: true },
     commonCreditStep(),
     {
