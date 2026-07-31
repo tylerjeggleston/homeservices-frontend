@@ -751,7 +751,7 @@ export const funnelConfigs = {
       pageSubtitle: "",
       stepHeading: "Good News! The No Cost A/C & Heater Replacement Program is Available In Your Area.",
     },
-    { ...commonEmailStep(), title: "What email address should we use for your inspection?", pageHeading: "", pageSubtitle: "" },
+    { ...commonEmailStep(), title: "What's your email address?", description: "If we need to ask additional questions", pageHeading: "", pageSubtitle: "" },
     commonCreditStep(),
     {
       ...commonPhoneStep(),
