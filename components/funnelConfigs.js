@@ -728,7 +728,7 @@ export const funnelConfigs = {
       },
     },
     commonHomeTypeStep(),
-    { ...commonAddressStep("HVAC work"), title: "What address needs the A/C or Heating inspection?", hideLocationHint: true },
+    { ...commonAddressStep("HVAC work"), title: "Lets check your Address for local discounts and promotions!", hideLocationHint: true },
     commonCreditStep(),
     {
       key: "name",
