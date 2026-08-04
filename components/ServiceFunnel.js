@@ -122,9 +122,11 @@ function persistTrackingParams() {
     tracking.utmTerm ||
     tracking.utmContent;
 
-  if (!hasAnyTracking) return;
-
-  localStorage.setItem("affiliate_tracking", JSON.stringify(tracking));
+  if (hasAnyTracking) {
+    localStorage.setItem("affiliate_tracking", JSON.stringify(tracking));
+  } else {
+    localStorage.removeItem("affiliate_tracking");
+  }
 }
 
 function extractAddressParts(place) {
