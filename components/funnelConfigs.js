@@ -8,6 +8,7 @@ export const funnelConfigs = {
     titleClassName: "funnel-title-black",
     showStepLogo: true,
     noCardBorder: true,
+    thankYouHeading: "Great News — You Qualify!",
     steps: [
       {
         ...commonZipStep(),
@@ -85,8 +86,7 @@ export const funnelConfigs = {
       {
         ...commonPhoneStep(),
         title: "Last Step: Enter your Phone Number to get your Results!",
-        pageHeading: "Great News — You Qualify!",
-        pageDescription: null,
+        pageHeading: "",
         pageSubtitle: "",
         progressComplete: true,
         nextLabel: "👍 See My Results",

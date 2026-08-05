@@ -267,7 +267,7 @@ const couponCode = config?.showCouponCode ? generateCouponCode() : null;
           <p className="thankyou-coupon-expiry">Code is Valid for 15 Days</p>
         </>
       ) : (
-        <h1 className="thankyou-page-title">Thank You!</h1>
+        <h1 className="thankyou-page-title">{config?.thankYouHeading || "Thank You!"}</h1>
       )}
 
       <div className="thankyou-page-grid">
