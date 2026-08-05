@@ -104,6 +104,8 @@ export const funnelConfigs = {
     titleClassName: "funnel-title-black",
     showStepLogo: true,
     noCardBorder: true,
+    thankYouHeading: "Great News — You Qualify!",
+    thankYouServiceLabel: "windows",
     steps: [
       {
         ...commonZipStep(),
@@ -214,6 +216,8 @@ export const funnelConfigs = {
   titleClassName: "funnel-title-black",
   showStepLogo: true,
   noCardBorder: true,
+  thankYouHeading: "Great News — You Qualify!",
+  thankYouServiceLabel: "solar",
   steps: [
     {
       ...commonZipStep(),
@@ -367,6 +371,8 @@ export const funnelConfigs = {
   titleClassName: "funnel-title-black",
   showStepLogo: true,
   noCardBorder: true,
+  thankYouHeading: "Great News — You Qualify!",
+  thankYouServiceLabel: "turf",
   steps: [
     {
       ...commonZipStep(),
@@ -485,6 +491,8 @@ export const funnelConfigs = {
   titleClassName: "funnel-title-black",
   showStepLogo: true,
   noCardBorder: true,
+  thankYouHeading: "Great News — You Qualify!",
+  thankYouServiceLabel: "bathroom remodel",
   steps: [
     {
       ...commonZipStep(),
@@ -588,6 +596,8 @@ export const funnelConfigs = {
     titleClassName: "funnel-title-black",
     showStepLogo: true,
     noCardBorder: true,
+    thankYouHeading: "Great News — You Qualify!",
+    thankYouServiceLabel: "gutter",
     steps: [
       {
         ...commonZipStep(),
@@ -768,6 +778,8 @@ export const funnelConfigs = {
   titleClassName: "funnel-title-black",
   showStepLogo: true,
   noCardBorder: true,
+  thankYouHeading: "Great News — You Qualify!",
+  thankYouServiceLabel: "painting",
   steps: [
     {
       ...commonZipStep(),
@@ -873,6 +885,8 @@ export const funnelConfigs = {
   titleClassName: "funnel-title-black",
   showStepLogo: true,
   noCardBorder: true,
+  thankYouHeading: "Great News — You Qualify!",
+  thankYouServiceLabel: "siding",
   steps: [
     {
       ...commonZipStep(),
@@ -985,6 +999,8 @@ export const funnelConfigs = {
     titleClassName: "funnel-title-black",
     showStepLogo: true,
     noCardBorder: true,
+    thankYouHeading: "Great News — You Qualify!",
+    thankYouServiceLabel: "walk-in tub",
     steps: [
       {
         ...commonZipStep(),
