@@ -28,14 +28,6 @@ export const funnelConfigs = {
         },
       },
       {
-        key: "service",
-        title: "What type of roofing service do you need?",
-        type: "options",
-        options: ["Install", "Replace", "Repair"],
-        pageHeading: "",
-        pageSubtitle: "",
-      },
-      {
         key: "homeowner",
         title: "Do you own your home?",
         type: "options",
