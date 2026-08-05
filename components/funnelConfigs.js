@@ -11,7 +11,7 @@ export const funnelConfigs = {
     steps: [
       {
         ...commonZipStep(),
-        title: "See if your home qualifies for a Free Roof Inspection",
+        title: "See If Your Home Qualifies for a New Roof Installed At No Cost?",
         description: "Not all areas qualify — check your zip code",
         pageHeading: "",
         pageSubtitle: "",
