@@ -48,7 +48,6 @@ export const funnelConfigs = {
         pageHeading: "",
         pageSubtitle: "",
       },
-      commonCreditStep(),
       {
         key: "address",
         title: "What is the property address?",
@@ -82,6 +81,7 @@ export const funnelConfigs = {
         pageHeading: "",
         pageSubtitle: "",
       },
+      commonCreditStep(),
       {
         ...commonPhoneStep(),
         title: "Last Step: Enter your Phone Number to get your Results!",
