@@ -75,10 +75,9 @@ export const funnelConfigs = {
       },
       {
         ...commonEmailStep(),
-        banner: "YOU MAY QUALIFY FOR A FREE ROOF INSPECTION",
-        title: "Where should we send your results?",
-        description: "We'll email your personalized quote",
-        nextLabel: "Send My Estimate →",
+        title: "What's your email address?",
+        description: "If we need to ask additional questions",
+        nextLabel: "Next",
         pageHeading: "",
         pageSubtitle: "",
       },
