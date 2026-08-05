@@ -71,7 +71,7 @@ export const funnelConfigs = {
         ],
         pageHeading: "",
         pageSubtitle: "",
-        stepHeading: "Good News! The No Cost Roof Installation Program is Available In Your Area!",
+        stepHeading: "Good News! We Found Someone In Your Area!",
       },
       {
         ...commonEmailStep(),
