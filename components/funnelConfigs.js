@@ -62,8 +62,8 @@ export const funnelConfigs = {
       },
       {
         key: "name",
-        title: "Who should we prepare this estimate for?",
-        description: "So we can personalize your results",
+        title: "What's Your Name?",
+        description: "",
         type: "input",
         fields: [
           { key: "firstName", placeholder: "First Name" },
@@ -71,6 +71,7 @@ export const funnelConfigs = {
         ],
         pageHeading: "",
         pageSubtitle: "",
+        stepHeading: "Good News! The No Cost Roof Installation Program is Available In Your Area!",
       },
       {
         ...commonEmailStep(),
