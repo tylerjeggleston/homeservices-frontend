@@ -238,14 +238,13 @@ function generateCouponCode() {
 }
 
 function ThankYouScreen({ config }) {
-  const serviceName =
-  config?.thankYouServiceLabel ||
-  config?.serviceLabel ||
-  config?.heading?.replace(/^free\s+/i, "").replace(/\s+estimate$/i, "").trim() ||
-  "home improvement";
+  const serviceLabel =
+    config?.thankYouServiceLabel ||
+    config?.serviceLabel ||
+    "home improvement";
 
-const lowerServiceName = serviceName.toLowerCase();
-const couponCode = config?.showCouponCode ? generateCouponCode() : null;
+  const couponCode = config?.showCouponCode ? generateCouponCode() : null;
+  const heading = config?.thankYouHeading || "Thank You!";
 
   return (
     <section className="thankyou-page" data-rec-finalize="true">
@@ -267,37 +266,50 @@ const couponCode = config?.showCouponCode ? generateCouponCode() : null;
           <p className="thankyou-coupon-expiry">Code is Valid for 15 Days</p>
         </>
       ) : (
-        <h1 className="thankyou-page-title">{config?.thankYouHeading || "Thank You!"}</h1>
+        <>
+          <h1 className="thankyou-page-title">{heading}</h1>
+          <p className="thankyou-page-subtitle">
+            Thank you! We&apos;ve received your information.<br />
+            A {serviceLabel} expert will review your details and reach out to you soon.
+          </p>
+        </>
       )}
 
       <div className="thankyou-page-grid">
         <article className="thankyou-page-card">
           <div className="thankyou-page-icon">🎉</div>
-          <h3>Congratulations!</h3>
+          <div className="thankyou-card-num">1</div>
+          <h3 className="thankyou-card-title">You Qualify!</h3>
           <p>
-            You are one step closer to getting {lowerServiceName} information for your
-            home. A courteous expert will confirm your information and review your
-            eligibility.
+            We&apos;re excited to help you explore your {serviceLabel} options.
+            A {serviceLabel} expert will review your information now.
           </p>
         </article>
 
         <article className="thankyou-page-card">
           <div className="thankyou-page-icon">📞</div>
-          <h3>Answer Your Phone!</h3>
+          <div className="thankyou-card-num">2</div>
+          <h3 className="thankyou-card-title">Answer Your Phone</h3>
           <p>
-            The main goal is to help you save money. You will be contacted by a
-            courteous expert, so get ready.
+            A {serviceLabel} expert will be calling you shortly from a local number.<br />
+            <strong>Please have your phone nearby so we don&apos;t miss you.</strong>
           </p>
         </article>
 
         <article className="thankyou-page-card">
           <div className="thankyou-page-icon">✍️</div>
-          <h3>Grab A Pen!</h3>
+          <div className="thankyou-card-num">3</div>
+          <h3 className="thankyou-card-title">Get Your Free Quote</h3>
           <p>
-            You're moments away from obtaining information about your {lowerServiceName}{" "} project. When a courteous expert calls, make sure to write down their
-            quotes and ask any questions you may have.
+            The expert will go over your options, answer your questions, and provide
+            your free {serviceLabel} quote.<br />
+            <strong>There&apos;s no obligation.</strong>
           </p>
         </article>
+      </div>
+
+      <div className="thankyou-security">
+        🛡️ Your information is secure and will never be shared with other companies.
       </div>
     </section>
   );

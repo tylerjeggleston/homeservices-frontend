@@ -9,6 +9,7 @@ export const funnelConfigs = {
     showStepLogo: true,
     noCardBorder: true,
     thankYouHeading: "Great News — You Qualify!",
+    thankYouServiceLabel: "roofing",
     steps: [
       {
         ...commonZipStep(),
