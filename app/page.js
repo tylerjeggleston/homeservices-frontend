@@ -28,6 +28,7 @@ function buildTrackedHref(slug) {
     "sub2",
     "click_id",
     "clickid",
+    "transaction_id",
     "utm_source",
     "utm_medium",
     "utm_campaign",
@@ -67,17 +68,24 @@ export default function Home() {
       {/* HERO */}
       <section className="rw-hero">
         <div className="rw-hero-left">
+          <div className="rw-hero-eyebrow">⭐ Trusted by 10,000+ Homeowners</div>
           <h1 className="rw-hero-title">
-            Let the Wizard Handle Your Home Project
+            Get Your Home Project Done — <span>For Free</span>
           </h1>
+          <p className="rw-hero-sub">
+            We match you with top-rated local contractors offering no upfront cost programs for solar, windows, HVAC, roofing, and more.
+          </p>
           <ul className="rw-hero-list">
-            <li><span className="rw-check">✔</span><span><strong>Free Quotes</strong> — No cost, no obligation to purchase.</span></li>
-            <li><span className="rw-check">✔</span><span><strong>Top Contractors</strong> — Matched to your area and project.</span></li>
-            <li><span className="rw-check">✔</span><span><strong>Up to 4 FREE Quotes</strong> — From our trusted partner network.</span></li>
+            <li><span className="rw-check">✔</span><span><strong>Free Quotes</strong> — Zero cost, zero obligation.</span></li>
+            <li><span className="rw-check">✔</span><span><strong>Top Contractors</strong> — Screened and matched to your area.</span></li>
+            <li><span className="rw-check">✔</span><span><strong>No Upfront Cost Programs</strong> — Available in most areas.</span></li>
           </ul>
-          <a href="#services" className="rw-cta-link">
-            <button className="rw-cta-btn">Get Your Free Quote ›</button>
-          </a>
+          <div className="rw-hero-cta-row">
+            <a href="#services" className="rw-cta-link">
+              <button className="rw-cta-btn">See What You Qualify For ›</button>
+            </a>
+            <span className="rw-hero-social-proof">Takes only <strong>30 seconds</strong></span>
+          </div>
         </div>
         <div className="rw-hero-right">
           <Image
@@ -91,9 +99,44 @@ export default function Home() {
         </div>
       </section>
 
+      {/* STATS BAR */}
+      <div className="rw-stats">
+        <div className="rw-stats-inner">
+          <div className="rw-stat">
+            <span className="rw-stat-icon">🏠</span>
+            <div className="rw-stat-text">
+              <strong>10,000+</strong>
+              <span>Homeowners Helped</span>
+            </div>
+          </div>
+          <div className="rw-stat">
+            <span className="rw-stat-icon">⭐</span>
+            <div className="rw-stat-text">
+              <strong>4.9 / 5.0</strong>
+              <span>Average Rating</span>
+            </div>
+          </div>
+          <div className="rw-stat">
+            <span className="rw-stat-icon">💰</span>
+            <div className="rw-stat-text">
+              <strong>$0 Upfront</strong>
+              <span>Programs Available</span>
+            </div>
+          </div>
+          <div className="rw-stat">
+            <span className="rw-stat-icon">⚡</span>
+            <div className="rw-stat-text">
+              <strong>30 Seconds</strong>
+              <span>To Check Eligibility</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* SERVICES */}
       <section id="services" className="rw-services">
-        <h2 className="rw-section-title">What Can the Wizard Fix for You?</h2>
+        <h2 className="rw-section-title">What Do You Need Done?</h2>
+        <p className="rw-section-sub">Select your project and see if you qualify for a no upfront cost program in your area.</p>
         <div className="rw-services-grid">
           {services.map((item) => (
             <Link
@@ -126,9 +169,9 @@ export default function Home() {
 
       {/* HOW IT WORKS */}
       <section className="rw-how">
-        <h2 className="rw-section-title">How the Magic Works</h2>
+        <h2 className="rw-section-title">How It Works</h2>
         <p className="rw-how-sub">
-          We connect homeowners with the best local contractors — fast, free, and hassle-free.
+          Answer a few quick questions and we&apos;ll match you with top contractors in your area — completely free.
         </p>
         <div className="rw-how-grid">
           <div className="rw-how-card">

@@ -39,6 +39,7 @@ function getTrackingParams() {
       sub1: "",
       sub2: "",
       clickId: "",
+      transactionId: "",
       utmSource: "",
       utmMedium: "",
       utmCampaign: "",
@@ -58,6 +59,7 @@ function getTrackingParams() {
     sub1: params.get("sub1") || "",
     sub2: params.get("sub2") || "",
     clickId: params.get("click_id") || params.get("clickid") || "",
+    transactionId: params.get("transaction_id") || "",
     utmSource: params.get("utm_source") || "",
     utmMedium: params.get("utm_medium") || "",
     utmCampaign: params.get("utm_campaign") || "",
@@ -81,6 +83,7 @@ function getTrackingParams() {
     sub1: fromUrl.sub1 || stored.sub1 || "",
     sub2: fromUrl.sub2 || stored.sub2 || "",
     clickId: fromUrl.clickId || stored.clickId || "",
+    transactionId: fromUrl.transactionId || stored.transactionId || "",
     utmSource: fromUrl.utmSource || stored.utmSource || "",
     utmMedium: fromUrl.utmMedium || stored.utmMedium || "",
     utmCampaign: fromUrl.utmCampaign || stored.utmCampaign || "",
@@ -102,6 +105,7 @@ function persistTrackingParams() {
     sub1: params.get("sub1") || "",
     sub2: params.get("sub2") || "",
     clickId: params.get("click_id") || params.get("clickid") || "",
+    transactionId: params.get("transaction_id") || "",
     utmSource: params.get("utm_source") || "",
     utmMedium: params.get("utm_medium") || "",
     utmCampaign: params.get("utm_campaign") || "",
@@ -116,6 +120,7 @@ function persistTrackingParams() {
     tracking.sub1 ||
     tracking.sub2 ||
     tracking.clickId ||
+    tracking.transactionId ||
     tracking.utmSource ||
     tracking.utmMedium ||
     tracking.utmCampaign ||
