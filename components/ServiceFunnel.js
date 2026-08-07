@@ -32,6 +32,12 @@ function getFbc() {
   return match ? match[1] : "";
 }
 
+function getFbclid() {
+  if (typeof window === "undefined") return "";
+  const params = new URLSearchParams(window.location.search);
+  return params.get("fbclid") || "";
+}
+
 function getTrackingParams() {
   if (typeof window === "undefined") {
     return {
@@ -69,6 +75,7 @@ function getTrackingParams() {
     landingPage: getCanonicalLandingPage(),
     fbc: getFbc(),
     fbp: getFbp(),
+    fbclid: getFbclid(),
   };
 
   let stored = {};
@@ -486,6 +493,7 @@ const progressPercent = useMemo(() => {
     landingPage: tracking.landingPage,
     fbc: tracking.fbc,
     fbp: tracking.fbp,
+    fbclid: tracking.fbclid,
   }));
 }, []);
 
