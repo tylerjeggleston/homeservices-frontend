@@ -4,9 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 
 const services = [
+  { title: "Solar", slug: "solar-v1pvcs", emoji: "☀️" },
   { title: "Roofing", slug: "roofing-v1pvcs", emoji: "🏠" },
   { title: "Windows", slug: "windows-v1pvcs", emoji: "🪟" },
-  { title: "Solar", slug: "solar-v1pvcs", emoji: "☀️" },
   { title: "Bathroom", slug: "bathroom-v1pvcs", emoji: "🛁" },
   { title: "Gutters", slug: "gutters-v1pvcs", emoji: "🌧️" },
   { title: "HVAC", slug: "hvac-v1pvcs", emoji: "❄️" },
