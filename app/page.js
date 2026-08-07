@@ -14,6 +14,7 @@ const services = [
   { title: "Siding", slug: "siding-v1pvcs", emoji: "🏡" },
   { title: "Walk in Tubs", slug: "walk-in-tubs-v1pvcs", emoji: "🛀" },
   { title: "Artificial Turf", slug: "turf-v1pvcs", emoji: "🌿" },
+  { title: "Pest Control", slug: "pest-control-v1pvcs", emoji: "🪲" },
 ];
 
 function buildTrackedHref(slug) {
