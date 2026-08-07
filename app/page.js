@@ -71,7 +71,7 @@ export default function Home() {
         <div className="rw-hero-left">
           <div className="rw-hero-eyebrow">⭐ Trusted by 10,000+ Homeowners</div>
           <h1 className="rw-hero-title">
-            See Which Home Improvement Programs You Qualify For
+            See Which Home Improvement Programs <span>You Qualify For</span>
           </h1>
           <p className="rw-hero-sub">
             We match you with top-rated local contractors offering no upfront cost programs for solar, windows, HVAC, roofing, and more.
