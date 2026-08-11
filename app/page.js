@@ -15,6 +15,7 @@ const services = [
   { title: "Walk in Tubs", slug: "walk-in-tubs-v1pvcs", emoji: "🛀" },
   { title: "Artificial Turf", slug: "turf-v1pvcs", emoji: "🌿" },
   { title: "Pest Control", slug: "pest-control-v1pvcs", emoji: "🪲" },
+  { title: "Home Security", slug: "home-security-v1pvcs", emoji: "🔒" },
 ];
 
 function buildTrackedHref(slug) {
@@ -148,7 +149,7 @@ export default function Home() {
               <div className="rw-service-card">
                 <div className="rw-service-img-wrap">
                   <Image
-                    src={item.slug === "turf-v1pvcs" || item.slug === "pest-control-v1pvcs" ? `/services/${item.slug.replace("-v1pvcs", "")}.png` : `/services/${item.slug.replace("-v1pvcs", "")}.webp`}
+                    src={["turf-v1pvcs", "pest-control-v1pvcs", "home-security-v1pvcs"].includes(item.slug) ? `/services/${item.slug.replace("-v1pvcs", "")}.png` : `/services/${item.slug.replace("-v1pvcs", "")}.webp`}
                     className="rw-service-img"
                     alt={item.title}
                     width={400}
