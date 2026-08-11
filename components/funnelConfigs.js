@@ -485,9 +485,9 @@ export const funnelConfigs = {
 },
 
   "home-security-v1pvcs": {
-  heading: "Get a Free Home Security System Quote!",
+  heading: "",
   description: null,
-  subtitle: "It only takes 30 seconds.",
+  subtitle: "",
   titleClassName: "funnel-title-black",
   showStepLogo: true,
   noCardBorder: true,
