@@ -496,7 +496,7 @@ export const funnelConfigs = {
   steps: [
     {
       ...commonZipStep(),
-      title: "See If Your Home Qualifies For a Free Home Security System!",
+      title: "What is your Zip Code?",
       description: "Check availability in your area",
       nextLabel: "Check My Area →",
       trustBadges: true,
