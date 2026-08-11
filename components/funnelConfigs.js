@@ -851,18 +851,6 @@ export const funnelConfigs = {
         { label: "I treated it myself", value: "Self-treated" },
       ],
     },
-    {
-      key: "pestTiming",
-      title: "When would you like service?",
-      type: "options",
-      layout: "stack",
-      options: [
-        { label: "ASAP", value: "ASAP" },
-        { label: "This week", value: "This week" },
-        { label: "Within 30 days", value: "Within 30 days" },
-        { label: "Just getting quotes", value: "Just getting quotes" },
-      ],
-    },
     commonHomeTypeStep(),
     {
       ...commonAddressStep("pest control service"),
