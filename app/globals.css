@@ -2138,7 +2138,13 @@ input {
   }
 
   .funnel-card {
-    max-width: 94%;
+    max-width: 100%;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .funnel-page-wrap {
+    padding: 20px 0 90px;
   }
 
   .funnel-inner {
