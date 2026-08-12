@@ -722,6 +722,7 @@ const progressPercent = useMemo(() => {
           serviceHeading: config?.heading || "",
           affiliateSlug: config?.affiliateSlug || "",
           form: finalForm,
+          honeypot: document.getElementById("website")?.value || "",
         }),
       });
 
@@ -796,6 +797,7 @@ const progressPercent = useMemo(() => {
         serviceHeading: config?.heading || "",
         affiliateSlug: config?.affiliateSlug || "",
         form: finalForm,
+        honeypot: document.getElementById("website")?.value || "",
       }),
     });
 
@@ -1243,6 +1245,7 @@ if (currentStep?.nextLabel) {
 
       <input type="hidden" name="leadid_token" id="leadid_token" />
       <input type="hidden" name="universal_leadid" id="universal_leadid" />
+      <input type="text" name="website" id="website" value="" onChange={() => {}} autoComplete="off" tabIndex="-1" aria-hidden="true" style={{opacity:0,position:"absolute",top:0,left:0,height:0,width:0,zIndex:-1,pointerEvents:"none"}} />
 
       {config?.showStepLogo && (
         <div className="step-logo">
