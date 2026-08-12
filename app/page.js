@@ -197,6 +197,80 @@ export default function Home() {
         </div>
       </section>
 
+      {/* TESTIMONIALS */}
+      <section className="rw-testimonials">
+        <h2 className="rw-section-title">What Homeowners Are Saying</h2>
+        <p className="rw-section-sub">Real reviews from real homeowners who found their match through ReModelWiz.</p>
+        <div className="rw-testimonials-grid">
+          <div className="rw-testimonial-card">
+            <div className="rw-testimonial-stars">⭐⭐⭐⭐⭐</div>
+            <p className="rw-testimonial-text">"I was skeptical at first but within 24 hours I had 3 contractors calling me about my roof. Got it replaced for no money down. Couldn't be happier!"</p>
+            <div className="rw-testimonial-author">
+              <div className="rw-testimonial-avatar">JM</div>
+              <div>
+                <div className="rw-testimonial-name">James M.</div>
+                <div className="rw-testimonial-location">Phoenix, AZ</div>
+              </div>
+            </div>
+          </div>
+          <div className="rw-testimonial-card">
+            <div className="rw-testimonial-stars">⭐⭐⭐⭐⭐</div>
+            <p className="rw-testimonial-text">"We got solar panels installed through a program we never knew existed. Our electric bill went from $320 a month to almost nothing. Thank you ReModelWiz!"</p>
+            <div className="rw-testimonial-author">
+              <div className="rw-testimonial-avatar">SR</div>
+              <div>
+                <div className="rw-testimonial-name">Sandra R.</div>
+                <div className="rw-testimonial-location">San Diego, CA</div>
+              </div>
+            </div>
+          </div>
+          <div className="rw-testimonial-card">
+            <div className="rw-testimonial-stars">⭐⭐⭐⭐⭐</div>
+            <p className="rw-testimonial-text">"The whole process took about 2 minutes. A contractor called me the same day and my new windows were installed the following week. Super easy!"</p>
+            <div className="rw-testimonial-author">
+              <div className="rw-testimonial-avatar">DL</div>
+              <div>
+                <div className="rw-testimonial-name">David L.</div>
+                <div className="rw-testimonial-location">Dallas, TX</div>
+              </div>
+            </div>
+          </div>
+          <div className="rw-testimonial-card">
+            <div className="rw-testimonial-stars">⭐⭐⭐⭐⭐</div>
+            <p className="rw-testimonial-text">"I filled out the form on a Monday and by Wednesday a contractor was at my door. My A/C was replaced at no upfront cost. This program is a game changer."</p>
+            <div className="rw-testimonial-author">
+              <div className="rw-testimonial-avatar">TW</div>
+              <div>
+                <div className="rw-testimonial-name">Tanya W.</div>
+                <div className="rw-testimonial-location">Orlando, FL</div>
+              </div>
+            </div>
+          </div>
+          <div className="rw-testimonial-card">
+            <div className="rw-testimonial-stars">⭐⭐⭐⭐⭐</div>
+            <p className="rw-testimonial-text">"I had no idea there were programs like this available. ReModelWiz matched me with a great local contractor and my bathroom remodel came out amazing."</p>
+            <div className="rw-testimonial-author">
+              <div className="rw-testimonial-avatar">MK</div>
+              <div>
+                <div className="rw-testimonial-name">Maria K.</div>
+                <div className="rw-testimonial-location">Chicago, IL</div>
+              </div>
+            </div>
+          </div>
+          <div className="rw-testimonial-card">
+            <div className="rw-testimonial-stars">⭐⭐⭐⭐⭐</div>
+            <p className="rw-testimonial-text">"Fast, easy, and totally free. The contractor they connected me with was professional and did an incredible job on our gutters. Highly recommend!"</p>
+            <div className="rw-testimonial-author">
+              <div className="rw-testimonial-avatar">BT</div>
+              <div>
+                <div className="rw-testimonial-name">Brian T.</div>
+                <div className="rw-testimonial-location">Nashville, TN</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FOOTER */}
       <footer className="rw-footer">
         <div className="rw-footer-logo">
