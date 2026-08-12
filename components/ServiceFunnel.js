@@ -947,6 +947,11 @@ const progressPercent = useMemo(() => {
   function selectOption(option) {
     setError("");
     updateField(currentStep.key, option);
+
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    if (isMobile) {
+      setTimeout(() => goNext(), 120);
+    }
   }
 
   function handleRegularInputChange(e) {
