@@ -950,8 +950,41 @@ const progressPercent = useMemo(() => {
 
     const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
     if (isMobile) {
-      setTimeout(() => goNext(), 120);
+      setTimeout(() => goNextWithValue(currentStep.key, option), 120);
     }
+  }
+
+  async function goNextWithValue(key, value) {
+    setError("");
+
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("trackCustom", "FunnelStep", {
+        step: currentStep?.key || "",
+        funnel: config?.slug || "",
+      });
+    }
+
+    const updatedForm = { ...form, [key]: value };
+
+    if (
+      (currentStep?.type === "options" || currentStep?.type === "image-options") &&
+      currentStep?.disqualifyOn?.values?.includes(value)
+    ) {
+      if (currentStep.disqualifyOn.redirectSlug) {
+        setUpsellInfo(currentStep.disqualifyOn);
+        setStepIndex(allSteps.findIndex((step) => step.type === "upsell"));
+      } else {
+        setDisqualifyInfo({
+          title: currentStep.disqualifyOn.title || "Thank You!",
+          message: currentStep.disqualifyOn.message || "We are unable to continue with this request.",
+        });
+        setStepIndex(allSteps.findIndex((step) => step.type === "disqualified"));
+      }
+      return;
+    }
+
+    setStepIndex((prev) => prev + 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function handleRegularInputChange(e) {
