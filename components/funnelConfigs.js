@@ -565,7 +565,6 @@ export const funnelConfigs = {
       stepHeading: "Good News! We Found Someone In Your Area!",
     },
     { ...commonEmailStep(), title: "What's your email address?", description: "If we need to ask additional questions", pageHeading: "", pageSubtitle: "" },
-    commonCreditStep(),
     {
       ...commonPhoneStep(),
       title: "Last Step: Enter your Phone Number to Get your Results!",

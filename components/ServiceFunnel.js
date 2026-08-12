@@ -867,6 +867,22 @@ const progressPercent = useMemo(() => {
     }
   }
 
+  function trackFunnelStep(stepKey) {
+    try {
+      fetch(`${OTP_API_BASE}/api/funnel/step`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          funnel: config?.slug || "",
+          step: stepKey || "",
+          sessionId: getConsentSessionId(),
+          zip: form.zip || "",
+          state: form.state || "",
+        }),
+      }).catch(() => {});
+    } catch (_) {}
+  }
+
   async function goNext() {
     setError("");
 
@@ -885,6 +901,8 @@ const progressPercent = useMemo(() => {
         content_category: config?.slug || "",
       });
     }
+
+    trackFunnelStep(currentStep?.key);
 
     if (
       (currentStep?.type === "options" || currentStep?.type === "image-options") &&
@@ -975,6 +993,8 @@ const progressPercent = useMemo(() => {
         content_category: config?.slug || "",
       });
     }
+
+    trackFunnelStep(currentStep?.key);
 
     const updatedForm = { ...form, [key]: value };
 
