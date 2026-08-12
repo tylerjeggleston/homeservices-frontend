@@ -877,6 +877,12 @@ const progressPercent = useMemo(() => {
       window.fbq("trackCustom", "FunnelStep", {
         step: currentStep?.key || "",
         funnel: config?.slug || "",
+        content_name: currentStep?.key || "",
+        content_category: config?.slug || "",
+      });
+      window.fbq("track", "ViewContent", {
+        content_name: currentStep?.key || "",
+        content_category: config?.slug || "",
       });
     }
 
@@ -961,6 +967,12 @@ const progressPercent = useMemo(() => {
       window.fbq("trackCustom", "FunnelStep", {
         step: currentStep?.key || "",
         funnel: config?.slug || "",
+        content_name: currentStep?.key || "",
+        content_category: config?.slug || "",
+      });
+      window.fbq("track", "ViewContent", {
+        content_name: currentStep?.key || "",
+        content_category: config?.slug || "",
       });
     }
 
