@@ -495,6 +495,19 @@ const progressPercent = useMemo(() => {
     fbp: tracking.fbp,
     fbclid: tracking.fbclid,
   }));
+
+  // Track page view
+  fetch(`${OTP_API_BASE}/api/funnel/step`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      funnel: config?.slug || "",
+      step: "pageview",
+      sessionId: getConsentSessionId(),
+      zip: "",
+      state: "",
+    }),
+  }).catch(() => {});
 }, []);
 
   function validateCurrentStep() {
