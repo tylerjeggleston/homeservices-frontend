@@ -878,7 +878,7 @@ export const funnelConfigs = {
   steps: [
     {
       ...commonZipStep(),
-      title: "See if Your Home Qualifies For a Free Pest Control Treatment!",
+      title: "Let's Find the Best Pest Protection for Your Home!",
       description: "Check availability in your area",
       nextLabel: "Check My Area →",
       trustBadges: true,
