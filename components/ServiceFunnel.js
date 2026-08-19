@@ -863,16 +863,16 @@ const progressPercent = useMemo(() => {
         }
 
         const utilities = data.utilities || ["OTHER PROVIDER"];
-        if (!utilities.includes("I'm not sure")) utilities.push("I'm not sure");
+        const filtered = utilities.filter(u => u !== "I'm not sure" && u !== "OTHER PROVIDER");
         setDynamicOptions((prev) => ({
           ...prev,
-          [step.key]: utilities,
+          [step.key]: ["I'm not sure", ...filtered],
         }));
       } catch (err) {
         setError(err.message || "Failed to load utility companies.");
         setDynamicOptions((prev) => ({
           ...prev,
-          [step.key]: ["OTHER PROVIDER", "I'm not sure"],
+          [step.key]: ["I'm not sure", "OTHER PROVIDER"],
         }));
       } finally {
         setDynamicOptionsLoading(false);
