@@ -1272,18 +1272,6 @@ export const funnelConfigs = {
         { label: "I rent it", value: "No" },
       ],
     },
-    {
-      key: "flooringTimeline",
-      title: "When are you looking to get started?",
-      type: "options",
-      layout: "stack",
-      options: [
-        { label: "As soon as possible", value: "ASAP" },
-        { label: "Within 1–3 months", value: "1-3 months" },
-        { label: "3–6 months", value: "3-6 months" },
-        { label: "Just exploring options", value: "Exploring" },
-      ],
-    },
     commonHomeTypeStep(),
     {
       ...commonAddressStep("flooring service"),
