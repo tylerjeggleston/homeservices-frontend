@@ -1252,17 +1252,6 @@ export const funnelConfigs = {
       ],
     },
     {
-      key: "flooringCondition",
-      title: "What's the current condition of your floors?",
-      type: "options",
-      layout: "stack",
-      options: [
-        { label: "Good — just want an upgrade", value: "Good" },
-        { label: "Some wear and tear", value: "Some wear" },
-        { label: "Damaged or warped", value: "Damaged" },
-        { label: "Brand new construction", value: "New construction" },
-      ],
-    },
     {
       key: "homeowner",
       title: "Is this your home?",
