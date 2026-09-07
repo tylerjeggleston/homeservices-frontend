@@ -1252,7 +1252,6 @@ export const funnelConfigs = {
       ],
     },
     {
-    {
       key: "homeowner",
       title: "Is this your home?",
       type: "options",
