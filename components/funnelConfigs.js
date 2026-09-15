@@ -854,7 +854,7 @@ export const funnelConfigs = {
       stepHeading: "Good News! This Program is Available in Your Area.",
     },
     { ...commonEmailStep(), title: "What's your email address?", description: "Where should we send your recommendations?", pageHeading: "", pageSubtitle: "" },
-    commonCreditStep(),
+    { ...commonCreditStep(), title: "What's your credit score range?", description: "We'll use this to find the best options for you" },
     {
       ...commonPhoneStep(),
       title: "Last Step: Enter your Phone Number to Claim your Coupon Code!",
