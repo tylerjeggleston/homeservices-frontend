@@ -867,7 +867,7 @@ export const funnelConfigs = {
       pageDescription: null,
       pageSubtitle: "",
       progressComplete: true,
-      nextLabel: "👍 See My Results",
+      nextLabel: "👍 Get My Results",
       nextButtonClassName: "next-btn-red",
     },
     { ...commonVerificationStep(), pageHeading: "", pageSubtitle: "" },
