@@ -503,9 +503,12 @@ export const funnelConfigs = {
     },
     {
       key: "homeowner",
-      title: "Do you own your home?",
+      title: "Is this your home?",
       type: "options",
-      options: ["Yes", "No"],
+      options: [
+        { label: "Yes, I own it", value: "Yes" },
+        { label: "I rent it", value: "No" },
+      ],
       disqualifyOn: {
         values: ["No"],
         title: "Thank you for checking!",
