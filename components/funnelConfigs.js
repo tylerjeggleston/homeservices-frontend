@@ -853,7 +853,7 @@ export const funnelConfigs = {
       pageSubtitle: "",
       stepHeading: "Good News! This Program is Available in Your Area.",
     },
-    { ...commonEmailStep(), title: "What's your email address?", description: "If we need to ask additional questions", pageHeading: "", pageSubtitle: "" },
+    { ...commonEmailStep(), title: "What's your email address?", description: "Where should we send your recommendations?", pageHeading: "", pageSubtitle: "" },
     commonCreditStep(),
     {
       ...commonPhoneStep(),
