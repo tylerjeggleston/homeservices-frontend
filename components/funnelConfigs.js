@@ -806,7 +806,7 @@ export const funnelConfigs = {
     },
     {
       key: "hvacSystem",
-      title: "Which HVAC system do you need help with?",
+      title: "What type of HVAC system are you interested in?",
       type: "options",
       layout: "stack",
       options: [
