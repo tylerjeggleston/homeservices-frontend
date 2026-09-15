@@ -799,7 +799,7 @@ export const funnelConfigs = {
   steps: [
     {
       ...commonZipStep(),
-      title: "See if Your Home Qualifies For a New A/C or Heater Unit For No Upfront Cost!",
+      title: "Let's Find the Best HVAC Options for Your Home!",
       description: "Check availability in your area",
       nextLabel: "Check My Area →",
       trustBadges: true,
