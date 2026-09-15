@@ -857,7 +857,7 @@ export const funnelConfigs = {
     { ...commonCreditStep(), title: "What's your credit score range?", description: "We'll use this to find the best options for you" },
     {
       ...commonPhoneStep(),
-      title: "Last Step: Enter your Phone Number to Claim your Coupon Code!",
+      title: "Last step! What's the best number for your local HVAC expert to reach you?",
       pageHeading: "Great News — You Qualify!",
       pageDescription: null,
       pageSubtitle: "",
