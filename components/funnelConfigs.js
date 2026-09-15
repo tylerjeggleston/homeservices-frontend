@@ -832,7 +832,7 @@ export const funnelConfigs = {
     commonHomeTypeStep(),
     {
       ...commonAddressStep("HVAC work"),
-      title: "Lets check your Address for local discounts and promotions!",
+      title: "What's your address?",
       hideLocationHint: true,
       showAnalyzing: true,
       analyzingText: "Checking for Promotions In Your Area",
