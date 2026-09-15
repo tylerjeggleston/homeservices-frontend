@@ -281,8 +281,7 @@ function ThankYouScreen({ config }) {
         <>
           <h1 className="thankyou-page-title">{heading}</h1>
           <p className="thankyou-page-subtitle">
-            Thank you! We&apos;ve received your information.<br />
-            A {serviceLabel} expert will review your details and reach out to you soon.
+            {config?.thankYouSubtitle || <>Thank you! We&apos;ve received your information.<br />A {serviceLabel} expert will review your details and reach out to you soon.</>}
           </p>
         </>
       )}

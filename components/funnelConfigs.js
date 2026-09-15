@@ -798,7 +798,9 @@ export const funnelConfigs = {
   titleClassName: "funnel-title-black",
   showStepLogo: true,
   noCardBorder: true,
-  showCouponCode: true,
+  thankYouHeading: "Great News — You Qualify!",
+  thankYouServiceLabel: "HVAC",
+  thankYouSubtitle: "A local HVAC specialist is reviewing your information now and will call you shortly from a local number. They'll walk you through available options in your area — have your phone nearby so you don't miss them!",
   steps: [
     {
       ...commonZipStep(),
@@ -858,11 +860,11 @@ export const funnelConfigs = {
     {
       ...commonPhoneStep(),
       title: "Last step! What's the best number for your local HVAC expert to reach you?",
-      pageHeading: "Great News — You Qualify!",
+      pageHeading: "",
       pageDescription: null,
       pageSubtitle: "",
       progressComplete: true,
-      nextLabel: "👍 Claim My Code",
+      nextLabel: "👍 See My Options",
       nextButtonClassName: "next-btn-red",
     },
     { ...commonVerificationStep(), pageHeading: "", pageSubtitle: "" },
