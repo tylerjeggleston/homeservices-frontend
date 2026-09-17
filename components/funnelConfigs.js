@@ -256,10 +256,13 @@ export const funnelConfigs = {
     },
     {
       key: "homeowner",
-      title: "Do you own your home?",
+      title: "Is this your home?",
       description: "Homeowners may qualify for no cost installation",
       type: "options",
-      options: ["Yes", "No"],
+      options: [
+        { label: "Yes, I own it", value: "Yes" },
+        { label: "I rent it", value: "No" },
+      ],
       pageHeading: "",
       pageSubtitle: "",
       disqualifyOn: {
