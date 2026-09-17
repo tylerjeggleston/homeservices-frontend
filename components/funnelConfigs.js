@@ -342,7 +342,7 @@ export const funnelConfigs = {
     {
       key: "creditRating",
       title: "What's your approximate credit score?",
-      description: "This helps us determine which programs you qualify for",
+      description: "",
       type: "options",
       options: [
         { label: "Excellent", value: "Excellent" },
