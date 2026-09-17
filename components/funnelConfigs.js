@@ -355,7 +355,7 @@ export const funnelConfigs = {
     },
     {
       ...commonPhoneStep(),
-      title: "Last Step: Enter your Phone Number to get your Results!",
+      title: "Last step! What's the best number for your local solar expert to reach you?",
       pageHeading: "Great News — You Qualify!",
       pageDescription: null,
       pageSubtitle: "",
