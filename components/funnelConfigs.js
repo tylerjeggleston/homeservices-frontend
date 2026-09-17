@@ -316,6 +316,7 @@ export const funnelConfigs = {
       pageSubtitle: "",
       nextLabel: "Check Availability",
       showAnalyzing: true,
+      analyzingText: "Checking Availability In Your Area",
     },
     {
       key: "name",
