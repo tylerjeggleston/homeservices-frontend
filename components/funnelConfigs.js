@@ -307,14 +307,14 @@ export const funnelConfigs = {
     },
     {
       key: "address",
-      title: "We Need To Analyze Your Roof For Shading",
-      description: "We use satellite imagery to estimate your home's solar potential",
+      title: "What's your address?",
+      description: "",
       hideLocationHint: true,
       type: "input",
       placeholder: "Enter property address",
       pageHeading: "",
       pageSubtitle: "",
-      nextLabel: "Analyze My Roof",
+      nextLabel: "Check Availability",
       showAnalyzing: true,
     },
     {
