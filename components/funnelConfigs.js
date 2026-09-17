@@ -334,7 +334,7 @@ export const funnelConfigs = {
     {
       ...commonEmailStep(),
       title: "What's your email address?",
-      description: "If we need to ask additional questions",
+      description: "Where should we send your recommendations?",
       nextLabel: "Next",
       pageHeading: "",
       pageSubtitle: "",
