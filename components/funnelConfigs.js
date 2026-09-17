@@ -329,7 +329,7 @@ export const funnelConfigs = {
       ],
       pageHeading: "",
       pageSubtitle: "",
-      stepHeading: "Good News! Your Roof Gets Enough Sunlight!",
+      stepHeading: "Good News! We Found Someone In Your Area!",
     },
     {
       ...commonEmailStep(),
