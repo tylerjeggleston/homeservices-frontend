@@ -534,23 +534,28 @@ const progressPercent = useMemo(() => {
     if (prefillAppliedRef.current || !steps.length) return;
     try {
       const raw = sessionStorage.getItem("crossSellPrefill");
+      console.log("[crossSell] sessionStorage raw:", raw);
       if (!raw) { prefillAppliedRef.current = true; return; }
       prefillAppliedRef.current = true;
       const prefillData = JSON.parse(raw);
+      console.log("[crossSell] prefillData:", prefillData);
       sessionStorage.removeItem("crossSellPrefill");
       setForm((prev) => ({ ...prev, ...prefillData }));
       let skipTo = 0;
       for (let i = 0; i < steps.length; i++) {
         const step = steps[i];
+        console.log(`[crossSell] step[${i}] key=${step.key} prefillSkip=${step.prefillSkip}`);
         if (!step.prefillSkip) break;
         const keys = step.fields ? step.fields.map((f) => f.key) : [step.key];
         const allFilled = keys.every((k) => {
           const val = prefillData[k];
+          console.log(`[crossSell]   field ${k} = "${val}" filled=${val !== undefined && val !== null && String(val).trim() !== ""}`);
           return val !== undefined && val !== null && String(val).trim() !== "";
         });
         if (!allFilled) break;
         skipTo = i + 1;
       }
+      console.log("[crossSell] skipTo:", skipTo);
       if (skipTo > 0) setStepIndex(skipTo);
     } catch (_) {}
   }, [steps]);
