@@ -286,40 +286,7 @@ function ThankYouScreen({ config }) {
         </>
       )}
 
-      <div className="thankyou-page-grid">
-        <article className="thankyou-page-card">
-          <div className="thankyou-page-icon">🎉</div>
-          <div className="thankyou-card-num">1</div>
-          <h3 className="thankyou-card-title">You Qualify!</h3>
-          <p>
-            We&apos;re excited to help you explore your {serviceLabel} options.
-            A {serviceLabel} expert will review your information now.
-          </p>
-        </article>
-
-        <article className="thankyou-page-card">
-          <div className="thankyou-page-icon">📞</div>
-          <div className="thankyou-card-num">2</div>
-          <h3 className="thankyou-card-title">Answer Your Phone</h3>
-          <p>
-            A {serviceLabel} expert will be calling you shortly from a local number.<br />
-            <strong>Please have your phone nearby so we don&apos;t miss you.</strong>
-          </p>
-        </article>
-
-        <article className="thankyou-page-card">
-          <div className="thankyou-page-icon">✍️</div>
-          <div className="thankyou-card-num">3</div>
-          <h3 className="thankyou-card-title">Get Your Free Quote</h3>
-          <p>
-            The expert will go over your options, answer your questions, and provide
-            your free {serviceLabel} quote.<br />
-            <strong>There&apos;s no obligation.</strong>
-          </p>
-        </article>
-      </div>
-
-      {config?.crossSellOptions && config.crossSellOptions.length > 0 && (
+      {config?.crossSellOptions && config.crossSellOptions.length > 0 ? (
         <div className="crosssell-section">
           <h2 className="crosssell-heading">Also interested in saving on other home services?</h2>
           <div className="crosssell-cards">
@@ -328,9 +295,6 @@ function ThankYouScreen({ config }) {
                 key={opt.slug}
                 className="crosssell-card"
                 onClick={() => {
-                  try {
-                    sessionStorage.setItem("crossSellPrefill", JSON.stringify(window.__crossSellForm || {}));
-                  } catch (_) {}
                   window.location.href = `/${opt.slug}`;
                 }}
               >
@@ -338,6 +302,39 @@ function ThankYouScreen({ config }) {
               </button>
             ))}
           </div>
+        </div>
+      ) : (
+        <div className="thankyou-page-grid">
+          <article className="thankyou-page-card">
+            <div className="thankyou-page-icon">🎉</div>
+            <div className="thankyou-card-num">1</div>
+            <h3 className="thankyou-card-title">You Qualify!</h3>
+            <p>
+              We&apos;re excited to help you explore your {serviceLabel} options.
+              A {serviceLabel} expert will review your information now.
+            </p>
+          </article>
+
+          <article className="thankyou-page-card">
+            <div className="thankyou-page-icon">📞</div>
+            <div className="thankyou-card-num">2</div>
+            <h3 className="thankyou-card-title">Answer Your Phone</h3>
+            <p>
+              A {serviceLabel} expert will be calling you shortly from a local number.<br />
+              <strong>Please have your phone nearby so we don&apos;t miss you.</strong>
+            </p>
+          </article>
+
+          <article className="thankyou-page-card">
+            <div className="thankyou-page-icon">✍️</div>
+            <div className="thankyou-card-num">3</div>
+            <h3 className="thankyou-card-title">Get Your Free Quote</h3>
+            <p>
+              The expert will go over your options, answer your questions, and provide
+              your free {serviceLabel} quote.<br />
+              <strong>There&apos;s no obligation.</strong>
+            </p>
+          </article>
         </div>
       )}
 
@@ -795,9 +792,9 @@ const progressPercent = useMemo(() => {
       }
 
       setForm(finalForm);
-      // Store form data for cross-sell prefill
-      if (typeof window !== "undefined") {
-        window.__crossSellForm = {
+      // Store form data for cross-sell prefill — write at submit time so it's ready on card click
+      try {
+        sessionStorage.setItem("crossSellPrefill", JSON.stringify({
           zip: finalForm.zip,
           homeowner: finalForm.homeowner,
           homeType: finalForm.homeType,
@@ -811,8 +808,8 @@ const progressPercent = useMemo(() => {
           email: finalForm.email,
           creditScore: finalForm.creditScore,
           phone: finalForm.phone,
-        };
-      }
+        }));
+      } catch (_) {}
       setStepIndex(allSteps.findIndex((step) => step.type === "thankyou"));
 
       // Fire Meta Pixel Lead event on successful submission
