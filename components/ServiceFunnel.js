@@ -416,41 +416,8 @@ export default function ServiceFunnel({ config }) {
     return obj;
   }, [steps]);
 
-  const [stepIndex, setStepIndex] = useState(() => {
-    if (typeof window === "undefined") return 0;
-    try {
-      const raw = sessionStorage.getItem("crossSellPrefill");
-      if (!raw) return 0;
-      const prefillData = JSON.parse(raw);
-      const configSteps = (config?.steps || []).filter((s) => s.key !== "verificationCode");
-      let skipTo = 0;
-      for (let i = 0; i < configSteps.length; i++) {
-        const step = configSteps[i];
-        if (!step.prefillSkip) break;
-        const keys = step.fields ? step.fields.map((f) => f.key) : [step.key];
-        const allFilled = keys.every((k) => {
-          const val = prefillData[k];
-          return val !== undefined && val !== null && String(val).trim() !== "";
-        });
-        if (!allFilled) break;
-        skipTo = i + 1;
-      }
-      return skipTo;
-    } catch (_) {
-      return 0;
-    }
-  });
-  const [form, setForm] = useState(() => {
-    if (typeof window === "undefined") return initialForm;
-    try {
-      const raw = sessionStorage.getItem("crossSellPrefill");
-      if (!raw) return initialForm;
-      const prefillData = JSON.parse(raw);
-      return { ...initialForm, ...prefillData };
-    } catch (_) {
-      return initialForm;
-    }
-  });
+  const [stepIndex, setStepIndex] = useState(0);
+  const [form, setForm] = useState(initialForm);
   const [error, setError] = useState("");
   const [userCoords, setUserCoords] = useState(null);
   const [otpSending, setOtpSending] = useState(false);
@@ -526,8 +493,6 @@ const progressPercent = useMemo(() => {
 
   useEffect(() => {
   persistTrackingParams();
-  // Clean up cross-sell prefill now that it's been applied synchronously
-  try { sessionStorage.removeItem("crossSellPrefill"); } catch (_) {}
 
   const tracking = getTrackingParams();
 
@@ -562,6 +527,33 @@ const progressPercent = useMemo(() => {
     }),
   }).catch(() => {});
 }, []);
+
+  // Apply cross-sell prefill after hydration, once steps are available
+  const prefillAppliedRef = useRef(false);
+  useEffect(() => {
+    if (prefillAppliedRef.current || !steps.length) return;
+    try {
+      const raw = sessionStorage.getItem("crossSellPrefill");
+      if (!raw) { prefillAppliedRef.current = true; return; }
+      prefillAppliedRef.current = true;
+      const prefillData = JSON.parse(raw);
+      sessionStorage.removeItem("crossSellPrefill");
+      setForm((prev) => ({ ...prev, ...prefillData }));
+      let skipTo = 0;
+      for (let i = 0; i < steps.length; i++) {
+        const step = steps[i];
+        if (!step.prefillSkip) break;
+        const keys = step.fields ? step.fields.map((f) => f.key) : [step.key];
+        const allFilled = keys.every((k) => {
+          const val = prefillData[k];
+          return val !== undefined && val !== null && String(val).trim() !== "";
+        });
+        if (!allFilled) break;
+        skipTo = i + 1;
+      }
+      if (skipTo > 0) setStepIndex(skipTo);
+    } catch (_) {}
+  }, [steps]);
 
   function validateCurrentStep() {
     if (!currentStep) return false;
