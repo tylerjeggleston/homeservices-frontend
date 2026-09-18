@@ -797,7 +797,7 @@ const progressPercent = useMemo(() => {
         sessionStorage.setItem("crossSellPrefill", JSON.stringify({
           zip: finalForm.zip,
           homeowner: finalForm.homeowner,
-          homeType: finalForm.homeType,
+          propertyType: finalForm.propertyType,
           address: finalForm.address,
           city: finalForm.city,
           state: finalForm.state,
@@ -806,7 +806,7 @@ const progressPercent = useMemo(() => {
           firstName: finalForm.firstName,
           lastName: finalForm.lastName,
           email: finalForm.email,
-          creditScore: finalForm.creditScore,
+          creditRating: finalForm.creditRating,
           phone: finalForm.phone,
         }));
       } catch (_) {}
