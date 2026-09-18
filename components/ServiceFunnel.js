@@ -496,16 +496,6 @@ const progressPercent = useMemo(() => {
 
   const tracking = getTrackingParams();
 
-  // Check for cross-sell prefill data in sessionStorage
-  let prefillData = null;
-  try {
-    const raw = sessionStorage.getItem("crossSellPrefill");
-    if (raw) {
-      prefillData = JSON.parse(raw);
-      sessionStorage.removeItem("crossSellPrefill");
-    }
-  } catch (_) {}
-
   setForm((prev) => ({
     ...prev,
     affiliateId: tracking.affiliateId || config?.affiliateSlug || "",
@@ -522,25 +512,7 @@ const progressPercent = useMemo(() => {
     fbc: tracking.fbc,
     fbp: tracking.fbp,
     fbclid: tracking.fbclid,
-    ...(prefillData || {}),
   }));
-
-  // Advance past prefillSkip steps that already have data
-  if (prefillData) {
-    let skipTo = 0;
-    for (let i = 0; i < steps.length; i++) {
-      const step = steps[i];
-      if (!step.prefillSkip) break;
-      const keys = step.fields ? step.fields.map((f) => f.key) : [step.key];
-      const allFilled = keys.every((k) => {
-        const val = prefillData[k];
-        return val !== undefined && val !== null && String(val).trim() !== "";
-      });
-      if (!allFilled) break;
-      skipTo = i + 1;
-    }
-    if (skipTo > 0) setStepIndex(skipTo);
-  }
 
   // Track page view
   fetch(`${OTP_API_BASE}/api/funnel/step`, {
@@ -555,6 +527,35 @@ const progressPercent = useMemo(() => {
     }),
   }).catch(() => {});
 }, []);
+
+  // Apply cross-sell prefill: runs when steps are available (separate from tracking effect)
+  const prefillAppliedRef = useRef(false);
+  useEffect(() => {
+    if (prefillAppliedRef.current || !steps.length) return;
+    try {
+      const raw = sessionStorage.getItem("crossSellPrefill");
+      if (!raw) return;
+      prefillAppliedRef.current = true;
+      const prefillData = JSON.parse(raw);
+      sessionStorage.removeItem("crossSellPrefill");
+
+      setForm((prev) => ({ ...prev, ...prefillData }));
+
+      let skipTo = 0;
+      for (let i = 0; i < steps.length; i++) {
+        const step = steps[i];
+        if (!step.prefillSkip) break;
+        const keys = step.fields ? step.fields.map((f) => f.key) : [step.key];
+        const allFilled = keys.every((k) => {
+          const val = prefillData[k];
+          return val !== undefined && val !== null && String(val).trim() !== "";
+        });
+        if (!allFilled) break;
+        skipTo = i + 1;
+      }
+      if (skipTo > 0) setStepIndex(skipTo);
+    } catch (_) {}
+  }, [steps]);
 
   function validateCurrentStep() {
     if (!currentStep) return false;
