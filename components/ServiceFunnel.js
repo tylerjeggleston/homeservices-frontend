@@ -319,6 +319,28 @@ function ThankYouScreen({ config }) {
         </article>
       </div>
 
+      {config?.crossSellOptions && config.crossSellOptions.length > 0 && (
+        <div className="crosssell-section">
+          <h2 className="crosssell-heading">Also interested in saving on other home services?</h2>
+          <div className="crosssell-cards">
+            {config.crossSellOptions.map((opt) => (
+              <button
+                key={opt.slug}
+                className="crosssell-card"
+                onClick={() => {
+                  try {
+                    sessionStorage.setItem("crossSellPrefill", JSON.stringify(window.__crossSellForm || {}));
+                  } catch (_) {}
+                  window.location.href = `/${opt.slug}`;
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="thankyou-security">
         🛡️ Your information is secure and will never be shared with other companies.
       </div>
@@ -477,6 +499,16 @@ const progressPercent = useMemo(() => {
 
   const tracking = getTrackingParams();
 
+  // Check for cross-sell prefill data in sessionStorage
+  let prefillData = null;
+  try {
+    const raw = sessionStorage.getItem("crossSellPrefill");
+    if (raw) {
+      prefillData = JSON.parse(raw);
+      sessionStorage.removeItem("crossSellPrefill");
+    }
+  } catch (_) {}
+
   setForm((prev) => ({
     ...prev,
     affiliateId: tracking.affiliateId || config?.affiliateSlug || "",
@@ -493,7 +525,25 @@ const progressPercent = useMemo(() => {
     fbc: tracking.fbc,
     fbp: tracking.fbp,
     fbclid: tracking.fbclid,
+    ...(prefillData || {}),
   }));
+
+  // Advance past prefillSkip steps that already have data
+  if (prefillData) {
+    let skipTo = 0;
+    for (let i = 0; i < steps.length; i++) {
+      const step = steps[i];
+      if (!step.prefillSkip) break;
+      const keys = step.fields ? step.fields.map((f) => f.key) : [step.key];
+      const allFilled = keys.every((k) => {
+        const val = prefillData[k];
+        return val !== undefined && val !== null && String(val).trim() !== "";
+      });
+      if (!allFilled) break;
+      skipTo = i + 1;
+    }
+    if (skipTo > 0) setStepIndex(skipTo);
+  }
 
   // Track page view
   fetch(`${OTP_API_BASE}/api/funnel/step`, {
@@ -745,6 +795,24 @@ const progressPercent = useMemo(() => {
       }
 
       setForm(finalForm);
+      // Store form data for cross-sell prefill
+      if (typeof window !== "undefined") {
+        window.__crossSellForm = {
+          zip: finalForm.zip,
+          homeowner: finalForm.homeowner,
+          homeType: finalForm.homeType,
+          address: finalForm.address,
+          city: finalForm.city,
+          state: finalForm.state,
+          lat: finalForm.lat,
+          lng: finalForm.lng,
+          firstName: finalForm.firstName,
+          lastName: finalForm.lastName,
+          email: finalForm.email,
+          creditScore: finalForm.creditScore,
+          phone: finalForm.phone,
+        };
+      }
       setStepIndex(allSteps.findIndex((step) => step.type === "thankyou"));
 
       // Fire Meta Pixel Lead event on successful submission

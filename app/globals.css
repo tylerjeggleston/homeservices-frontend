@@ -1327,6 +1327,44 @@ input {
   margin-top: 8px;
 }
 
+.crosssell-section {
+  margin: 40px auto 0;
+  max-width: 700px;
+  text-align: center;
+}
+
+.crosssell-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+}
+
+.crosssell-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.crosssell-card {
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px 16px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+  text-align: center;
+}
+
+.crosssell-card:hover {
+  border-color: #2563eb;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12);
+  transform: translateY(-2px);
+}
+
 @media (max-width: 860px) {
   .thankyou-page-grid {
     grid-template-columns: 1fr;

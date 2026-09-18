@@ -18,11 +18,13 @@ export const funnelConfigs = {
         pageHeading: "",
         pageSubtitle: "",
         trustBadges: true,
+        prefillSkip: true,
       },
       {
         ...commonHomeTypeStep(),
         pageHeading: "",
         pageSubtitle: "",
+        prefillSkip: true,
         disqualifyOn: {
           values: ["Mobile Home", "Apartment"],
           title: "Thanks for your interest!",
@@ -36,6 +38,7 @@ export const funnelConfigs = {
         options: ["Yes", "No"],
         pageHeading: "",
         pageSubtitle: "",
+        prefillSkip: true,
         disqualifyOn: {
           values: ["No"],
           title: "Thank you for checking!",
@@ -61,6 +64,7 @@ export const funnelConfigs = {
         pageSubtitle: "",
         showAnalyzing: true,
         nextLabel: "Check Availability",
+        prefillSkip: true,
       },
       {
         key: "name",
@@ -74,6 +78,7 @@ export const funnelConfigs = {
         pageHeading: "",
         pageSubtitle: "",
         stepHeading: "Good News! We Found Someone In Your Area!",
+        prefillSkip: true,
       },
       {
         ...commonEmailStep(),
@@ -82,8 +87,9 @@ export const funnelConfigs = {
         nextLabel: "Next",
         pageHeading: "",
         pageSubtitle: "",
+        prefillSkip: true,
       },
-      commonCreditStep(),
+      { ...commonCreditStep(), prefillSkip: true },
       {
         ...commonPhoneStep(),
         title: "Last Step: Enter your Phone Number to get your Results!",
@@ -92,6 +98,7 @@ export const funnelConfigs = {
         progressComplete: true,
         nextLabel: "👍 See My Results",
         nextButtonClassName: "next-btn-red",
+        prefillSkip: true,
       },
       { ...commonVerificationStep(), pageHeading: "", pageSubtitle: "" },
     ],
@@ -114,6 +121,7 @@ export const funnelConfigs = {
         pageHeading: "",
         pageSubtitle: "",
         trustBadges: true,
+        prefillSkip: true,
       },
       {
         key: "homeowner",
@@ -127,6 +135,7 @@ export const funnelConfigs = {
           title: "Thank you for checking!",
           message: "As of now, there aren't any offers available in your area.",
         },
+        prefillSkip: true,
       },
       {
         ...commonHomeTypeStep(),
@@ -137,6 +146,7 @@ export const funnelConfigs = {
           title: "Thanks for your interest!",
           message: "This program is currently available only for single-family homes.",
         },
+        prefillSkip: true,
       },
       {
         key: "service",
@@ -167,6 +177,7 @@ export const funnelConfigs = {
         showAnalyzing: true,
         analyzingText: "Checking Availability...",
         nextLabel: "Check Availability",
+        prefillSkip: true,
       },
       {
         key: "name",
@@ -180,6 +191,7 @@ export const funnelConfigs = {
         pageHeading: "",
         pageSubtitle: "",
         stepHeading: "Good News! We Found Someone In Your Area!",
+        prefillSkip: true,
       },
       {
         ...commonEmailStep(),
@@ -189,11 +201,13 @@ export const funnelConfigs = {
         nextLabel: "Send My Estimate →",
         pageHeading: "",
         pageSubtitle: "",
+        prefillSkip: true,
       },
       {
         ...commonCreditStep(),
         pageHeading: "",
         pageSubtitle: "",
+        prefillSkip: true,
       },
       {
         ...commonPhoneStep(),
@@ -204,6 +218,7 @@ export const funnelConfigs = {
         progressComplete: true,
         nextLabel: "👍 See My Results",
         nextButtonClassName: "next-btn-red",
+        prefillSkip: true,
       },
       { ...commonVerificationStep(), pageHeading: "", pageSubtitle: "" },
     ],
@@ -218,6 +233,12 @@ export const funnelConfigs = {
   noCardBorder: true,
   thankYouHeading: "Great News — You Qualify!",
   thankYouServiceLabel: "solar",
+  crossSellOptions: [
+    { label: "🏠 Roofing", slug: "roofing-v1pvcs" },
+    { label: "🪵 Flooring", slug: "flooring-v1pvcs" },
+    { label: "🛁 Bath Remodel", slug: "bathroom-v1pvcs" },
+    { label: "🪟 Windows", slug: "windows-v1pvcs" },
+  ],
   steps: [
     {
       ...commonZipStep(),
@@ -602,6 +623,7 @@ export const funnelConfigs = {
       pageHeading: "",
       pageSubtitle: "",
       trustBadges: true,
+      prefillSkip: true,
     },
     {
       ...commonHomeTypeStep(),
@@ -612,6 +634,7 @@ export const funnelConfigs = {
         title: "Thanks for your interest!",
         message: "This program is currently available only for single-family homes.",
       },
+      prefillSkip: true,
     },
     {
       key: "service",
@@ -641,8 +664,9 @@ export const funnelConfigs = {
         title: "Thank you for checking!",
         message: "As of now, there aren't any offers available in your area.",
       },
+      prefillSkip: true,
     },
-    { ...commonCreditStep(), pageHeading: "", pageSubtitle: "" },
+    { ...commonCreditStep(), pageHeading: "", pageSubtitle: "", prefillSkip: true },
     {
       key: "address",
       title: "What is the property address for this bathroom project?",
@@ -654,6 +678,7 @@ export const funnelConfigs = {
       pageSubtitle: "",
       showAnalyzing: true,
       nextLabel: "Check Availability",
+      prefillSkip: true,
     },
     {
       key: "name",
@@ -666,6 +691,7 @@ export const funnelConfigs = {
       ],
       pageHeading: "",
       pageSubtitle: "",
+      prefillSkip: true,
     },
     {
       ...commonEmailStep(),
@@ -675,6 +701,7 @@ export const funnelConfigs = {
       nextLabel: "Send My Estimate →",
       pageHeading: "",
       pageSubtitle: "",
+      prefillSkip: true,
     },
     {
       ...commonPhoneStep(),
@@ -685,6 +712,7 @@ export const funnelConfigs = {
       progressComplete: true,
       nextLabel: "👍 See My Results",
       nextButtonClassName: "next-btn-red",
+      prefillSkip: true,
     },
     { ...commonVerificationStep(), pageHeading: "", pageSubtitle: "" },
   ],
@@ -1233,6 +1261,7 @@ export const funnelConfigs = {
       description: "Check availability in your area",
       nextLabel: "Check My Area →",
       trustBadges: true,
+      prefillSkip: true,
     },
     {
       key: "flooringType",
@@ -1270,8 +1299,9 @@ export const funnelConfigs = {
         { label: "Yes, I own it", value: "Yes" },
         { label: "I rent it", value: "No" },
       ],
+      prefillSkip: true,
     },
-    commonHomeTypeStep(),
+    { ...commonHomeTypeStep(), prefillSkip: true },
     {
       ...commonAddressStep("flooring service"),
       title: "What's your address?",
@@ -1281,6 +1311,7 @@ export const funnelConfigs = {
       nextLabel: "Check Availability",
       pageHeading: "",
       pageSubtitle: "",
+      prefillSkip: true,
     },
     {
       key: "name",
@@ -1294,8 +1325,9 @@ export const funnelConfigs = {
       pageHeading: "",
       pageSubtitle: "",
       stepHeading: "Good News! We Found Someone In Your Area!",
+      prefillSkip: true,
     },
-    { ...commonEmailStep(), title: "What's your email address?", description: "Where should we send your recommendations?", pageHeading: "", pageSubtitle: "" },
+    { ...commonEmailStep(), title: "What's your email address?", description: "Where should we send your recommendations?", pageHeading: "", pageSubtitle: "", prefillSkip: true },
     {
       ...commonPhoneStep(),
       title: "Last step! What's the best number for your local flooring expert to reach you?",
@@ -1305,6 +1337,7 @@ export const funnelConfigs = {
       progressComplete: true,
       nextLabel: "👍 See My Results",
       nextButtonClassName: "next-btn-red",
+      prefillSkip: true,
     },
     { ...commonVerificationStep(), pageHeading: "", pageSubtitle: "" },
   ],
