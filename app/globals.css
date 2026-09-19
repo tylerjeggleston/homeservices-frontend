@@ -1214,6 +1214,7 @@ input {
 
 .thankyou-page-subtitle {
   font-size: 18px;
+  font-weight: 700;
   color: #555;
   text-align: center;
   line-height: 1.6;
@@ -1371,11 +1372,13 @@ input {
   left: -50%;
   background: conic-gradient(
     from 0deg,
-    #dde3ea 0deg 320deg,
-    #c7d9f5 330deg,
-    #a8c4f0 338deg,
-    #c7d9f5 346deg,
-    #dde3ea 354deg 360deg
+    #dde3ea 0deg 255deg,
+    #bfd4f7 270deg,
+    #93c5fd 288deg,
+    #3b82f6 315deg,
+    #93c5fd 342deg,
+    #bfd4f7 355deg,
+    #dde3ea 360deg
   );
   animation: spin-border 4s linear infinite;
 }
