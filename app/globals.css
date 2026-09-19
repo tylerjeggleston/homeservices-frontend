@@ -1217,7 +1217,7 @@ input {
   color: #555;
   text-align: center;
   line-height: 1.6;
-  margin: 0 auto 48px;
+  margin: 0 auto 20px;
   max-width: 600px;
 }
 
@@ -1328,7 +1328,7 @@ input {
 }
 
 .crosssell-section {
-  margin: 40px auto 0;
+  margin: 8px auto 0;
   max-width: 780px;
   text-align: center;
 }
@@ -1348,20 +1348,57 @@ input {
   text-align: left;
 }
 
+@keyframes spin-border {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .cs-card {
   background: #fff;
-  border: 2px solid #e5e7eb;
+  border: none;
   border-radius: 16px;
   padding: 24px 22px;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  transition: border-color 0.15s, box-shadow 0.15s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  position: relative;
+  isolation: isolate;
+}
+
+.cs-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  background: conic-gradient(
+    from 0deg,
+    #e2e8f0 0deg,
+    #e2e8f0 290deg,
+    #93c5fd 310deg,
+    #3b82f6 325deg,
+    #93c5fd 340deg,
+    #e2e8f0 355deg,
+    #e2e8f0 360deg
+  );
+  animation: spin-border 2.5s linear infinite;
+  z-index: -1;
+}
+
+.cs-card--done::before {
+  background: conic-gradient(
+    from 0deg,
+    #bbf7d0 0deg,
+    #bbf7d0 290deg,
+    #4ade80 310deg,
+    #16a34a 325deg,
+    #4ade80 340deg,
+    #bbf7d0 355deg,
+    #bbf7d0 360deg
+  );
 }
 
 .cs-card:hover {
-  border-color: #94a3b8;
   box-shadow: 0 4px 16px rgba(0,0,0,0.10);
 }
 
