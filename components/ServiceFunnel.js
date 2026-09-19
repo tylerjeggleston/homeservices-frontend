@@ -267,7 +267,12 @@ function CrossSellCard({ opt, sharedForm }) {
     setLoading(true);
     setSubmitError("");
     try {
-      const finalForm = { ...sharedForm, ...answers };
+      const finalForm = {
+        ...sharedForm,
+        ...answers,
+        upsellUrl: sharedForm.landingPage || "",
+        landingPage: `https://remodelwiz.com/${opt.slug}`,
+      };
       const res = await fetch(`${OTP_API_BASE}/api/leads/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
