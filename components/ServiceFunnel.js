@@ -297,50 +297,54 @@ function CrossSellCard({ opt, sharedForm }) {
   if (submitted) {
     return (
       <div className="cs-card cs-card--done">
-        <div className="cs-card-check">✓</div>
-        <p className="cs-card-done-label">{opt.label}</p>
-        <p className="cs-card-done-msg">A specialist will call you shortly!</p>
+        <div className="cs-card-inner cs-card-inner--done">
+          <div className="cs-card-check">✓</div>
+          <p className="cs-card-done-label">{opt.label}</p>
+          <p className="cs-card-done-msg">A specialist will call you shortly!</p>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="cs-card">
-      <div className="cs-card-header">
-        <p className="cs-card-title">{opt.label}</p>
-        {opt.tagline && <p className="cs-card-tagline">{opt.tagline}</p>}
-      </div>
-      {steps.map((step, i) => {
-        const isVisible = activeStepIndex === -1 || i <= activeStepIndex;
-        if (!isVisible) return null;
-        return (
-          <div key={step.key} className="cs-step">
-            <p className="cs-step-question">{step.question}</p>
-            <div className="cs-options">
-              {step.options.map((option) => {
-                const val = typeof option === "object" ? option.value : option;
-                const lbl = typeof option === "object" ? option.label : option;
-                const selected = answers[step.key] === val;
-                return (
-                  <button
-                    key={val}
-                    className={`cs-option${selected ? " cs-option--selected" : ""}`}
-                    onClick={() => selectAnswer(step.key, val)}
-                  >
-                    {lbl}
-                  </button>
-                );
-              })}
+      <div className="cs-card-inner">
+        <div className="cs-card-header">
+          <p className="cs-card-title">{opt.label}</p>
+          {opt.tagline && <p className="cs-card-tagline">{opt.tagline}</p>}
+        </div>
+        {steps.map((step, i) => {
+          const isVisible = activeStepIndex === -1 || i <= activeStepIndex;
+          if (!isVisible) return null;
+          return (
+            <div key={step.key} className="cs-step">
+              <p className="cs-step-question">{step.question}</p>
+              <div className="cs-options">
+                {step.options.map((option) => {
+                  const val = typeof option === "object" ? option.value : option;
+                  const lbl = typeof option === "object" ? option.label : option;
+                  const selected = answers[step.key] === val;
+                  return (
+                    <button
+                      key={val}
+                      className={`cs-option${selected ? " cs-option--selected" : ""}`}
+                      onClick={() => selectAnswer(step.key, val)}
+                    >
+                      {lbl}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        );
-      })}
-      {allAnswered && (
-        <button className="cs-submit" onClick={handleSubmit} disabled={loading}>
-          {loading ? "Submitting…" : "Get My Quote →"}
-        </button>
-      )}
-      {submitError && <p className="cs-error">{submitError}</p>}
+          );
+        })}
+        {allAnswered && (
+          <button className="cs-submit" onClick={handleSubmit} disabled={loading}>
+            {loading ? "Submitting…" : "Get My Quote →"}
+          </button>
+        )}
+        {submitError && <p className="cs-error">{submitError}</p>}
+      </div>
     </div>
   );
 }

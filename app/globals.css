@@ -1354,52 +1354,63 @@ input {
 }
 
 .cs-card {
-  background: #fff;
-  border: none;
-  border-radius: 16px;
-  padding: 24px 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   position: relative;
-  isolation: isolate;
+  overflow: hidden;
+  border-radius: 16px;
+  padding: 2px;
+  background: transparent;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 .cs-card::before {
   content: '';
   position: absolute;
-  inset: -2px;
-  border-radius: 18px;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
   background: conic-gradient(
     from 0deg,
-    #e2e8f0 0deg,
-    #e2e8f0 290deg,
-    #93c5fd 310deg,
-    #3b82f6 325deg,
-    #93c5fd 340deg,
-    #e2e8f0 355deg,
-    #e2e8f0 360deg
+    #dde3ea 0deg 320deg,
+    #c7d9f5 330deg,
+    #a8c4f0 338deg,
+    #c7d9f5 346deg,
+    #dde3ea 354deg 360deg
   );
-  animation: spin-border 2.5s linear infinite;
-  z-index: -1;
+  animation: spin-border 4s linear infinite;
 }
 
 .cs-card--done::before {
   background: conic-gradient(
     from 0deg,
-    #bbf7d0 0deg,
-    #bbf7d0 290deg,
-    #4ade80 310deg,
-    #16a34a 325deg,
-    #4ade80 340deg,
-    #bbf7d0 355deg,
-    #bbf7d0 360deg
+    #d4edd9 0deg 320deg,
+    #a8d5b5 330deg,
+    #7ec89a 338deg,
+    #a8d5b5 346deg,
+    #d4edd9 354deg 360deg
   );
 }
 
 .cs-card:hover {
   box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+}
+
+.cs-card-inner {
+  background: #fff;
+  border-radius: 14px;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+}
+
+.cs-card-inner--done {
+  background: #f0fdf4;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 116px;
 }
 
 .cs-card-header {
@@ -1408,14 +1419,6 @@ input {
   gap: 4px;
 }
 
-.cs-card--done {
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background: #f0fdf4;
-  border-color: #86efac;
-  min-height: 120px;
-}
 
 .cs-card-check {
   font-size: 28px;
