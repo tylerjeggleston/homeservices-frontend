@@ -2466,7 +2466,11 @@ input {
     width: 100%;
   }
 
-  .option-btn,
+  .option-btn {
+    height: 64px;
+    font-size: 18px;
+  }
+
   .back-btn,
   .next-btn {
     font-size: 18px;
