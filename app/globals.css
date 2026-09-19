@@ -2478,7 +2478,10 @@ input {
   }
 
   .dual-input-row .text-input {
-    height: 75px;
+    height: 75px !important;
+    min-height: 75px;
+    flex: none;
+    width: 100%;
     font-size: 20px;
     padding: 0 18px;
   }
