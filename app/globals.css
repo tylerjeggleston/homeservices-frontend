@@ -1329,7 +1329,7 @@ input {
 
 .crosssell-section {
   margin: 40px auto 0;
-  max-width: 700px;
+  max-width: 780px;
   text-align: center;
 }
 
@@ -1340,29 +1340,133 @@ input {
   margin-bottom: 20px;
 }
 
-.crosssell-cards {
+/* inline cross-sell card grid */
+.cs-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  gap: 16px;
+  text-align: left;
 }
 
-.crosssell-card {
+.cs-card {
   background: #fff;
   border: 2px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 20px 16px;
-  font-size: 17px;
-  font-weight: 600;
-  color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
-  text-align: center;
+  border-radius: 14px;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-.crosssell-card:hover {
+.cs-card:hover {
+  border-color: #cbd5e1;
+}
+
+.cs-card--done {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #f0fdf4;
+  border-color: #86efac;
+  min-height: 120px;
+}
+
+.cs-card-check {
+  font-size: 28px;
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.cs-card-done-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.cs-card-done-msg {
+  font-size: 14px;
+  color: #4b5563;
+  margin: 0;
+}
+
+.cs-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.cs-step-question {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 8px;
+}
+
+.cs-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.cs-option {
+  background: #f1f5f9;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: background 0.1s, border-color 0.1s;
+  white-space: nowrap;
+}
+
+.cs-option:hover {
+  background: #e2e8f0;
+}
+
+.cs-option--selected {
+  background: #2563eb;
   border-color: #2563eb;
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12);
-  transform: translateY(-2px);
+  color: #fff;
+}
+
+.cs-submit {
+  margin-top: 4px;
+  width: 100%;
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cs-submit:hover:not(:disabled) {
+  background: #15803d;
+}
+
+.cs-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cs-error {
+  font-size: 13px;
+  color: #dc2626;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .cs-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 860px) {

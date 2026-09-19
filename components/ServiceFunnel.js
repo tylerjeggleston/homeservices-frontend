@@ -249,7 +249,95 @@ function generateCouponCode() {
   return Array.from({ length: 4 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
 }
 
-function ThankYouScreen({ config }) {
+function CrossSellCard({ opt, sharedForm }) {
+  const [answers, setAnswers] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
+  const steps = opt.crossSellSteps || [];
+  const activeStepIndex = steps.findIndex((step) => answers[step.key] === undefined);
+  const allAnswered = steps.length > 0 && activeStepIndex === -1;
+
+  function selectAnswer(key, value) {
+    setAnswers((prev) => ({ ...prev, [key]: value }));
+  }
+
+  async function handleSubmit() {
+    setLoading(true);
+    setSubmitError("");
+    try {
+      const finalForm = { ...sharedForm, ...answers };
+      const res = await fetch(`${OTP_API_BASE}/api/leads/submit`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          serviceSlug: opt.slug,
+          serviceHeading: opt.serviceHeading || "",
+          affiliateSlug: sharedForm.affiliateId || "",
+          form: finalForm,
+          honeypot: "",
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || "Failed to submit.");
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError(err.message || "Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (submitted) {
+    return (
+      <div className="cs-card cs-card--done">
+        <div className="cs-card-check">✓</div>
+        <p className="cs-card-done-label">{opt.label}</p>
+        <p className="cs-card-done-msg">A specialist will call you shortly!</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="cs-card">
+      <p className="cs-card-title">{opt.label}</p>
+      {steps.map((step, i) => {
+        const isVisible = activeStepIndex === -1 || i <= activeStepIndex;
+        if (!isVisible) return null;
+        return (
+          <div key={step.key} className="cs-step">
+            <p className="cs-step-question">{step.question}</p>
+            <div className="cs-options">
+              {step.options.map((option) => {
+                const val = typeof option === "object" ? option.value : option;
+                const lbl = typeof option === "object" ? option.label : option;
+                const selected = answers[step.key] === val;
+                return (
+                  <button
+                    key={val}
+                    className={`cs-option${selected ? " cs-option--selected" : ""}`}
+                    onClick={() => selectAnswer(step.key, val)}
+                  >
+                    {lbl}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+      {allAnswered && (
+        <button className="cs-submit" onClick={handleSubmit} disabled={loading}>
+          {loading ? "Submitting…" : "Get My Quote →"}
+        </button>
+      )}
+      {submitError && <p className="cs-error">{submitError}</p>}
+    </div>
+  );
+}
+
+function ThankYouScreen({ config, form }) {
   const serviceLabel =
     config?.thankYouServiceLabel ||
     config?.serviceLabel ||
@@ -288,18 +376,10 @@ function ThankYouScreen({ config }) {
 
       {config?.crossSellOptions && config.crossSellOptions.length > 0 ? (
         <div className="crosssell-section">
-          <h2 className="crosssell-heading">Also interested in saving on other home services?</h2>
-          <div className="crosssell-cards">
+          <h2 className="crosssell-heading">Also save on other home services?</h2>
+          <div className="cs-grid">
             {config.crossSellOptions.map((opt) => (
-              <button
-                key={opt.slug}
-                className="crosssell-card"
-                onClick={() => {
-                  window.location.href = `/${opt.slug}`;
-                }}
-              >
-                {opt.label}
-              </button>
+              <CrossSellCard key={opt.slug} opt={opt} sharedForm={form || {}} />
             ))}
           </div>
         </div>
@@ -1341,7 +1421,7 @@ const progressPercent = useMemo(() => {
 
   if (!currentStep) return null;
   if (currentStep.type === "thankyou") {
-    return <ThankYouScreen config={config} />;
+    return <ThankYouScreen config={config} form={form} />;
   }
 
   const currentValue = String(form[currentStep.key] || "").trim();
