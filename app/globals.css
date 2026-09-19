@@ -2446,10 +2446,15 @@ input {
   }
 
   .option-btn,
-  .text-input,
   .back-btn,
   .next-btn {
     font-size: 18px;
+  }
+
+  .text-input {
+    height: 64px;
+    font-size: 20px;
+    padding: 0 18px;
   }
 
   .nav-row {
