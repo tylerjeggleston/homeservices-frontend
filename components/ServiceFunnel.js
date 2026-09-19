@@ -890,6 +890,25 @@ const progressPercent = useMemo(() => {
     }
 
     setForm(finalForm);
+    // Store form data for cross-sell prefill
+    console.log("[crossSell] writing to sessionStorage, zip=", finalForm.zip);
+    try {
+      sessionStorage.setItem("crossSellPrefill", JSON.stringify({
+        zip: finalForm.zip,
+        homeowner: finalForm.homeowner,
+        propertyType: finalForm.propertyType,
+        address: finalForm.address,
+        city: finalForm.city,
+        state: finalForm.state,
+        lat: finalForm.lat,
+        lng: finalForm.lng,
+        firstName: finalForm.firstName,
+        lastName: finalForm.lastName,
+        email: finalForm.email,
+        creditRating: finalForm.creditRating,
+        phone: finalForm.phone,
+      }));
+    } catch (_) {}
     setStepIndex(allSteps.findIndex((step) => step.type === "thankyou"));
 
     if (typeof window !== "undefined" && window.fbq) {
