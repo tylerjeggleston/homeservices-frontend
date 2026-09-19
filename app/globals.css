@@ -2007,12 +2007,6 @@ input {
     flex-direction: column;
     gap: 14px;
   }
-
-  .dual-input-row .text-input {
-    height: 75px;
-    font-size: 20px;
-    padding: 0 18px;
-  }
 }
 
 .analyzing-wrap {
@@ -2473,11 +2467,18 @@ input {
 
   .back-btn,
   .next-btn {
+    height: 64px;
     font-size: 18px;
   }
 
   .text-input {
     height: 64px;
+    font-size: 20px;
+    padding: 0 18px;
+  }
+
+  .dual-input-row .text-input {
+    height: 75px;
     font-size: 20px;
     padding: 0 18px;
   }
