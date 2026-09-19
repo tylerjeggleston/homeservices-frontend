@@ -2009,8 +2009,9 @@ input {
   }
 
   .dual-input-row .text-input {
-    height: 70px;
-    font-size: 22px;
+    height: 64px;
+    font-size: 20px;
+    padding: 0 18px;
   }
 }
 
