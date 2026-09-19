@@ -212,7 +212,7 @@ export const funnelConfigs = {
       {
         ...commonPhoneStep(),
         title: "Last Step: Enter your phone number to complete your request!",
-        pageHeading: "Great News — You Qualify!",
+        pageHeading: "",
         pageDescription: null,
         pageSubtitle: "",
         progressComplete: true,
@@ -457,7 +457,7 @@ export const funnelConfigs = {
     {
       ...commonPhoneStep(),
       title: "Last step! What's the best number for your local solar expert to reach you?",
-      pageHeading: "Great News — You Qualify!",
+      pageHeading: "",
       pageDescription: null,
       pageSubtitle: "",
       progressComplete: true,
