@@ -797,6 +797,7 @@ const progressPercent = useMemo(() => {
 
       setForm(finalForm);
       // Store form data for cross-sell prefill — write at submit time so it's ready on card click
+      console.log("[crossSell] writing to sessionStorage, zip=", finalForm.zip);
       try {
         sessionStorage.setItem("crossSellPrefill", JSON.stringify({
           zip: finalForm.zip,
