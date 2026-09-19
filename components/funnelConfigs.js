@@ -231,11 +231,13 @@ export const funnelConfigs = {
   titleClassName: "funnel-title-black",
   showStepLogo: true,
   noCardBorder: true,
-  thankYouHeading: "Great News — You Qualify!",
+  thankYouHeading: "You're All Set!",
+  thankYouSubtitle: "A solar expert will be calling you shortly from a local number. Have your phone nearby!",
   thankYouServiceLabel: "solar",
   crossSellOptions: [
     {
       label: "🏠 Roofing",
+      tagline: "Get your roof inspected for FREE",
       slug: "roofing-v1pvcs",
       serviceHeading: "Get a Free Roof Quote!",
       crossSellSteps: [
@@ -248,6 +250,7 @@ export const funnelConfigs = {
     },
     {
       label: "🪵 Flooring",
+      tagline: "Get beautiful new floors for less",
       slug: "flooring-v1pvcs",
       serviceHeading: "Let's Find the Best Flooring Options for Your Home!",
       crossSellSteps: [
@@ -279,6 +282,7 @@ export const funnelConfigs = {
     },
     {
       label: "🛁 Bath Remodel",
+      tagline: "Transform your bathroom",
       slug: "bathroom-v1pvcs",
       serviceHeading: "Get a Free Bathroom Remodel Quote!",
       crossSellSteps: [
@@ -298,6 +302,7 @@ export const funnelConfigs = {
     },
     {
       label: "🪟 Windows",
+      tagline: "Lower your energy bills",
       slug: "windows-v1pvcs",
       serviceHeading: "Get New Windows With No Upfront Cost!",
       crossSellSteps: [

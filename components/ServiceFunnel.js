@@ -306,7 +306,10 @@ function CrossSellCard({ opt, sharedForm }) {
 
   return (
     <div className="cs-card">
-      <p className="cs-card-title">{opt.label}</p>
+      <div className="cs-card-header">
+        <p className="cs-card-title">{opt.label}</p>
+        {opt.tagline && <p className="cs-card-tagline">{opt.tagline}</p>}
+      </div>
       {steps.map((step, i) => {
         const isVisible = activeStepIndex === -1 || i <= activeStepIndex;
         if (!isVisible) return null;
@@ -381,7 +384,7 @@ function ThankYouScreen({ config, form }) {
 
       {config?.crossSellOptions && config.crossSellOptions.length > 0 ? (
         <div className="crosssell-section">
-          <h2 className="crosssell-heading">Also save on other home services?</h2>
+          <h2 className="crosssell-heading">Can we help with anything else at your home?</h2>
           <div className="cs-grid">
             {config.crossSellOptions.map((opt) => (
               <CrossSellCard key={opt.slug} opt={opt} sharedForm={form || {}} />
