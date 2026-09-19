@@ -1372,13 +1372,13 @@ input {
   left: -50%;
   background: conic-gradient(
     from 0deg,
-    #e0e0e0 0deg 200deg,
-    #a0f5e8 220deg,
-    #00e5c0 248deg,
-    #00ffdd 268deg,
-    #00e5c0 288deg,
-    #a0f5e8 312deg,
-    #e0e0e0 332deg 360deg
+    #e0e0e0 0deg 160deg,
+    #a0f5e8 185deg,
+    #00e5c0 210deg,
+    #00ffdd 248deg,
+    #00e5c0 286deg,
+    #a0f5e8 315deg,
+    #e0e0e0 340deg 360deg
   );
   animation: spin-border 4s linear infinite;
 }
