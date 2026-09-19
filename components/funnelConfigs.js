@@ -231,8 +231,8 @@ export const funnelConfigs = {
   titleClassName: "funnel-title-black",
   showStepLogo: true,
   noCardBorder: true,
-  thankYouHeading: "You're All Set!",
-  thankYouSubtitle: "A solar expert will be calling you shortly from a local number. Have your phone nearby!",
+  thankYouHeading: "Your request is in!",
+  thankYouSubtitle: "A solar expert will be calling you shortly. While you wait — can we help with anything else at your home?",
   thankYouServiceLabel: "solar",
   crossSellOptions: [
     {

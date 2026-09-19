@@ -384,7 +384,6 @@ function ThankYouScreen({ config, form }) {
 
       {config?.crossSellOptions && config.crossSellOptions.length > 0 ? (
         <div className="crosssell-section">
-          <h2 className="crosssell-heading">Can we help with anything else at your home?</h2>
           <div className="cs-grid">
             {config.crossSellOptions.map((opt) => (
               <CrossSellCard key={opt.slug} opt={opt} sharedForm={form || {}} />
