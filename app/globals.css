@@ -974,6 +974,10 @@ input {
   color: #404040;
 }
 
+.marketing-list-item a {
+  color: #1273eb;
+}
+
 .marketing-footer {
   padding: 22px 18px 30px;
   text-align: center;
