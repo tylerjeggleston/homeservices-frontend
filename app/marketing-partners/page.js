@@ -33,7 +33,13 @@ export default function MarketingPartnersPage() {
           <ul className="marketing-list">
             {MARKETING_PARTNERS.map((partner, index) => (
               <li key={`${typeof partner === "object" ? partner.name : partner}-${index}`} className="marketing-list-item">
-                {typeof partner === "object" ? (
+                {typeof partner === "object" && partner.partialLink ? (
+                  <>
+                    {partner.display.split(partner.partialLink.text)[0]}
+                    <a href={partner.partialLink.url} target="_blank" rel="noopener noreferrer">{partner.partialLink.text}</a>
+                    {partner.display.split(partner.partialLink.text)[1]}
+                  </>
+                ) : typeof partner === "object" ? (
                   <a href={partner.url} target="_blank" rel="noopener noreferrer">{partner.name}</a>
                 ) : (
                   partner
