@@ -1493,8 +1493,75 @@ export const funnelConfigs = {
   titleClassName: "funnel-title-black",
   showStepLogo: true,
   noCardBorder: true,
-  thankYouHeading: "Great News — You Qualify!",
+  thankYouHeading: "Your request is in!",
+  thankYouSubtitle: "A flooring specialist will be calling you shortly. While you wait — can we help with anything else at your home?",
   thankYouServiceLabel: "flooring",
+  crossSellOptions: [
+    {
+      label: "🏠 Roofing",
+      tagline: "Get your roof inspected for FREE",
+      slug: "roofing-v1pvcs",
+      serviceHeading: "Get a Free Roof Quote!",
+      crossSellSteps: [
+        {
+          key: "material",
+          question: "What is your roof type?",
+          options: ["Asphalt", "Wood", "Tile/Clay", "Slate", "Metal", "Not Sure"],
+        },
+      ],
+    },
+    {
+      label: "☀️ Solar",
+      tagline: "See if you qualify for $0 down solar",
+      slug: "solar-v1pvcs",
+      serviceHeading: "See If You Qualify for Solar!",
+      crossSellSteps: [
+        {
+          key: "existingSolar",
+          question: "Do you currently have solar panels installed?",
+          options: ["No, not yet", "Yes"],
+        },
+      ],
+    },
+    {
+      label: "🛁 Bath Remodel",
+      tagline: "Transform your bathroom",
+      slug: "bathroom-v1pvcs",
+      serviceHeading: "Get a Free Bathroom Remodel Quote!",
+      crossSellSteps: [
+        {
+          key: "service",
+          question: "What type of bathroom project are you considering?",
+          options: [
+            { label: "Walk-In Shower", value: "Walk-In Shower" },
+            { label: "Bath to Shower Conversion", value: "Bath to Shower Conversion" },
+            { label: "Full Bathroom Remodel", value: "Full Bathroom Remodel" },
+            { label: "Bath/Shower Updates", value: "Bath/Shower Updates" },
+            { label: "Walk-In Tub", value: "Walk-In Tub" },
+            { label: "Not Sure", value: "Not Sure / Need Recommendations" },
+          ],
+        },
+      ],
+    },
+    {
+      label: "🪟 Windows",
+      tagline: "Lower your energy bills",
+      slug: "windows-v1pvcs",
+      serviceHeading: "Get New Windows With No Upfront Cost!",
+      crossSellSteps: [
+        {
+          key: "service",
+          question: "Do any of your windows have cracks, chips, or are broken?",
+          options: ["Yes", "No"],
+        },
+        {
+          key: "windowCount",
+          question: "How many windows are you looking to replace?",
+          options: ["1-2", "3-5", "6-9", "10+"],
+        },
+      ],
+    },
+  ],
   steps: [
     {
       ...commonZipStep(),
