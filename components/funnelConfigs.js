@@ -1153,8 +1153,82 @@ export const funnelConfigs = {
   titleClassName: "funnel-title-black",
   showStepLogo: true,
   noCardBorder: true,
-  thankYouHeading: "Great News — You Qualify!",
+  thankYouHeading: "Your request is in!",
+  thankYouSubtitle: "A pest control specialist will be calling you shortly. While you wait — can we help with anything else at your home?",
   thankYouServiceLabel: "pest control",
+  crossSellOptions: [
+    {
+      label: "☀️ Solar",
+      tagline: "See if you qualify for $0 down solar",
+      slug: "solar-v1pvcs",
+      serviceHeading: "See If You Qualify for Solar!",
+      crossSellSteps: [
+        {
+          key: "existingSolar",
+          question: "Do you currently have solar panels installed?",
+          options: ["No, not yet", "Yes"],
+        },
+      ],
+    },
+    {
+      label: "❄️ HVAC",
+      tagline: "Keep your home comfortable year-round",
+      slug: "hvac-v1pvcs",
+      serviceHeading: "Get a Free HVAC Quote!",
+      crossSellSteps: [
+        {
+          key: "hvacSystem",
+          question: "What type of HVAC system are you interested in?",
+          options: ["Air Conditioning", "Heating", "Both AC & Heating", "Air Quality / Purifier", "Not Sure"],
+        },
+      ],
+    },
+    {
+      label: "🏠 Roofing",
+      tagline: "Get your roof inspected for FREE",
+      slug: "roofing-v1pvcs",
+      serviceHeading: "Get a Free Roof Quote!",
+      crossSellSteps: [
+        {
+          key: "material",
+          question: "What is your roof type?",
+          options: ["Asphalt", "Wood", "Tile/Clay", "Slate", "Metal", "Not Sure"],
+        },
+      ],
+    },
+    {
+      label: "🪵 Flooring",
+      tagline: "Get beautiful new floors for less",
+      slug: "flooring-v1pvcs",
+      serviceHeading: "Let's Find the Best Flooring Options for Your Home!",
+      crossSellSteps: [
+        {
+          key: "flooringType",
+          question: "What type of flooring are you interested in?",
+          options: [
+            { label: "🪵 Hardwood", value: "Hardwood" },
+            { label: "🏠 Laminate", value: "Laminate" },
+            { label: "🪨 Tile", value: "Tile" },
+            { label: "🟤 Vinyl / LVP", value: "Vinyl / LVP" },
+            { label: "🟫 Carpet", value: "Carpet" },
+            { label: "❓ Not Sure", value: "Not Sure" },
+          ],
+        },
+        {
+          key: "flooringRooms",
+          question: "Which rooms need new flooring?",
+          options: [
+            { label: "Living Room", value: "Living Room" },
+            { label: "Bedroom(s)", value: "Bedrooms" },
+            { label: "Kitchen", value: "Kitchen" },
+            { label: "Bathroom", value: "Bathroom" },
+            { label: "Multiple Rooms", value: "Multiple Rooms" },
+            { label: "Whole House", value: "Whole House" },
+          ],
+        },
+      ],
+    },
+  ],
   steps: [
     {
       ...commonZipStep(),
