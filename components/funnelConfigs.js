@@ -990,9 +990,89 @@ export const funnelConfigs = {
   titleClassName: "funnel-title-black",
   showStepLogo: true,
   noCardBorder: true,
-  thankYouHeading: "Great News — You Qualify!",
+  thankYouHeading: "Your request is in!",
   thankYouServiceLabel: "HVAC",
-  thankYouSubtitle: "A local HVAC specialist is reviewing your information now and will call you shortly from a local number. They'll walk you through available options in your area — have your phone nearby so you don't miss them!",
+  thankYouSubtitle: "A local HVAC specialist will be calling you shortly. While you wait — can we help with anything else at your home?",
+  crossSellOptions: [
+    {
+      label: "🏠 Roofing",
+      tagline: "Get your roof inspected for FREE",
+      slug: "roofing-v1pvcs",
+      serviceHeading: "Get a Free Roof Quote!",
+      crossSellSteps: [
+        {
+          key: "material",
+          question: "What is your roof type?",
+          options: ["Asphalt", "Wood", "Tile/Clay", "Slate", "Metal", "Not Sure"],
+        },
+      ],
+    },
+    {
+      label: "☀️ Solar",
+      tagline: "See if you qualify for $0 down solar",
+      slug: "solar-v1pvcs",
+      serviceHeading: "See If You Qualify for Solar!",
+      crossSellSteps: [
+        {
+          key: "existingSolar",
+          question: "Do you currently have solar panels installed?",
+          options: ["No, not yet", "Yes"],
+        },
+      ],
+    },
+    {
+      label: "🪵 Flooring",
+      tagline: "Get beautiful new floors for less",
+      slug: "flooring-v1pvcs",
+      serviceHeading: "Let's Find the Best Flooring Options for Your Home!",
+      crossSellSteps: [
+        {
+          key: "flooringType",
+          question: "What type of flooring are you interested in?",
+          options: [
+            { label: "🪵 Hardwood", value: "Hardwood" },
+            { label: "🏠 Laminate", value: "Laminate" },
+            { label: "🪨 Tile", value: "Tile" },
+            { label: "🟤 Vinyl / LVP", value: "Vinyl / LVP" },
+            { label: "🟫 Carpet", value: "Carpet" },
+            { label: "❓ Not Sure", value: "Not Sure" },
+          ],
+        },
+        {
+          key: "flooringRooms",
+          question: "Which rooms need new flooring?",
+          options: [
+            { label: "Living Room", value: "Living Room" },
+            { label: "Bedroom(s)", value: "Bedrooms" },
+            { label: "Kitchen", value: "Kitchen" },
+            { label: "Bathroom", value: "Bathroom" },
+            { label: "Multiple Rooms", value: "Multiple Rooms" },
+            { label: "Whole House", value: "Whole House" },
+          ],
+        },
+      ],
+    },
+    {
+      label: "🛁 Bath Remodel",
+      tagline: "Transform your bathroom",
+      slug: "bathroom-v1pvcs",
+      serviceHeading: "Get a Free Bathroom Remodel Quote!",
+      crossSellSteps: [
+        {
+          key: "service",
+          question: "What type of bathroom project are you considering?",
+          options: [
+            { label: "Walk-In Shower", value: "Walk-In Shower" },
+            { label: "Bath to Shower Conversion", value: "Bath to Shower Conversion" },
+            { label: "Full Bathroom Remodel", value: "Full Bathroom Remodel" },
+            { label: "Bath/Shower Updates", value: "Bath/Shower Updates" },
+            { label: "Walk-In Tub", value: "Walk-In Tub" },
+            { label: "Not Sure", value: "Not Sure / Need Recommendations" },
+          ],
+        },
+      ],
+    },
+  ],
   steps: [
     {
       ...commonZipStep(),
