@@ -2,8 +2,17 @@
 
 import { usePathname } from "next/navigation";
 import Script from "next/script";
+import { AFFILIATES } from "../lib/affiliates";
 
 const PIXEL_ID = "1277043514524468";
+
+// Affiliates with their own pixel also get it loaded on main routes (?aff=slug),
+// not just on /affiliate/[slug] pages.
+const AFFILIATE_PIXELS = Object.fromEntries(
+  Object.entries(AFFILIATES)
+    .filter(([, a]) => a.pixelId)
+    .map(([slug, a]) => [slug, a.pixelId])
+);
 
 export default function MetaPixel() {
   const pathname = usePathname();
@@ -26,6 +35,16 @@ export default function MetaPixel() {
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '${PIXEL_ID}');
+            try {
+              var affPixels = ${JSON.stringify(AFFILIATE_PIXELS)};
+              var q = new URLSearchParams(window.location.search);
+              var aff = q.get('aff') || q.get('affiliate_id') || '';
+              if (!aff) {
+                try { aff = (JSON.parse(localStorage.getItem('affiliate_tracking') || '{}').affiliateId) || ''; } catch (_) {}
+              }
+              var affPixel = affPixels[String(aff).toLowerCase()];
+              if (affPixel && affPixel !== '${PIXEL_ID}') fbq('init', affPixel);
+            } catch (_) {}
             fbq('track', 'PageView');
           `,
         }}
