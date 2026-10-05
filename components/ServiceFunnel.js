@@ -615,6 +615,7 @@ const progressPercent = useMemo(() => {
       sessionId: getConsentSessionId(),
       zip: "",
       state: "",
+      affiliateId: tracking.affiliateId || config?.affiliateSlug || "",
     }),
   }).catch(() => {});
 }, []);
@@ -1070,6 +1071,7 @@ const progressPercent = useMemo(() => {
           sessionId: getConsentSessionId(),
           zip: form.zip || "",
           state: form.state || "",
+          affiliateId: form.affiliateId || "",
         }),
       }).catch(() => {});
     } catch (_) {}
