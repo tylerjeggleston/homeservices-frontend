@@ -170,7 +170,7 @@ export default function TermsPage() {
           and use of this personal information collected by Remodelwiz.com
           is governed by our Privacy Policy, hereby incorporated by reference in
           its entirety. It’s important that you read and comprehend the terms of
-          our Privacy Policy. Remodelwiz.com, Inc. may cooperate and
+          our Privacy Policy. Remodelwiz.com may cooperate and
           disclose various information (including your account information) to
           authorities, government officials or third parties without notice to
           you in connection to investigations, proceedings, or claims that arise
