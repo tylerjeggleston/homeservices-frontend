@@ -22,8 +22,8 @@ export default function TermsPage() {
           Thanks for visiting our Site Remodelwiz.com! We appreciate your
           business and ask that you please read our terms and conditions
           carefully before using our Website (“Website”, “Site” or “App”). This
-          site is owned and operated by Remodelwiz.com
-          (“Remodelwiz.com,” “we,” “us” or “our”). All terms and
+          site is owned and operated by Pro Leads Marketing LLC, doing
+          business as Remodel Wiz (“Remodelwiz.com,” “we,” “us” or “our”). All terms and
           conditions mentioned on this page (I.E. “the Terms”) govern how you
           use and access our site and all services that we provide to you via
           our site (I.E. “Smart Services”). Our terms outline a legal contract
@@ -170,7 +170,7 @@ export default function TermsPage() {
           and use of this personal information collected by Remodelwiz.com
           is governed by our Privacy Policy, hereby incorporated by reference in
           its entirety. It’s important that you read and comprehend the terms of
-          our Privacy Policy. Remodelwiz.com, Inc. may cooperate and
+          our Privacy Policy. Pro Leads Marketing LLC may cooperate and
           disclose various information (including your account information) to
           authorities, government officials or third parties without notice to
           you in connection to investigations, proceedings, or claims that arise
@@ -346,7 +346,7 @@ export default function TermsPage() {
         </p>
 
         <p>
-          Remodel Wiz
+          Pro Leads Marketing LLC (dba Remodel Wiz)
           <br />
           23811 Washington Ave #C110-103
           <br />
@@ -447,7 +447,7 @@ export default function TermsPage() {
       letterSpacing: "0.2px",
     }}
   >
-    © 2026 Remodelwiz.com
+    © 2026 Pro Leads Marketing LLC dba Remodelwiz.com
   </div>
 
   <div

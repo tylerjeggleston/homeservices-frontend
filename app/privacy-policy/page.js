@@ -91,7 +91,8 @@ const h3Style = {
             }}
           >
             <p style={{ margin: "0 0 22px" }}>
-              Remodelwiz.com and its affiliated entities are committed to
+              Remodelwiz.com is owned and operated by Pro Leads Marketing LLC.
+              Pro Leads Marketing LLC and its affiliated entities are committed to
               respecting your privacy and protecting your personal information.
               This Privacy Policy explains the types of personal information we
               may collect from visitors to our websites, including
@@ -575,7 +576,7 @@ Notwithstanding the foregoing, either party may bring an individual action in sm
 
 (b) A party who intends to seek arbitration must first send to the other, by certified mail, a written Notice of Dispute ("Dispute Notice''). The Notice to Remodel Wiz should be addressed to the following address ("Dispute Notice Address''):
 
-Remodel Wiz
+Pro Leads Marketing LLC (dba Remodel Wiz)
 
 23811 Washington Ave #C110-103
 
@@ -626,7 +627,7 @@ Unless Remodel Wiz and you agree otherwise, any arbitration will be governed by 
               letterSpacing: "0.2px",
             }}
           >
-            © 2026 Remodelwiz.com
+            © 2026 Pro Leads Marketing LLC dba Remodelwiz.com
           </div>
 
           <div

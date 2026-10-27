@@ -148,7 +148,7 @@ export default function AffiliateHome({ affiliateSlug, affiliate }) {
           <span className="rw-logo-badge sm">RW</span>
           <span className="rw-footer-brand">ReModelWiz.com</span>
         </div>
-        <div className="rw-footer-copy">©2026 ReModelWiz.com · All rights reserved</div>
+        <div className="rw-footer-copy">©2026 Pro Leads Marketing LLC dba ReModelWiz.com · All rights reserved</div>
         <div className="rw-footer-links">
           <a href="/privacy-policy">Privacy Policy</a>
           <span>·</span>
