@@ -348,9 +348,9 @@ export default function TermsPage() {
         <p>
           Remodel Wiz
           <br />
-          1321 North Causeway Boulevard
+          23811 Washington Ave #C110-103
           <br />
-          Mandeville, 70471, LA
+          Murrieta, CA 92562
           <br />
           Attention: Legal Department
         </p>

@@ -577,9 +577,9 @@ Notwithstanding the foregoing, either party may bring an individual action in sm
 
 Remodel Wiz
 
-1321 North Causeway Boulevard
+23811 Washington Ave #C110-103
 
-Mandeville, 70471, LA
+Murrieta, CA 92562
 
 Attention: Legal Department
 
