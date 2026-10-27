@@ -19,15 +19,15 @@ export default function TermsPage() {
         <p className="terms-date">Effective 01/01/2025</p>
 
         <p>
-          Thanks for visiting our Site Remodelyourhome.net! We appreciate your
+          Thanks for visiting our Site Remodelwiz.com! We appreciate your
           business and ask that you please read our terms and conditions
           carefully before using our Website (“Website”, “Site” or “App”). This
-          site is owned and operated by Remodelyourhome.net
-          (“Remodelyourhome.net,” “we,” “us” or “our”). All terms and
+          site is owned and operated by Remodelwiz.com
+          (“Remodelwiz.com,” “we,” “us” or “our”). All terms and
           conditions mentioned on this page (I.E. “the Terms”) govern how you
           use and access our site and all services that we provide to you via
           our site (I.E. “Smart Services”). Our terms outline a legal contract
-          between you and Remodelyourhome.net. When you use our Site and any of
+          between you and Remodelwiz.com. When you use our Site and any of
           our Smart Services, you hereby agree to be bound by these Terms and
           warrant that you are above the age of 18. If you do not agree to our
           terms and conditions don’t use our Site or Smart Services; it’s that
@@ -88,7 +88,7 @@ export default function TermsPage() {
         <h2>INTELLECTUAL PROPERTY (&apos;IP&apos;)</h2>
 
         <p>
-          Remodelyourhome.net contains text, graphics, images, photographs and a
+          Remodelwiz.com contains text, graphics, images, photographs and a
           variety of other materials provided on behalf of us and your use of
           our Smart Services. All materials and information we collect is
           collectively referred to as “content” and that content is owned by
@@ -97,7 +97,7 @@ export default function TermsPage() {
           trademarks, service marks, logos used and displayed on our sites which
           are registered and non-registered trademarks/service marks of our
           licensors. The organization and design of our Websites are the sole
-          property of Remodelyourhome.net and are protected worldwide by various
+          property of Remodelwiz.com and are protected worldwide by various
           copyright laws and treaty provisions.
         </p>
 
@@ -116,10 +116,10 @@ export default function TermsPage() {
         <p>
           Nothing in our Terms or Conditions of Use shall be construed as
           conferring license, rights of trademarks or intellectual property
-          rights of Remodelyourhome.net or any other party. Any and all
+          rights of Remodelwiz.com or any other party. Any and all
           trademarks, trade names, service marks, logos or other images
           displayed throughout the Website are the sole property of
-          Remodelyourhome.net, licensed by Remodelyourhome.net, or owned by
+          Remodelwiz.com, licensed by Remodelwiz.com, or owned by
           third parties. Therefore, you shall not display, use links, meta tags,
           or any other use of trademarks, service marks, logos or images
           displayed throughout the Website without prior express written consent
@@ -136,7 +136,7 @@ export default function TermsPage() {
           similar communication to our site - AKA “unsolicited information”) you
           agree to adhere to and be bound by our terms and conditions. Any and
           all unsolicited information you provide to us is considered
-          NON-CONFIDENTIAL, NON-PROPRIETARY, and will become Remodelyourhome.net’s
+          NON-CONFIDENTIAL, NON-PROPRIETARY, and will become Remodelwiz.com’s
           property upon submission. We are therefore entitled to use this
           communication and materials for any purpose whatsoever that we choose;
           including commercial or otherwise. This can include but is not limited
@@ -156,7 +156,7 @@ export default function TermsPage() {
           public display, public performance, sublicense, derivative works
           creation, transfer or sale of such Unsolicited Information.
           Notwithstanding anything mentioned herein, your personal information
-          (submitted to Remodelyourhome.net) through the pages located on the
+          (submitted to Remodelwiz.com) through the pages located on the
           Website is held in confidence by us as set forth in our Privacy
           Policy.
         </p>
@@ -164,13 +164,13 @@ export default function TermsPage() {
         <h2>COLLECTION AND USE OF INFORMATION</h2>
 
         <p>
-          We at Remodelyourhome.net respect and protect the privacy of our
+          We at Remodelwiz.com respect and protect the privacy of our
           users. Your use of our Smart Services may transmit information,
           including possibly personally identifiable information. The collection
-          and use of this personal information collected by Remodelyourhome.net
+          and use of this personal information collected by Remodelwiz.com
           is governed by our Privacy Policy, hereby incorporated by reference in
           its entirety. It’s important that you read and comprehend the terms of
-          our Privacy Policy. Remodelyourhome.net, Inc. may cooperate and
+          our Privacy Policy. Remodelwiz.com, Inc. may cooperate and
           disclose various information (including your account information) to
           authorities, government officials or third parties without notice to
           you in connection to investigations, proceedings, or claims that arise
@@ -285,7 +285,7 @@ export default function TermsPage() {
         <h2>Agreement to Arbitrate</h2>
 
         <p>
-          (a) Remodel Your Home and you agree to arbitrate any and all disputes
+          (a) Remodel Wiz and you agree to arbitrate any and all disputes
           and claims between us arising out of or relating to these Terms of
           Use, our Privacy Policy, or use of the sites, via the sites or
           through a mobile application, except any disputes or claims which
@@ -315,8 +315,8 @@ export default function TermsPage() {
         </p>
 
         <p>
-          For purposes of this arbitration provision, references to &quot; Remodel
-          Your Home ,&quot; &quot;you,&quot; and &quot;us&quot; shall include our respective
+          For purposes of this arbitration provision, references to
+          &quot;Remodel Wiz,&quot; &quot;you,&quot; and &quot;us&quot; shall include our respective
           parent entities, subsidiaries, affiliates, agents, employees,
           predecessors in interest, successors, and assigns, websites of the
           foregoing, as well as all authorized or unauthorized users or
@@ -329,24 +329,24 @@ export default function TermsPage() {
           Notwithstanding the foregoing, either party may bring an individual
           action in small claims court. You agree that, by entering into these
           Terms of Use, including this agreement to arbitrate, you and Remodel
-          Your Home are each waiving the right to a trial by jury or to
+          Wiz are each waiving the right to a trial by jury or to
           participate in a class or representative action to the maximum extent
           permitted by law. These Terms evidence a transaction in interstate
           commerce, and thus the Federal Arbitration Act governs the
           interpretation and enforcement of this arbitration provision. This
           arbitration provision shall survive termination of these Terms of Use
-          or your relationship with Remodel Your Home for any reason.
+          or your relationship with Remodel Wiz for any reason.
         </p>
 
         <p>
           (b) A party who intends to seek arbitration must first send to the
           other, by certified mail, a written Notice of Dispute
-          (&quot;Dispute Notice&apos;&apos;). The Notice to Remodel Your Home should be
+          (&quot;Dispute Notice&apos;&apos;). The Notice to Remodel Wiz should be
           addressed to the following address (&quot;Dispute Notice Address&apos;&apos;):
         </p>
 
         <p>
-          Remodel Your Home
+          Remodel Wiz
           <br />
           1321 North Causeway Boulevard
           <br />
@@ -357,15 +357,14 @@ export default function TermsPage() {
 
         <p>
           The Dispute Notice must describe the nature and basis of the claim or
-          dispute and set forth the specific relief you seek from Remodel Your
-          Home (&quot;Demand&apos;&apos;). If Remodel Your Home and you do not reach an
+          dispute and set forth the specific relief you seek from Remodel Wiz (&quot;Demand&apos;&apos;). If Remodel Wiz and you do not reach an
           agreement to resolve the claim within 30 days after the Dispute Notice
-          is received, you or Remodel Your Home may commence an arbitration
+          is received, you or Remodel Wiz may commence an arbitration
           proceeding.
         </p>
 
         <p>
-          (c) After Remodel Your Home receives notice at the Dispute Notice
+          (c) After Remodel Wiz receives notice at the Dispute Notice
           Address that you have commenced arbitration, it will promptly
           reimburse you for your payment of the filing fee. The arbitration will
           be governed by the Consumer Arbitration Rules (“AAA Rules”) of the
@@ -400,12 +399,12 @@ export default function TermsPage() {
         </p>
 
         <p>
-          Unless Remodel Your Home and you agree otherwise, any arbitration will
+          Unless Remodel Wiz and you agree otherwise, any arbitration will
           be governed by the substantive laws of your state, and hearings will
           take place in the county (or parish) of your permanent residence. Case
           management and other hearings shall be heard via telephone unless
           agreed to otherwise. Except as otherwise provided for herein, Remodel
-          Your Home will pay all AAA filing, administration, and arbitrator fees
+          Wiz will pay all AAA filing, administration, and arbitrator fees
           for any arbitration initiated in accordance with the notice
           requirements above. If, however, the arbitrator finds that either the
           substance of your claim or the relief sought in the Demand is
@@ -417,10 +416,10 @@ export default function TermsPage() {
             (d) Discovery and/or the exchange of non-privileged information relevant to the dispute will be governed by the AAA Rules.
         </p>
         <p>
-            (e) YOU AND Remodel Your Home AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITY, AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE PROCEEDING TO THE MAXIMUM EXTENT PERMITTED BY LAW. If this specific subparagraph (e) is found to be unenforceable in its entirety, then the entirety of this arbitration provision shall be null and void. However, if only a portion of this subparagraph (e) is found to be unenforceable, then the unenforceable portion of the provision shall be stricken, and the remainder of subparagraph (e) enforced. Any claims or causes of action seeking relief not subject to individual arbitration under applicable law shall be stayed in a court of competent jurisdiction pending completion of individual arbitration to the maximum extent permitted by law.
+            (e) YOU AND Remodel Wiz AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITY, AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE PROCEEDING TO THE MAXIMUM EXTENT PERMITTED BY LAW. If this specific subparagraph (e) is found to be unenforceable in its entirety, then the entirety of this arbitration provision shall be null and void. However, if only a portion of this subparagraph (e) is found to be unenforceable, then the unenforceable portion of the provision shall be stricken, and the remainder of subparagraph (e) enforced. Any claims or causes of action seeking relief not subject to individual arbitration under applicable law shall be stayed in a court of competent jurisdiction pending completion of individual arbitration to the maximum extent permitted by law.
         </p>
         <p>
-            (f) Notwithstanding any provision in these Terms of Use to the contrary, we agree that if Remodel Your Home makes any change to this arbitration provision (other than a change to the Dispute Notice Address) after your enrollment in a service or program or your use of the Remodel Your Home Sites, you may reject any such change and require Remodel Your Home to adhere to the language in this arbitration provision as written at the time you initially requested or received any services from us if a dispute between us arises, by providing Notice to Remodel Your Home at the Dispute Notice Address in subsection (b) above.
+            (f) Notwithstanding any provision in these Terms of Use to the contrary, we agree that if Remodel Wiz makes any change to this arbitration provision (other than a change to the Dispute Notice Address) after your enrollment in a service or program or your use of the Remodel Wiz Sites, you may reject any such change and require Remodel Wiz to adhere to the language in this arbitration provision as written at the time you initially requested or received any services from us if a dispute between us arises, by providing Notice to Remodel Wiz at the Dispute Notice Address in subsection (b) above.
         </p>
       </div>
       </div>
@@ -448,7 +447,7 @@ export default function TermsPage() {
       letterSpacing: "0.2px",
     }}
   >
-    © 2026 RemodelYourHome.net
+    © 2026 Remodelwiz.com
   </div>
 
   <div
