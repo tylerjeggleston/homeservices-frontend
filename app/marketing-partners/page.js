@@ -2,8 +2,8 @@ import Link from "next/link";
 import { MARKETING_PARTNERS } from "../../lib/marketingPartners";
 
 export const metadata = {
-  title: "Marketing Partners | Remodel Your Home",
-  description: "Marketing partners list for Remodel Your Home",
+  title: "Marketing Partners | Remodel Wiz",
+  description: "Marketing partners list for Remodel Wiz",
 };
 
 export default function MarketingPartnersPage() {

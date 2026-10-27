@@ -404,7 +404,7 @@ Provide you a different level or quality of services.
               letterSpacing: "0.2px",
             }}
           >
-            © 2026 RemodelYourHome.net
+            © 2026 Remodelwiz.com
           </div>
 
           <div

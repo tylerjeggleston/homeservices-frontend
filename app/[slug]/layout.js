@@ -1,7 +1,7 @@
 
 
 export const metadata = {
-  title: "Remodel Your Home",
+  title: "Remodel Wiz",
   description: "Remodel funnel demo",
   icons: {
     icon: "/icon.png",

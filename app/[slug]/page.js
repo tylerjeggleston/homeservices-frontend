@@ -17,13 +17,13 @@ export async function generateMetadata({ params }) {
 
   if (!config) {
     return {
-      title: "Remodel Your Home",
+      title: "Remodel Wiz",
       description: "Remodel funnel demo",
     };
   }
 
   return {
-    title: "Remodel Your Home",
+    title: "Remodel Wiz",
     description: config.heading || "Remodel funnel demo",
   };
 }

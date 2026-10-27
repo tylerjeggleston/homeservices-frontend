@@ -5,9 +5,9 @@ import AffiliateHome from "../../../components/AffiliateHome";
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const affiliate = AFFILIATES[slug];
-  if (!affiliate) return { title: "Remodel Your Home" };
+  if (!affiliate) return { title: "Remodel Wiz" };
   return {
-    title: "Remodel Your Home",
+    title: "Remodel Wiz",
     description: "Remodel funnel for home improvement services",
   };
 }

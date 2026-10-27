@@ -3,7 +3,7 @@ import Script from "next/script";
 import MetaPixel from "../components/MetaPixel";
 
 export const metadata = {
-  title: "Remodel Your Home",
+  title: "Remodel Wiz",
   description: "Remodel funnel for home improvement services",
 };
 

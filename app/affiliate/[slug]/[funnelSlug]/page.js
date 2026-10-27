@@ -15,7 +15,7 @@ export async function generateMetadata({ params }) {
   const { funnelSlug } = await params;
   const config = funnelConfigs[funnelSlug];
   return {
-    title: "Remodel Your Home",
+    title: "Remodel Wiz",
     description: config?.heading || "Remodel funnel for home improvement services",
   };
 }
