@@ -323,7 +323,7 @@ export const funnelConfigs = {
     {
       ...commonZipStep(),
       title: "Let's Find the Best Solar Options for Your Home!",
-      description: "Not all areas qualify — check your zip code",
+      description: "Check availability in your area",
       pageHeading: "",
       pageSubtitle: "",
       nextLabel: "Check My Area →",
