@@ -330,6 +330,18 @@ export const funnelConfigs = {
       trustBadges: true,
     },
     {
+      // Easy, helpful-feeling question second (like flooring's "what type?"); LLR gets $300 or $100
+      key: "electricBill",
+      title: "Do you pay more than $100 a month for electricity?",
+      type: "options",
+      options: [
+        { label: "Yes", value: 300 },
+        { label: "No", value: 100 },
+      ],
+      pageHeading: "",
+      pageSubtitle: "",
+    },
+    {
       key: "existingSolar",
       title: "Do you currently have solar panels installed?",
       description: "These programs are available for new installations only.",
@@ -382,20 +394,7 @@ export const funnelConfigs = {
         message: "This program is currently available only for single-family homes.",
       },
     },
-    // No utility question: the backend fills it in from the zip (pickUtilityForZip)
-    {
-      key: "electricBill",
-      title: "About how much is your average monthly electric bill?",
-      type: "options",
-      options: [
-        { label: "Under $100", value: 100 },
-        { label: "$100 - $200", value: 200 },
-        { label: "$200 - $300", value: 300 },
-        { label: "$300+", value: 400 },
-      ],
-      pageHeading: "",
-      pageSubtitle: "",
-    },
+    // No utility or credit score questions: the backend fills them in (pickUtilityForZip, "Good")
     {
       key: "address",
       title: "What's your address?",
@@ -427,20 +426,6 @@ export const funnelConfigs = {
       title: "What's your email address?",
       description: "Where should we send your recommendations?",
       nextLabel: "Next",
-      pageHeading: "",
-      pageSubtitle: "",
-    },
-    {
-      key: "creditRating",
-      title: "What's your approximate credit score?",
-      description: "",
-      type: "options",
-      options: [
-        { label: "Excellent", value: "Excellent" },
-        { label: "Good", value: "Good" },
-        { label: "Fair", value: "Fair" },
-        { label: "Poor", value: "Poor" },
-      ],
       pageHeading: "",
       pageSubtitle: "",
     },
