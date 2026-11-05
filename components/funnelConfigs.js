@@ -382,17 +382,7 @@ export const funnelConfigs = {
         message: "This program is currently available only for single-family homes.",
       },
     },
-    {
-      key: "utilityCompany",
-      title: "Who provides your electricity?",
-      type: "select",
-      placeholder: "Select utility company",
-      searchPlaceholder: "Search utility company",
-      dynamicOptionsFrom: "utilityLookup",
-      options: [],
-      pageHeading: "",
-      pageSubtitle: "",
-    },
+    // No utility question: the backend fills it in from the zip (pickUtilityForZip)
     {
       key: "electricBill",
       title: "About how much is your average monthly electric bill?",
