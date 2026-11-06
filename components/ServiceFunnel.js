@@ -98,7 +98,16 @@ function getTrackingParams() {
     utmContent: fromUrl.utmContent || stored.utmContent || "",
     referrer: fromUrl.referrer || stored.referrer || "",
     landingPage: fromUrl.landingPage || stored.landingPage || "",
+    // Meta click IDs for Conversions API matching (were read above but never returned until 2026-11-05)
+    fbc: fromUrl.fbc || stored.fbc || "",
+    fbp: fromUrl.fbp || "",
+    fbclid: fromUrl.fbclid || stored.fbclid || "",
   };
+}
+
+// Meta's pixel can set _fbp/_fbc after the page loads, so re-read them when the lead is sent
+function withMetaIds(form) {
+  return { ...form, fbc: form.fbc || getFbc(), fbp: form.fbp || getFbp() };
 }
 
 
@@ -120,6 +129,8 @@ function persistTrackingParams() {
     utmContent: params.get("utm_content") || "",
     referrer: document.referrer || "",
     landingPage: getCanonicalLandingPage(),
+    fbc: getFbc(),
+    fbclid: getFbclid(),
   };
 
   const hasAnyTracking =
@@ -280,7 +291,7 @@ function CrossSellCard({ opt, sharedForm }) {
           serviceSlug: opt.slug,
           serviceHeading: opt.serviceHeading || "",
           affiliateSlug: sharedForm.affiliateId || "",
-          form: finalForm,
+          form: withMetaIds(finalForm),
           honeypot: "",
         }),
       });
@@ -876,7 +887,7 @@ const progressPercent = useMemo(() => {
           serviceSlug: config?.slug || "",
           serviceHeading: config?.heading || "",
           affiliateSlug: config?.affiliateSlug || "",
-          form: finalForm,
+          form: withMetaIds(finalForm),
           honeypot: document.getElementById("website")?.value || "",
         }),
       });
@@ -970,7 +981,7 @@ const progressPercent = useMemo(() => {
         serviceSlug: config?.slug || "",
         serviceHeading: config?.heading || "",
         affiliateSlug: config?.affiliateSlug || "",
-        form: finalForm,
+        form: withMetaIds(finalForm),
         honeypot: document.getElementById("website")?.value || "",
       }),
     });
