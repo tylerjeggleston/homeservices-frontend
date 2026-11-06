@@ -585,7 +585,7 @@ export const funnelConfigs = {
       description: "We use this to check the square footage of your yard.",
       hideLocationHint: true,
       type: "input",
-      placeholder: "Enter property address",
+      placeholder: "123 Main St, Springfield, IL 62701", // same example as flooring
       pageHeading: "",
       pageSubtitle: "",
       nextLabel: "Check Availability",
