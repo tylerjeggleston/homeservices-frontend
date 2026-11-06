@@ -401,7 +401,7 @@ export const funnelConfigs = {
       description: "",
       hideLocationHint: true,
       type: "input",
-      placeholder: "Enter property address",
+      placeholder: "123 Main St, Springfield, IL 62701", // same example as flooring
       pageHeading: "",
       pageSubtitle: "",
       nextLabel: "Check Availability",
