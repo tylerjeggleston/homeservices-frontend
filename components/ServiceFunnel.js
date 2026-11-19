@@ -110,6 +110,29 @@ function withMetaIds(form) {
   return { ...form, fbc: form.fbc || getFbc(), fbp: form.fbp || getFbp() };
 }
 
+const OUR_PIXEL_ID = "1277043514524468";
+
+// After a lead is saved: our pixel gets the event the server picked ("Lead" when the zip has LLR buyers,
+// otherwise "SubmitApplication"), with the server's event id so Meta dedupes it with the server's copy.
+// Any affiliate pixel on the page still gets "Lead" on every submit. Older server reply → "Lead".
+function fireLeadEvent(submitData) {
+  if (typeof window === "undefined" || !window.fbq) return;
+  const event = submitData?.metaEvent || "Lead";
+  const options = submitData?.metaEventId ? { eventID: submitData.metaEventId } : undefined;
+  let pixelIds = [];
+  try {
+    pixelIds = (window.fbq.getState?.().pixels || []).map((p) => String(p.id));
+  } catch (_) {}
+  if (!pixelIds.length) {
+    window.fbq("track", event, { currency: "USD" }, options);
+    return;
+  }
+  for (const id of pixelIds) {
+    if (id === OUR_PIXEL_ID) window.fbq("trackSingle", id, event, { currency: "USD" }, options);
+    else window.fbq("trackSingle", id, "Lead", { currency: "USD" });
+  }
+}
+
 
 function persistTrackingParams() {
   if (typeof window === "undefined") return;
@@ -920,10 +943,8 @@ const progressPercent = useMemo(() => {
       } catch (_) {}
       setStepIndex(allSteps.findIndex((step) => step.type === "thankyou"));
 
-      // Fire Meta Pixel Lead event on successful submission
-      if (typeof window !== "undefined" && window.fbq) {
-        window.fbq("track", "Lead", { currency: "USD" });
-      }
+      // Meta: Lead or SubmitApplication, as decided by the server
+      fireLeadEvent(submitData);
 
       console.log("FORM DATA:", finalForm);
       console.log("SERVICE:", config?.heading);
@@ -1014,9 +1035,8 @@ const progressPercent = useMemo(() => {
     } catch (_) {}
     setStepIndex(allSteps.findIndex((step) => step.type === "thankyou"));
 
-    if (typeof window !== "undefined" && window.fbq) {
-      window.fbq("track", "Lead", { currency: "USD" });
-    }
+    // Meta: Lead or SubmitApplication, as decided by the server
+    fireLeadEvent(submitData);
   } catch (err) {
     setError(err.message || "Failed to submit lead.");
   } finally {
